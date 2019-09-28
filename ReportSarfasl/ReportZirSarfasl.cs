@@ -16,10 +16,10 @@ namespace ReportSarfasl
         private System.Windows.Forms.TextBox txtZirSarfasl;
         private System.Windows.Forms.Label lblZirSarfasl;
         private System.Windows.Forms.TextBox txtSarfasl;
-        private System.Windows.Forms.Label lblSarfasls;
         private System.Windows.Forms.Button btnShow;
         private System.Windows.Forms.Button btnPrint;
         private DataGridViewTextBoxColumn row;
+        private Label lblSarfasls;
         private System.Windows.Forms.Panel pnlFooter;
 
         public ReportZirSarfasl()
@@ -34,13 +34,13 @@ namespace ReportSarfasl
             this.pnlFooter = new System.Windows.Forms.Panel();
             this.txtFilter = new System.Windows.Forms.TextBox();
             this.dgvSarfasl = new System.Windows.Forms.DataGridView();
-            this.lblSarfasls = new System.Windows.Forms.Label();
             this.txtSarfasl = new System.Windows.Forms.TextBox();
             this.txtZirSarfasl = new System.Windows.Forms.TextBox();
             this.lblZirSarfasl = new System.Windows.Forms.Label();
             this.btnShow = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
             this.row = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblSarfasls = new System.Windows.Forms.Label();
             this.pnlHeader.SuspendLayout();
             this.pnlMain.SuspendLayout();
             this.pnlFooter.SuspendLayout();
@@ -104,15 +104,6 @@ namespace ReportSarfasl
             this.dgvSarfasl.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSarfasl_CellDoubleClick);
             this.dgvSarfasl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvSarfasl_KeyDown);
             // 
-            // lblSarfasls
-            // 
-            this.lblSarfasls.AutoSize = true;
-            this.lblSarfasls.Location = new System.Drawing.Point(1065, 39);
-            this.lblSarfasls.Name = "lblSarfasls";
-            this.lblSarfasls.Size = new System.Drawing.Size(63, 13);
-            this.lblSarfasls.TabIndex = 0;
-            this.lblSarfasls.Text = "سرفصل ها :";
-            // 
             // txtSarfasl
             // 
             this.txtSarfasl.Location = new System.Drawing.Point(691, 36);
@@ -167,6 +158,15 @@ namespace ReportSarfasl
             this.row.Name = "row";
             this.row.ReadOnly = true;
             this.row.Visible = false;
+            // 
+            // lblSarfasls
+            // 
+            this.lblSarfasls.AutoSize = true;
+            this.lblSarfasls.Location = new System.Drawing.Point(1065, 39);
+            this.lblSarfasls.Name = "lblSarfasls";
+            this.lblSarfasls.Size = new System.Drawing.Size(63, 13);
+            this.lblSarfasls.TabIndex = 0;
+            this.lblSarfasls.Text = "سرفصل ها :";
             // 
             // ReportZirSarfasl
             // 

@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Atiran2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="act_zirsarfasls">
+          <Key>
+            <PropertyRef Name="rdf" />
+          </Key>
+          <Property Name="rdf" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="rdf_zirsarfasls" Type="int" Nullable="false" />
+          <Property Name="dis" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="bed" Type="money" Nullable="false" />
+          <Property Name="bes" Type="money" Nullable="false" />
+          <Property Name="user" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="bed_bes" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="manafter" Type="money" Nullable="false" />
+          <Property Name="kind" Type="int" />
+          <Property Name="sanadno" Type="int" />
+        </EntityType>
+        <EntityType Name="sarfasls">
+          <Key>
+            <PropertyRef Name="rdf" />
+          </Key>
+          <Property Name="rdf" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="has_dar" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="who_def" Type="varchar" MaxLength="25" />
+          <Property Name="start_date" Type="char" MaxLength="10" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="GroupSarfaslID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="zirsarfasls">
+          <Key>
+            <PropertyRef Name="rdf" />
+          </Key>
+          <Property Name="rdf" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="radif" Type="int" />
+          <Property Name="rdf_sarfasl" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="has_dar" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="man" Type="money" Nullable="false" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <Association Name="FK_act_zirsarfasls_zirsarfasls">
+          <End Role="zirsarfasls" Type="Self.zirsarfasls" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="act_zirsarfasls" Type="Self.act_zirsarfasls" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="zirsarfasls">
+              <PropertyRef Name="rdf" />
+            </Principal>
+            <Dependent Role="act_zirsarfasls">
+              <PropertyRef Name="rdf_zirsarfasls" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_zirsarfasls_sarfasls">
+          <End Role="sarfasls" Type="Self.sarfasls" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="zirsarfasls" Type="Self.zirsarfasls" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sarfasls">
+              <PropertyRef Name="rdf" />
+            </Principal>
+            <Dependent Role="zirsarfasls">
+              <PropertyRef Name="rdf_sarfasl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Atiran2ModelStoreContainer">
+          <EntitySet Name="act_zirsarfasls" EntityType="Self.act_zirsarfasls" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sarfasls" EntityType="Self.sarfasls" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="zirsarfasls" EntityType="Self.zirsarfasls" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_act_zirsarfasls_zirsarfasls" Association="Self.FK_act_zirsarfasls_zirsarfasls">
+            <End Role="zirsarfasls" EntitySet="zirsarfasls" />
+            <End Role="act_zirsarfasls" EntitySet="act_zirsarfasls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_zirsarfasls_sarfasls" Association="Self.FK_zirsarfasls_sarfasls">
+            <End Role="sarfasls" EntitySet="sarfasls" />
+            <End Role="zirsarfasls" EntitySet="zirsarfasls" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Atiran2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="act_zirsarfasls">
+          <Key>
+            <PropertyRef Name="rdf" />
+          </Key>
+          <Property Name="rdf" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="rdf_zirsarfasls" Type="Int32" Nullable="false" />
+          <Property Name="dis" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="bed" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="bes" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="user" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bed_bes" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="manafter" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="kind" Type="Int32" />
+          <Property Name="sanadno" Type="Int32" />
+          <NavigationProperty Name="zirsarfasls" Relationship="Self.FK_act_zirsarfasls_zirsarfasls" FromRole="act_zirsarfasls" ToRole="zirsarfasls" />
+        </EntityType>
+        <EntityType Name="sarfasls">
+          <Key>
+            <PropertyRef Name="rdf" />
+          </Key>
+          <Property Name="rdf" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="has_dar" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="who_def" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="start_date" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="GroupSarfaslID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="zirsarfasls" Relationship="Self.FK_zirsarfasls_sarfasls" FromRole="sarfasls" ToRole="zirsarfasls" />
+        </EntityType>
+        <EntityType Name="zirsarfasls">
+          <Key>
+            <PropertyRef Name="rdf" />
+          </Key>
+          <Property Name="rdf" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="radif" Type="Int32" />
+          <Property Name="rdf_sarfasl" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="has_dar" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="man" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="act_zirsarfasls" Relationship="Self.FK_act_zirsarfasls_zirsarfasls" FromRole="zirsarfasls" ToRole="act_zirsarfasls" />
+          <NavigationProperty Name="sarfasls" Relationship="Self.FK_zirsarfasls_sarfasls" FromRole="zirsarfasls" ToRole="sarfasls" />
+        </EntityType>
+        <Association Name="FK_act_zirsarfasls_zirsarfasls">
+          <End Role="zirsarfasls" Type="Self.zirsarfasls" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="act_zirsarfasls" Type="Self.act_zirsarfasls" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="zirsarfasls">
+              <PropertyRef Name="rdf" />
+            </Principal>
+            <Dependent Role="act_zirsarfasls">
+              <PropertyRef Name="rdf_zirsarfasls" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_zirsarfasls_sarfasls">
+          <End Role="sarfasls" Type="Self.sarfasls" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="zirsarfasls" Type="Self.zirsarfasls" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sarfasls">
+              <PropertyRef Name="rdf" />
+            </Principal>
+            <Dependent Role="zirsarfasls">
+              <PropertyRef Name="rdf_sarfasl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbAtiran2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="act_zirsarfasls" EntityType="Self.act_zirsarfasls" />
+          <EntitySet Name="sarfasls" EntityType="Self.sarfasls" />
+          <EntitySet Name="zirsarfasls" EntityType="Self.zirsarfasls" />
+          <AssociationSet Name="FK_act_zirsarfasls_zirsarfasls" Association="Self.FK_act_zirsarfasls_zirsarfasls">
+            <End Role="zirsarfasls" EntitySet="zirsarfasls" />
+            <End Role="act_zirsarfasls" EntitySet="act_zirsarfasls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_zirsarfasls_sarfasls" Association="Self.FK_zirsarfasls_sarfasls">
+            <End Role="sarfasls" EntitySet="sarfasls" />
+            <End Role="zirsarfasls" EntitySet="zirsarfasls" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Atiran2ModelStoreContainer" CdmEntityContainer="DbAtiran2Entities">
+          <EntitySetMapping Name="act_zirsarfasls">
+            <EntityTypeMapping TypeName="Atiran2Model.act_zirsarfasls">
+              <MappingFragment StoreEntitySet="act_zirsarfasls">
+                <ScalarProperty Name="rdf" ColumnName="rdf" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="rdf_zirsarfasls" ColumnName="rdf_zirsarfasls" />
+                <ScalarProperty Name="dis" ColumnName="dis" />
+                <ScalarProperty Name="bed" ColumnName="bed" />
+                <ScalarProperty Name="bes" ColumnName="bes" />
+                <ScalarProperty Name="user" ColumnName="user" />
+                <ScalarProperty Name="bed_bes" ColumnName="bed_bes" />
+                <ScalarProperty Name="manafter" ColumnName="manafter" />
+                <ScalarProperty Name="kind" ColumnName="kind" />
+                <ScalarProperty Name="sanadno" ColumnName="sanadno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sarfasls">
+            <EntityTypeMapping TypeName="Atiran2Model.sarfasls">
+              <MappingFragment StoreEntitySet="sarfasls">
+                <ScalarProperty Name="rdf" ColumnName="rdf" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="has_dar" ColumnName="has_dar" />
+                <ScalarProperty Name="who_def" ColumnName="who_def" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="GroupSarfaslID" ColumnName="GroupSarfaslID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="zirsarfasls">
+            <EntityTypeMapping TypeName="Atiran2Model.zirsarfasls">
+              <MappingFragment StoreEntitySet="zirsarfasls">
+                <ScalarProperty Name="rdf" ColumnName="rdf" />
+                <ScalarProperty Name="radif" ColumnName="radif" />
+                <ScalarProperty Name="rdf_sarfasl" ColumnName="rdf_sarfasl" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="has_dar" ColumnName="has_dar" />
+                <ScalarProperty Name="man" ColumnName="man" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
