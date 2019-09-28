@@ -1,10 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Atiran2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Atiran2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self"
+              xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator"
+              xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation"
+              xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="act_zirsarfasls">
           <Key>
             <PropertyRef Name="rdf" />
@@ -90,7 +94,10 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Atiran2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Atiran2Model" Alias="Self" annotation:UseStrongSpatialTypes="false"
+              xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation"
+              xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation"
+              xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="act_zirsarfasls">
           <Key>
             <PropertyRef Name="rdf" />
@@ -106,7 +113,8 @@
           <Property Name="manafter" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="kind" Type="Int32" />
           <Property Name="sanadno" Type="Int32" />
-          <NavigationProperty Name="zirsarfasls" Relationship="Self.FK_act_zirsarfasls_zirsarfasls" FromRole="act_zirsarfasls" ToRole="zirsarfasls" />
+          <NavigationProperty Name="zirsarfasls" Relationship="Self.FK_act_zirsarfasls_zirsarfasls"
+                              FromRole="act_zirsarfasls" ToRole="zirsarfasls" />
         </EntityType>
         <EntityType Name="sarfasls">
           <Key>
@@ -119,7 +127,8 @@
           <Property Name="start_date" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
           <Property Name="Active" Type="Boolean" />
           <Property Name="GroupSarfaslID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="zirsarfasls" Relationship="Self.FK_zirsarfasls_sarfasls" FromRole="sarfasls" ToRole="zirsarfasls" />
+          <NavigationProperty Name="zirsarfasls" Relationship="Self.FK_zirsarfasls_sarfasls" FromRole="sarfasls"
+                              ToRole="zirsarfasls" />
         </EntityType>
         <EntityType Name="zirsarfasls">
           <Key>
@@ -132,8 +141,10 @@
           <Property Name="has_dar" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="man" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="Active" Type="Boolean" />
-          <NavigationProperty Name="act_zirsarfasls" Relationship="Self.FK_act_zirsarfasls_zirsarfasls" FromRole="zirsarfasls" ToRole="act_zirsarfasls" />
-          <NavigationProperty Name="sarfasls" Relationship="Self.FK_zirsarfasls_sarfasls" FromRole="zirsarfasls" ToRole="sarfasls" />
+          <NavigationProperty Name="act_zirsarfasls" Relationship="Self.FK_act_zirsarfasls_zirsarfasls"
+                              FromRole="zirsarfasls" ToRole="act_zirsarfasls" />
+          <NavigationProperty Name="sarfasls" Relationship="Self.FK_zirsarfasls_sarfasls" FromRole="zirsarfasls"
+                              ToRole="sarfasls" />
         </EntityType>
         <Association Name="FK_act_zirsarfasls_zirsarfasls">
           <End Role="zirsarfasls" Type="Self.zirsarfasls" Multiplicity="1">
@@ -181,7 +192,8 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Atiran2ModelStoreContainer" CdmEntityContainer="DbAtiran2Entities">
+        <EntityContainerMapping StorageEntityContainer="Atiran2ModelStoreContainer"
+                                CdmEntityContainer="DbAtiran2Entities">
           <EntitySetMapping Name="act_zirsarfasls">
             <EntityTypeMapping TypeName="Atiran2Model.act_zirsarfasls">
               <MappingFragment StoreEntitySet="act_zirsarfasls">
