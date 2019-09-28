@@ -89,7 +89,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReportZirSarfasl.cs">
+    <Compile Include="ReportSarfasl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <EmbeddedResource Include="Form1.resx">
@@ -107,8 +107,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ReportZirSarfasl.resx">
-      <DependentUpon>ReportZirSarfasl.cs</DependentUpon>
+    <EmbeddedResource Include="ReportSarfasl.resx">
+      <DependentUpon>ReportSarfasl.cs</DependentUpon>
     </EmbeddedResource>
     <EntityDeploy Include="dataLayer\DbAteran2Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

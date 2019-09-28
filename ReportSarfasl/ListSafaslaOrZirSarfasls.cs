@@ -13,7 +13,7 @@ namespace ReportSarfasl
     public class ListSafaslaOrZirSarfasls : System.Windows.Forms.UserControl
     {
         private int _choise;
-        private List<int> _listSelectes = new List<int>();
+        public List<int> listSelectes = new List<int>();
         private object dt;
         private bool _isSearch = false, _isKeySpase = false;
         private System.Windows.Forms.Panel pnlHeader;
@@ -26,12 +26,12 @@ namespace ReportSarfasl
         private System.Windows.Forms.DataGridViewTextBoxColumn row;
         private System.Windows.Forms.Panel pnlFooter;
 
-        public ListSafaslaOrZirSarfasls(int choise, List<int> listSelectes = null)
+        public ListSafaslaOrZirSarfasls(int Choise, List<int> ListSelectes)
         {
-            _choise = choise;
-            if (listSelectes != null)
+            _choise = Choise;
+            if (ListSelectes != null)
             {
-                _listSelectes = listSelectes;
+                listSelectes = ListSelectes;
             }
 
             InitializeComponent();
@@ -204,7 +204,7 @@ namespace ReportSarfasl
             foreach (DataGridViewRow row in dgvList.Rows)
             {
                 int search = (int)row.Cells["shmo"].Value;
-                if (_listSelectes.Find(i => i == search) == search)
+                if (listSelectes.Find(i => i == search) == search)
                 {
                     row.Cells["select"].Value = true;
                     row.DefaultCellStyle.BackColor = Color.PaleTurquoise;
@@ -226,16 +226,16 @@ namespace ReportSarfasl
 
                 if (chboxSelectedAll.Checked)
                 {
-                    _listSelectes.Add((int)row.Cells["rdf"].Value);
+                    listSelectes.Add((int)row.Cells["rdf"].Value);
                 }
                 else
                 {
-                    _listSelectes.Remove((int)row.Cells["rdf"].Value);
+                    listSelectes.Remove((int)row.Cells["rdf"].Value);
                 }
 
             }
 
-            txtSearch.Text = _listSelectes.Count.ToString();
+            txtSearch.Text = listSelectes.Count.ToString();
             dgvList_DataBindingComplete(sender,
                 new DataGridViewBindingCompleteEventArgs(ListChangedType.ItemAdded));
         }
@@ -281,13 +281,13 @@ namespace ReportSarfasl
             {
                 dgvList.Rows[rowIndex].Cells["select"].Value = true;
                 dgvList.Rows[rowIndex].DefaultCellStyle.BackColor = Color.PaleTurquoise;
-                _listSelectes.Add((int)dgvList.Rows[rowIndex].Cells["rdf"].Value);
+                listSelectes.Add((int)dgvList.Rows[rowIndex].Cells["rdf"].Value);
             }
             else
             {
                 dgvList.Rows[rowIndex].Cells["select"].Value = false;
                 dgvList.Rows[rowIndex].DefaultCellStyle.BackColor = Color.White;
-                _listSelectes.Remove((int)dgvList.Rows[rowIndex].Cells["rdf"].Value);
+                listSelectes.Remove((int)dgvList.Rows[rowIndex].Cells["rdf"].Value);
             }
         }
 

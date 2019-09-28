@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ReportSarfasl.dataLayer;
 
 namespace ReportSarfasl
 {
-    public class ReportZirSarfasl : System.Windows.Forms.UserControl
+    public class ReportSarfasl : System.Windows.Forms.UserControl
     {
+        private List<int> _listSar = new List<int>() , _listZirSar = new List<int>();
         private System.Windows.Forms.Panel pnlHeader;
         private System.Windows.Forms.Panel pnlMain;
         private System.Windows.Forms.DataGridView dgvSarfasl;
@@ -22,7 +24,7 @@ namespace ReportSarfasl
         private Label lblSarfasls;
         private System.Windows.Forms.Panel pnlFooter;
 
-        public ReportZirSarfasl()
+        public ReportSarfasl()
         {
             InitializeComponent();
         }
@@ -168,12 +170,12 @@ namespace ReportSarfasl
             this.lblSarfasls.TabIndex = 0;
             this.lblSarfasls.Text = "سرفصل ها :";
             // 
-            // ReportZirSarfasl
+            // ReportSarfasl
             // 
             this.Controls.Add(this.pnlFooter);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.pnlHeader);
-            this.Name = "ReportZirSarfasl";
+            this.Name = "ReportSarfasl";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.Size = new System.Drawing.Size(1200, 527);
             this.pnlHeader.ResumeLayout(false);
@@ -192,7 +194,9 @@ namespace ReportSarfasl
         {
             if (e.KeyCode == Keys.Enter)
             {
-                //باز کردن لیست سرفصل
+                var sarfasl = new ListSafaslaOrZirSarfasls(1,  _listSar);
+                sarfasl.Show();
+                _listSar = sarfasl.listSelectes;
             }
         }
 
@@ -200,7 +204,9 @@ namespace ReportSarfasl
         {
             if (e.KeyCode == Keys.Enter)
             {
-                //باز کردن لیست زیر سرفصل
+                var zirsarfasl = new ListSafaslaOrZirSarfasls(2 ,_listZirSar);
+                zirsarfasl.Show();
+                _listZirSar = zirsarfasl.listSelectes;
             }
         }
 
