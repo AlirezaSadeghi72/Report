@@ -10,185 +10,235 @@ namespace ReportSarfasl
 {
     public class ListSafaslaOrZirSarfasls : UserControl
     {
-        private readonly int _choise;
+        public int Choise;
+        public List<int> listSelectes = new List<int>();
         private bool _isSearch, _isKeySpase;
         private CheckBox chboxSelectedAll;
         private DataGridView dgvList;
         private object dt;
         private Label lblTextSelected;
-        public List<int> listSelectes = new List<int>();
         private Panel pnlFooter;
         private Panel pnlHeader;
         private Panel pnlMain;
         private DataGridViewTextBoxColumn row;
         private DataGridViewCheckBoxColumn Select;
-        private TextBox txtSearch;
+        private TextBox txtFilter;
 
-        public ListSafaslaOrZirSarfasls(int Choise, List<int> ListSelectes)
+        public ListSafaslaOrZirSarfasls()
         {
-            _choise = Choise;
-            if (ListSelectes != null) listSelectes = ListSelectes;
-
             InitializeComponent();
         }
 
         private void InitializeComponent()
         {
-            pnlHeader = new Panel();
-            pnlMain = new Panel();
-            pnlFooter = new Panel();
-            txtSearch = new TextBox();
-            lblTextSelected = new Label();
-            chboxSelectedAll = new CheckBox();
-            dgvList = new DataGridView();
-            Select = new DataGridViewCheckBoxColumn();
-            row = new DataGridViewTextBoxColumn();
-            pnlHeader.SuspendLayout();
-            pnlMain.SuspendLayout();
-            ((ISupportInitialize) dgvList).BeginInit();
-            SuspendLayout();
+            this.pnlHeader = new System.Windows.Forms.Panel();
+            this.chboxSelectedAll = new System.Windows.Forms.CheckBox();
+            this.lblTextSelected = new System.Windows.Forms.Label();
+            this.txtFilter = new System.Windows.Forms.TextBox();
+            this.pnlMain = new System.Windows.Forms.Panel();
+            this.dgvList = new System.Windows.Forms.DataGridView();
+            this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.row = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pnlFooter = new System.Windows.Forms.Panel();
+            this.pnlHeader.SuspendLayout();
+            this.pnlMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvList)).BeginInit();
+            this.SuspendLayout();
             // 
             // pnlHeader
             // 
-            pnlHeader.Controls.Add(chboxSelectedAll);
-            pnlHeader.Controls.Add(lblTextSelected);
-            pnlHeader.Controls.Add(txtSearch);
-            pnlHeader.Dock = DockStyle.Top;
-            pnlHeader.Location = new Point(0, 0);
-            pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(800, 67);
-            pnlHeader.TabIndex = 0;
-            // 
-            // pnlMain
-            // 
-            pnlMain.Controls.Add(dgvList);
-            pnlMain.Dock = DockStyle.Fill;
-            pnlMain.Location = new Point(0, 67);
-            pnlMain.Name = "pnlMain";
-            pnlMain.Size = new Size(800, 460);
-            pnlMain.TabIndex = 0;
-            // 
-            // pnlFooter
-            // 
-            pnlFooter.Dock = DockStyle.Bottom;
-            pnlFooter.Location = new Point(0, 517);
-            pnlFooter.Name = "pnlFooter";
-            pnlFooter.Size = new Size(800, 10);
-            pnlFooter.TabIndex = 1;
-            // 
-            // txtSearch
-            // 
-            txtSearch.Dock = DockStyle.Top;
-            txtSearch.Location = new Point(0, 0);
-            txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(800, 20);
-            txtSearch.TabIndex = 0;
-            txtSearch.TextChanged += txtSearch_TextChanged;
-            // 
-            // lblTextSelected
-            // 
-            lblTextSelected.Dock = DockStyle.Top;
-            lblTextSelected.Location = new Point(0, 20);
-            lblTextSelected.Name = "lblTextSelected";
-            lblTextSelected.Size = new Size(800, 13);
-            lblTextSelected.TabIndex = 1;
-            lblTextSelected.TextAlign = ContentAlignment.MiddleLeft;
+            this.pnlHeader.Controls.Add(this.chboxSelectedAll);
+            this.pnlHeader.Controls.Add(this.lblTextSelected);
+            this.pnlHeader.Controls.Add(this.txtFilter);
+            this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlHeader.Location = new System.Drawing.Point(0, 0);
+            this.pnlHeader.Name = "pnlHeader";
+            this.pnlHeader.Size = new System.Drawing.Size(800, 67);
+            this.pnlHeader.TabIndex = 0;
             // 
             // chboxSelectedAll
             // 
-            chboxSelectedAll.AutoSize = true;
-            chboxSelectedAll.Location = new Point(721, 43);
-            chboxSelectedAll.Name = "chboxSelectedAll";
-            chboxSelectedAll.Size = new Size(76, 17);
-            chboxSelectedAll.TabIndex = 2;
-            chboxSelectedAll.Text = "انتخاب همه";
-            chboxSelectedAll.UseVisualStyleBackColor = true;
-            chboxSelectedAll.CheckedChanged += chboxSelectedAll_CheckedChanged;
+            this.chboxSelectedAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chboxSelectedAll.AutoSize = true;
+            this.chboxSelectedAll.Location = new System.Drawing.Point(707, 40);
+            this.chboxSelectedAll.Name = "chboxSelectedAll";
+            this.chboxSelectedAll.Size = new System.Drawing.Size(76, 17);
+            this.chboxSelectedAll.TabIndex = 2;
+            this.chboxSelectedAll.Text = "انتخاب همه";
+            this.chboxSelectedAll.UseVisualStyleBackColor = true;
+            this.chboxSelectedAll.CheckedChanged += new System.EventHandler(this.chboxSelectedAll_CheckedChanged);
+            // 
+            // lblTextSelected
+            // 
+            this.lblTextSelected.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblTextSelected.Location = new System.Drawing.Point(0, 20);
+            this.lblTextSelected.Name = "lblTextSelected";
+            this.lblTextSelected.Size = new System.Drawing.Size(800, 13);
+            this.lblTextSelected.TabIndex = 1;
+            this.lblTextSelected.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtfilter
+            // 
+            this.txtFilter.Dock = System.Windows.Forms.DockStyle.Top;
+            this.txtFilter.Location = new System.Drawing.Point(0, 0);
+            this.txtFilter.Name = "txtFilter";
+            this.txtFilter.Size = new System.Drawing.Size(800, 20);
+            this.txtFilter.TabIndex = 0;
+            this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
+            this.txtFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtFilter_KeyDown);
+            // 
+            // pnlMain
+            // 
+            this.pnlMain.Controls.Add(this.dgvList);
+            this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlMain.Location = new System.Drawing.Point(0, 67);
+            this.pnlMain.Name = "pnlMain";
+            this.pnlMain.Size = new System.Drawing.Size(800, 460);
+            this.pnlMain.TabIndex = 0;
             // 
             // dgvList
             // 
-            dgvList.AllowUserToAddRows = false;
-            dgvList.AllowUserToDeleteRows = false;
-            dgvList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvList.Columns.AddRange(Select, row);
-            dgvList.Dock = DockStyle.Fill;
-            dgvList.Location = new Point(0, 0);
-            dgvList.Name = "dgvList";
-            dgvList.ReadOnly = true;
-            dgvList.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvList.Size = new Size(800, 460);
-            dgvList.TabIndex = 0;
-            dgvList.CellClick += dgvList_CellClick;
-            dgvList.DataBindingComplete += dgvList_DataBindingComplete;
-            dgvList.KeyDown += dgvList_KeyDown;
+            this.dgvList.AllowUserToAddRows = false;
+            this.dgvList.AllowUserToDeleteRows = false;
+            this.dgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Select,
+            this.row});
+            this.dgvList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvList.Location = new System.Drawing.Point(0, 0);
+            this.dgvList.Name = "dgvList";
+            this.dgvList.ReadOnly = true;
+            this.dgvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvList.Size = new System.Drawing.Size(800, 460);
+            this.dgvList.TabIndex = 0;
+            this.dgvList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvList_CellClick);
+            this.dgvList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvList_KeyDown);
             // 
             // Select
             // 
-            Select.HeaderText = "انتخاب";
-            Select.Name = "Select";
-            Select.ReadOnly = true;
-            Select.Visible = false;
+            this.Select.HeaderText = "انتخاب";
+            this.Select.Name = "Select";
+            this.Select.ReadOnly = true;
+            this.Select.Visible = false;
             // 
             // row
             // 
-            row.HeaderText = "ردیف";
-            row.Name = "row";
-            row.ReadOnly = true;
-            row.Visible = false;
+            this.row.HeaderText = "ردیف";
+            this.row.Name = "row";
+            this.row.ReadOnly = true;
+            this.row.Visible = false;
+            // 
+            // pnlFooter
+            // 
+            this.pnlFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlFooter.Location = new System.Drawing.Point(0, 517);
+            this.pnlFooter.Name = "pnlFooter";
+            this.pnlFooter.Size = new System.Drawing.Size(800, 10);
+            this.pnlFooter.TabIndex = 1;
             // 
             // ListSafaslaOrZirSarfasls
             // 
-            Controls.Add(pnlFooter);
-            Controls.Add(pnlMain);
-            Controls.Add(pnlHeader);
-            Name = "ListSafaslaOrZirSarfasls";
-            RightToLeft = RightToLeft.Yes;
-            Size = new Size(800, 527);
-            Load += ListSafaslaOrZirSarfasls_Load;
-            pnlHeader.ResumeLayout(false);
-            pnlHeader.PerformLayout();
-            pnlMain.ResumeLayout(false);
-            ((ISupportInitialize) dgvList).EndInit();
-            ResumeLayout(false);
+            this.Controls.Add(this.pnlFooter);
+            this.Controls.Add(this.pnlMain);
+            this.Controls.Add(this.pnlHeader);
+            this.Name = "ListSafaslaOrZirSarfasls";
+            this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.Size = new System.Drawing.Size(800, 527);
+            this.pnlHeader.ResumeLayout(false);
+            this.pnlHeader.PerformLayout();
+            this.pnlMain.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvList)).EndInit();
+            this.ResumeLayout(false);
+
         }
 
         #region Event Controls
 
-        private void ListSafaslaOrZirSarfasls_Load(object sender, EventArgs e)
-        {
-            // _choise == 1  -->  Sarfasl
-            // _choise == 2  -->  Zir Sarfasl
+        //private void ListSafaslaOrZirSarfasls_Load(object sender, EventArgs e)
+        //{
+        //    // _choise == 1  -->  Sarfasl
+        //    // _choise == 2  -->  Zir Sarfasl
 
-            if (_choise == 1)
-            {
-                //خواندن لیست و اعمال تیک های لیست
-            }
-            else if (_choise == 2)
-            {
-                //خواندن لیست و اعمال تیک های لیست
-            }
-            else
-            {
-                throw new Exception("_chois in (1 or 2)");
-            }
+        //    if (Choise == 1)
+        //    {
+        //        //خواندن لیست و اعمال تیک های لیست
+        //    }
+        //    else if (Choise == 2)
+        //    {
+        //        //خواندن لیست و اعمال تیک های لیست
+        //    }
+        //    else
+        //    {
+        //        throw new Exception("choised parametr (Chois in {1 -> Sarfasl. or 2 -> ZirSarfasl})");
+        //    }
 
-            SetGrid();
-        }
+        //    SetGrid();
+        //}
 
-        private void txtSearch_TextChanged(object sender, EventArgs e)
+        private void txtFilter_TextChanged(object sender, EventArgs e)
         {
             search();
         }
-
-        #region Event Control Data Grid View
-
-        private void dgvList_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void txtFilter_KeyDown(object sender, KeyEventArgs e)
         {
-            if (_isKeySpase)
-                _isKeySpase = false;
-            else if (e.RowIndex >= 0 && e.ColumnIndex == 0) SetCheckBoxColumn();
+            if (e.KeyCode == Keys.Escape)
+            {
+                _isSearch = false;
+                txtFilter.Text = "";
+            }
+            else if ((e.KeyCode == Keys.Space && txtFilter.Text.Trim() == "" && _isSearch)
+                     ||
+                     (e.KeyCode == Keys.Enter && dgvList.Rows.Count == 1))
+            {
+                _isKeySpase = true;
+                txtFilter.Text = "";
+                SetCheckBoxColumn();
+            }
+            else if (dgvList.Rows.Count > 0)
+            {
+                int rowIndexSelected = dgvList.SelectedRows[0].Index;
+                if (e.KeyCode == Keys.Up)
+                {
+                    _isSearch = true;
+                    txtFilter.Text = "";
+                    if (rowIndexSelected > 0)
+                    {
+                        dgvList.Rows[rowIndexSelected - 1].Cells["select"].Selected = true;
+                    }
+                }
+                else if (e.KeyCode == Keys.Down)
+                {
+                    _isSearch = true;
+                    txtFilter.Text = "";
+                    if (rowIndexSelected < dgvList.RowCount - 1)
+                    {
+                        dgvList.Rows[rowIndexSelected + 1].Cells["select"].Selected = true;
+                    }
+                }
+            }
         }
 
+        private void chboxSelectedAll_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dgvList.Rows)
+                if (chboxSelectedAll.Checked)
+                    AddOrRemoveInListAndTextSelected(row.Index, true);
+                else
+                    AddOrRemoveInListAndTextSelected(row.Index, false);
+
+            dgvList_DataBindingComplete(sender,
+                new DataGridViewBindingCompleteEventArgs(ListChangedType.ItemAdded));
+        }
+
+        #region Event Control Data Grid View
+        private void dgvList_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (!_isKeySpase && e.RowIndex >= 0 && e.ColumnIndex == 0)
+                SetCheckBoxColumn();
+
+            _isKeySpase = false;
+
+        }
         private void dgvList_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Space)
@@ -197,12 +247,11 @@ namespace ReportSarfasl
                 SetCheckBoxColumn();
             }
         }
-
         private void dgvList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             foreach (DataGridViewRow row in dgvList.Rows)
             {
-                var search = (int) row.Cells["shmo"].Value;
+                var search = (int)row.Cells["rdf"].Value;
                 if (listSelectes.Find(i => i == search) == search)
                 {
                     row.Cells["select"].Value = true;
@@ -215,38 +264,13 @@ namespace ReportSarfasl
                 }
             }
         }
-
         #endregion
-
-        private void chboxSelectedAll_CheckedChanged(object sender, EventArgs e)
-        {
-            foreach (DataGridViewRow row in dgvList.Rows)
-                if (chboxSelectedAll.Checked)
-                    listSelectes.Add((int) row.Cells["rdf"].Value);
-                else
-                    listSelectes.Remove((int) row.Cells["rdf"].Value);
-
-            txtSearch.Text = listSelectes.Count.ToString();
-            dgvList_DataBindingComplete(sender,
-                new DataGridViewBindingCompleteEventArgs(ListChangedType.ItemAdded));
-        }
-
-        //protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        //{
-        //    if (keyData == Keys.Enter)
-        //    {
-        //        this.close
-        //        //مقدار دهی پارامتر خروجی که همون رشته نام های انتخابی است و لیستی که کلید ردیف های انتخابی 
-        //        return true;
-        //    }
-        //    return base.ProcessCmdKey(ref msg, keyData);
-        //}
-
+        
         #endregion
 
         #region Method
 
-        private void SetGrid()
+        public void SetGrid()
         {
             foreach (DataGridViewColumn col in dgvList.Columns) col.Visible = false;
             foreach (DataGridViewRow row in dgvList.Rows) row.Cells["row"].Value = row.Index + 1;
@@ -267,19 +291,34 @@ namespace ReportSarfasl
             {
                 dgvList.Rows[rowIndex].Cells["select"].Value = true;
                 dgvList.Rows[rowIndex].DefaultCellStyle.BackColor = Color.PaleTurquoise;
-                listSelectes.Add((int) dgvList.Rows[rowIndex].Cells["rdf"].Value);
+                AddOrRemoveInListAndTextSelected(rowIndex, true);
             }
             else
             {
                 dgvList.Rows[rowIndex].Cells["select"].Value = false;
                 dgvList.Rows[rowIndex].DefaultCellStyle.BackColor = Color.White;
-                listSelectes.Remove((int) dgvList.Rows[rowIndex].Cells["rdf"].Value);
+                AddOrRemoveInListAndTextSelected(rowIndex, false);
+            }
+        }
+
+        private void AddOrRemoveInListAndTextSelected(int rowData, bool isAdded)
+        {
+            if (isAdded)
+            {
+                listSelectes.Add((int)dgvList.Rows[rowData].Cells["rdf"].Value);
+                lblTextSelected.Text += dgvList.Rows[rowData].Cells["name"].Value + " , ";
+            }
+            else
+            {
+
+                listSelectes.RemoveAll(i => i == (int)dgvList.Rows[rowData].Cells["rdf"].Value);
+                lblTextSelected.Text.Replace(dgvList.Rows[rowData].Cells["name"].Value + " , ", "");
             }
         }
 
         private void search()
         {
-            var filter = txtSearch.Text.Trim();
+            var filter = txtFilter.Text.Trim();
             if (filter == "" && !_isSearch)
             {
                 dgvList.DataSource = dt;
@@ -287,18 +326,22 @@ namespace ReportSarfasl
             else if (filter != "")
             {
                 _isSearch = false;
-                switch (_choise)
+                switch (Choise)
                 {
                     case 1:
-                    {
-                        dgvList.DataSource = (dt as List<sarfasls>).Where(c => c.name.Contains(filter)).ToList();
-                        break;
-                    }
+                        {
+                            dgvList.DataSource = (dt as List<sarfasls>).Where(c => c.name.Contains(filter)).ToList();
+                            break;
+                        }
                     case 2:
-                    {
-                        dgvList.DataSource = (dt as List<zirsarfasls>).Where(c => c.name.Contains(filter)).ToList();
-                        break;
-                    }
+                        {
+                            dgvList.DataSource = (dt as List<zirsarfasls>).Where(c => c.name.Contains(filter)).ToList();
+                            break;
+                        }
+                    default:
+                        {
+                            throw new Exception("choised parametr (Chois in {1 -> Sarfasl. or 2 -> ZirSarfasl})");
+                        }
                 }
             }
         }
