@@ -231,14 +231,14 @@ namespace ReportSarfasl
 
         #region Event Handler
 
-        public event EventHandler Sarfasl_KeyDownEnter;
+        public event EventHandler txtSarfasl_KeyDownEnter;
         private void txtSarfasl_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
-            if (this.Sarfasl_KeyDownEnter != null)
+            if (this.txtSarfasl_KeyDownEnter != null)
             {
                 if (e.KeyCode == Keys.Enter)
                 {
-                    this.Sarfasl_KeyDownEnter(this, e);
+                    this.txtSarfasl_KeyDownEnter(this, e);
                     //var sarfasl = new ListSafaslaOrZirSarfasls(1, _listSar);
                     //sarfasl.Show();
                     //_listSar = sarfasl.listSelectes;
@@ -246,14 +246,14 @@ namespace ReportSarfasl
             }
         }
 
-        public event EventHandler ZirSarfasl_KeyDownEnter;
+        public event EventHandler txtZirSarfasl_KeyDownEnter;
         private void txtZirSarfasl_KeyDown(object sender, KeyEventArgs e)
         {
-            if (this.ZirSarfasl_KeyDownEnter != null)
+            if (this.txtZirSarfasl_KeyDownEnter != null)
             {
                 if (e.KeyCode == Keys.Enter)
                 {
-                    this.ZirSarfasl_KeyDownEnter(this, e);
+                    this.txtZirSarfasl_KeyDownEnter(this, e);
                     //var zirsarfasl = new ListSafaslaOrZirSarfasls(2, _listZirSar);
                     //zirsarfasl.Show();
                     //_listZirSar = zirsarfasl.listSelectes;
@@ -261,12 +261,12 @@ namespace ReportSarfasl
             }
         }
 
-        public event EventHandler OpenZirSarfasl;
-        protected void _openZirSarfasl(object sender, KeyEventArgs e)
+        public event EventHandler OpenFormZirSarfasl;
+        protected void _openZirSarfasl(object sender = null, KeyEventArgs e=null)
         {
             if (dgvSarfasl.SelectedRows.Count > 0)
             {
-                this.OpenZirSarfasl(this,e);
+                this.OpenFormZirSarfasl(this,e);
                 //باز کردن زیر سرفصل های سرفصل انتخابی داخل گرید
             }
         }
