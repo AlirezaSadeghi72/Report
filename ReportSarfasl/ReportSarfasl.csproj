@@ -76,6 +76,7 @@
     <Compile Include="dataLayer\sarfasls.cs">
       <DependentUpon>DbAteran2Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="dataLayer\viewSarfasls.cs" />
     <Compile Include="dataLayer\zirsarfasls.cs">
       <DependentUpon>DbAteran2Model.tt</DependentUpon>
     </Compile>
@@ -99,6 +100,7 @@
     <Compile Include="reportSarfasl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="SarfaslService.cs" />
     <EmbeddedResource Include="Forms\frmListSarfaslOrZirSarfasl.resx">
       <DependentUpon>frmListSarfaslOrZirSarfasl.cs</DependentUpon>
     </EmbeddedResource>

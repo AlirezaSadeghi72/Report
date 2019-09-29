@@ -14,11 +14,14 @@ namespace ReportSarfasl.Forms
     {
         public List<int> listSelected;
         public string Text;
-        public frmListSarfaslOrZirSarfasl(bool isSarfasl , List<int> listSelected)
+        public frmListSarfaslOrZirSarfasl(bool isSarfasl, List<int> listSelected, string text,
+            List<int> listSarfasl = null)
         {
             InitializeComponent();
             listSafaslaOrZirSarfasls1.Choise = isSarfasl ? 1 : 2;
             listSafaslaOrZirSarfasls1.listSelected = listSelected;
+            listSafaslaOrZirSarfasls1.listSarfsl = listSarfasl;
+            listSafaslaOrZirSarfasls1.lblTextSelected.Text = text;
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)

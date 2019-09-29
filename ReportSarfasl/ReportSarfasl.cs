@@ -131,6 +131,7 @@ namespace ReportSarfasl
             this.txtSarfasl.TabIndex = 6;
             this.txtSarfasl.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtSarfasl.Click += new System.EventHandler(this.txtSarfasl_Click);
+            this.txtSarfasl.TextChanged += new System.EventHandler(this.txtSarfasl_TextChanged);
             this.txtSarfasl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSarfasl_KeyDown);
             // 
             // pnlMain
@@ -272,6 +273,9 @@ namespace ReportSarfasl
         private void btnShow_Click(object sender, EventArgs e)
         {
             //اتصال و اوردن اطلاعات
+            dgvSarfasl.DataSource = conection.GetViewSarfaslses(ListSar, ListZirSar);
+
+            SetGrid();
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
@@ -285,6 +289,10 @@ namespace ReportSarfasl
         public event EventHandler txtSarfasl_KeyDownEnter;
         private void txtSarfasl_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.Left)
+            {
+                txtZirSarfasl.Focus();
+            }
             if (txtSarfasl_KeyDownEnter != null)
             {
                 if (e.KeyCode == Keys.Enter)
@@ -305,6 +313,14 @@ namespace ReportSarfasl
         public event EventHandler txtZirSarfasl_KeyDownEnter;
         private void txtZirSarfasl_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.Left)
+            {
+                btnShow.Focus();
+            }
+            else if (e.KeyCode == Keys.Right)
+            {
+                txtSarfasl.Focus();
+            }
             if (txtZirSarfasl_KeyDownEnter != null)
             {
                 if (e.KeyCode == Keys.Enter)
@@ -332,6 +348,12 @@ namespace ReportSarfasl
             }
         }
 
+        private void txtSarfasl_TextChanged(object sender, EventArgs e)
+        {
+            txtZirSarfasl.Text = "";
+            ListZirSar.Clear();
+        }
+
         #endregion
 
         #region Method
@@ -341,13 +363,17 @@ namespace ReportSarfasl
             foreach (DataGridViewColumn col in dgvSarfasl.Columns) col.Visible = false;
             foreach (DataGridViewRow row in dgvSarfasl.Rows) row.Cells["row"].Value = row.Index + 1;
 
+            dgvSarfasl.Columns["Select"].Visible = true;
+            dgvSarfasl.Columns["row"].Visible = true;
+
             dgvSarfasl.Columns["name"].Visible = true;
             dgvSarfasl.Columns["name"].HeaderText = "نام";
             dgvSarfasl.Columns["name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
-            dgvSarfasl.Columns["row"].Visible = true;
+            dgvSarfasl.Columns["man"].Visible = true;
+            dgvSarfasl.Columns["man"].HeaderText = "اعتبار";
+            dgvSarfasl.Columns["man"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
-            dgvSarfasl.Columns["Select"].Visible = true;
         }
 
         private void search()
