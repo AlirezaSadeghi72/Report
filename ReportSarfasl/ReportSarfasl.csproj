@@ -57,6 +57,7 @@
     <Compile Include="dataLayer\act_zirsarfasls.cs">
       <DependentUpon>DbAteran2Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="dataLayer\conection.cs" />
     <Compile Include="dataLayer\DbAteran2Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
