@@ -1,6 +1,6 @@
-﻿namespace ReportSarfasl
+﻿namespace ReportSarfasl.Forms
 {
-    partial class Form1
+    partial class frmReportSarfasls
     {
         /// <summary>
         /// Required designer variable.
@@ -30,15 +30,15 @@
         {
             this.SuspendLayout();
             // 
-            // Form1
+            // frmReportSarfasls
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1200, 495);
+            this.ClientSize = new System.Drawing.Size(1200, 527);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Form1";
+            this.Name = "frmReportSarfasls";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "frmReportSarfasls";
             this.ResumeLayout(false);
 
         }
@@ -46,4 +46,3 @@
         #endregion
     }
 }
-

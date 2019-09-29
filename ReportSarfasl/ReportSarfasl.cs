@@ -10,7 +10,7 @@ using ReportSarfasl.dataLayer;
 
 namespace ReportSarfasl
 {
-    public class ReportSarfasl : UserControl
+    public class reportSarfasl : UserControl
     {
         private List<int> _listSar = new List<int>(), _listZirSar = new List<int>();
         private List<sarfasls> dt;
@@ -29,7 +29,7 @@ namespace ReportSarfasl
         private Label lblSarfasls;
         private TextBox txtFilter;
 
-        public ReportSarfasl()
+        public reportSarfasl()
         {
             InitializeComponent();
         }
