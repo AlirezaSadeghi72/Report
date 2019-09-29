@@ -12,7 +12,7 @@ namespace ReportSarfasl
 {
     public class reportSarfasl : UserControl
     {
-        private List<int> _listSar = new List<int>(), _listZirSar = new List<int>();
+        public List<int> ListSar = new List<int>(), ListZirSar = new List<int>();
         private List<sarfasls> dt;
         private bool _isSearch = false, _isKeySpase = false;
         private Button btnPrint;
@@ -23,9 +23,9 @@ namespace ReportSarfasl
         private DataGridViewTextBoxColumn row;
         private GroupBox groupBox1;
         private Button btnShow;
-        private TextBox txtZirSarfasl;
+        public TextBox txtZirSarfasl;
         private Label lblZirSarfasl;
-        private TextBox txtSarfasl;
+        public TextBox txtSarfasl;
         private Label lblSarfasls;
         private TextBox txtFilter;
 
@@ -196,12 +196,12 @@ namespace ReportSarfasl
             this.btnPrint.UseVisualStyleBackColor = true;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
-            // ReportSarfasl
+            // reportSarfasl
             // 
             this.Controls.Add(this.pnlFooter);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.pnlHeader);
-            this.Name = "ReportSarfasl";
+            this.Name = "reportSarfasl";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.Size = new System.Drawing.Size(1200, 527);
             this.pnlHeader.ResumeLayout(false);

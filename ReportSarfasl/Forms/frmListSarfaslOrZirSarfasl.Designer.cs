@@ -1,6 +1,6 @@
 ﻿namespace ReportSarfasl.Forms
 {
-    partial class frmReportSarfasls
+    partial class frmListSarfaslOrZirSarfasl
     {
         /// <summary>
         /// Required designer variable.
@@ -28,37 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.reportSarfasl1 = new ReportSarfasl.reportSarfasl();
+            this.listSafaslaOrZirSarfasls1 = new ReportSarfasl.ListSafaslaOrZirSarfasls();
             this.SuspendLayout();
             // 
-            // reportSarfasl1
+            // listSafaslaOrZirSarfasls1
             // 
-            this.reportSarfasl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.reportSarfasl1.Location = new System.Drawing.Point(0, 0);
-            this.reportSarfasl1.Name = "reportSarfasl1";
-            this.reportSarfasl1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.reportSarfasl1.Size = new System.Drawing.Size(1200, 527);
-            this.reportSarfasl1.TabIndex = 0;
-            this.reportSarfasl1.txtSarfasl_KeyDownEnter += new System.EventHandler(this.reportSarfasl1_txtSarfasl_KeyDownEnter);
-            this.reportSarfasl1.txtZirSarfasl_KeyDownEnter += new System.EventHandler(this.reportSarfasl1_txtZirSarfasl_KeyDownEnter);
-            this.reportSarfasl1.OpenFormZirSarfasl += new System.EventHandler(this.reportSarfasl1_OpenFormZirSarfasl);
+            this.listSafaslaOrZirSarfasls1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listSafaslaOrZirSarfasls1.Location = new System.Drawing.Point(0, 0);
+            this.listSafaslaOrZirSarfasls1.Name = "listSafaslaOrZirSarfasls1";
+            this.listSafaslaOrZirSarfasls1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.listSafaslaOrZirSarfasls1.Size = new System.Drawing.Size(800, 527);
+            this.listSafaslaOrZirSarfasls1.TabIndex = 0;
             // 
-            // frmReportSarfasls
+            // frmListSarfaslOrZirSarfasl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1200, 527);
-            this.Controls.Add(this.reportSarfasl1);
+            this.ClientSize = new System.Drawing.Size(800, 527);
+            this.Controls.Add(this.listSafaslaOrZirSarfasls1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "frmReportSarfasls";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmReportSarfasls";
+            this.Name = "frmListSarfaslOrZirSarfasl";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private reportSarfasl reportSarfasl1;
+        private ListSafaslaOrZirSarfasls listSafaslaOrZirSarfasls1;
     }
 }

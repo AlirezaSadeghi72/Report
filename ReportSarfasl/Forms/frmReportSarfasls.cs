@@ -16,5 +16,27 @@ namespace ReportSarfasl.Forms
         {
             InitializeComponent();
         }
+
+        private void reportSarfasl1_txtSarfasl_KeyDownEnter(object sender, EventArgs e)
+        {
+            var sarfasl = new frmListSarfaslOrZirSarfasl(true, reportSarfasl1.ListSar);
+            sarfasl.ShowDialog();
+            reportSarfasl1.ListSar = sarfasl.listSelected;
+            reportSarfasl1.txtSarfasl.Text = sarfasl.Text;
+        }
+
+        private void reportSarfasl1_txtZirSarfasl_KeyDownEnter(object sender, EventArgs e)
+        {
+            var zirSarfasl = new frmListSarfaslOrZirSarfasl(true, reportSarfasl1.ListZirSar);
+            zirSarfasl.ShowDialog();
+            reportSarfasl1.ListSar = zirSarfasl.listSelected;
+            reportSarfasl1.ListSar = zirSarfasl.listSelected;
+            reportSarfasl1.txtSarfasl.Text = zirSarfasl.Text;
+        }
+
+        private void reportSarfasl1_OpenFormZirSarfasl(object sender, EventArgs e)
+        {
+
+        }
     }
 }

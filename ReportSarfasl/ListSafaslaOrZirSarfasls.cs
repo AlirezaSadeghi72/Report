@@ -11,12 +11,12 @@ namespace ReportSarfasl
     public class ListSafaslaOrZirSarfasls : UserControl
     {
         public int Choise;
-        public List<int> listSelectes = new List<int>();
+        public List<int> listSelected = new List<int>();
         private bool _isSearch, _isKeySpase;
         private CheckBox chboxSelectedAll;
         private DataGridView dgvList;
         private object dt;
-        private Label lblTextSelected;
+        public Label lblTextSelected;
         private Panel pnlFooter;
         private Panel pnlHeader;
         private Panel pnlMain;
@@ -77,7 +77,7 @@ namespace ReportSarfasl
             this.lblTextSelected.TabIndex = 1;
             this.lblTextSelected.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // txtfilter
+            // txtFilter
             // 
             this.txtFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.txtFilter.Location = new System.Drawing.Point(0, 0);
@@ -151,29 +151,26 @@ namespace ReportSarfasl
             this.ResumeLayout(false);
 
         }
+        
+        protected override void InitLayout()
+        {
+            if (!this.DesignMode)
+            {
+                // _choise == 1  -->  Sarfasl
+                // _choise == 2  -->  Zir Sarfasl
 
+                if (Choise == 1)
+                {
+                    //اتصال
+                }
+                else if (Choise == 2)
+                {
+                    //اتصال
+                }
+                SetGrid();
+            }
+        }
         #region Event Controls
-
-        //private void ListSafaslaOrZirSarfasls_Load(object sender, EventArgs e)
-        //{
-        //    // _choise == 1  -->  Sarfasl
-        //    // _choise == 2  -->  Zir Sarfasl
-
-        //    if (Choise == 1)
-        //    {
-        //        //خواندن لیست و اعمال تیک های لیست
-        //    }
-        //    else if (Choise == 2)
-        //    {
-        //        //خواندن لیست و اعمال تیک های لیست
-        //    }
-        //    else
-        //    {
-        //        throw new Exception("choised parametr (Chois in {1 -> Sarfasl. or 2 -> ZirSarfasl})");
-        //    }
-
-        //    SetGrid();
-        //}
 
         private void txtFilter_TextChanged(object sender, EventArgs e)
         {
@@ -186,13 +183,14 @@ namespace ReportSarfasl
                 _isSearch = false;
                 txtFilter.Text = "";
             }
-            else if ((e.KeyCode == Keys.Space && txtFilter.Text.Trim() == "" && _isSearch)
-                     ||
-                     (e.KeyCode == Keys.Enter && dgvList.Rows.Count == 1))
+            else if (e.KeyCode == Keys.Space)
             {
-                _isKeySpase = true;
-                txtFilter.Text = "";
-                SetCheckBoxColumn();
+                if ((txtFilter.Text.Trim() == "" && _isSearch) || (dgvList.Rows.Count == 1))
+                {
+                    _isKeySpase = true;
+                    txtFilter.Text = "";
+                    SetCheckBoxColumn();
+                }
             }
             else if (dgvList.Rows.Count > 0)
             {
@@ -252,7 +250,7 @@ namespace ReportSarfasl
             foreach (DataGridViewRow row in dgvList.Rows)
             {
                 var search = (int)row.Cells["rdf"].Value;
-                if (listSelectes.Find(i => i == search) == search)
+                if (listSelected.Find(i => i == search) == search)
                 {
                     row.Cells["select"].Value = true;
                     row.DefaultCellStyle.BackColor = Color.PaleTurquoise;
@@ -265,10 +263,21 @@ namespace ReportSarfasl
             }
         }
         #endregion
-        
+
+        #endregion
+
+        #region Event Handler
+
+       
+
         #endregion
 
         #region Method
+
+        public void GetData()
+        {
+
+        }
 
         public void SetGrid()
         {
@@ -305,17 +314,17 @@ namespace ReportSarfasl
         {
             if (isAdded)
             {
-                listSelectes.Add((int)dgvList.Rows[rowData].Cells["rdf"].Value);
+                listSelected.Add((int)dgvList.Rows[rowData].Cells["rdf"].Value);
                 lblTextSelected.Text += dgvList.Rows[rowData].Cells["name"].Value + " , ";
             }
             else
             {
 
-                listSelectes.RemoveAll(i => i == (int)dgvList.Rows[rowData].Cells["rdf"].Value);
+                listSelected.RemoveAll(i => i == (int)dgvList.Rows[rowData].Cells["rdf"].Value);
                 lblTextSelected.Text.Replace(dgvList.Rows[rowData].Cells["name"].Value + " , ", "");
             }
         }
-
+        
         private void search()
         {
             var filter = txtFilter.Text.Trim();
