@@ -13,7 +13,7 @@ namespace ReportSarfasl.Services
         public int SarfaslID { get; set; }
         public string Name { get; set; }
         public string has_dar { get; set; }
-        public decimal man { get; set; }
+        public decimal Man { get; set; }
         public Nullable<bool> Active { get; set; }
     }
 }

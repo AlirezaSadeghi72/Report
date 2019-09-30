@@ -92,12 +92,21 @@
     <Compile Include="Forms\frmReportSarfasls.Designer.cs">
       <DependentUpon>frmReportSarfasls.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmReportZirSarfasl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmReportZirSarfasl.Designer.cs">
+      <DependentUpon>frmReportZirSarfasl.cs</DependentUpon>
+    </Compile>
     <Compile Include="ListSafaslaOrZirSarfasls.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="reportSarfasl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportZirSarfasl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Services\ActZirSarfaslService.cs" />
@@ -108,6 +117,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmReportSarfasls.resx">
       <DependentUpon>frmReportSarfasls.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmReportZirSarfasl.resx">
+      <DependentUpon>frmReportZirSarfasl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListSafaslaOrZirSarfasls.resx">
       <DependentUpon>ListSafaslaOrZirSarfasls.cs</DependentUpon>
@@ -123,6 +135,9 @@
     </Compile>
     <EmbeddedResource Include="reportSarfasl.resx">
       <DependentUpon>reportSarfasl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportZirSarfasl.resx">
+      <DependentUpon>ReportZirSarfasl.cs</DependentUpon>
     </EmbeddedResource>
     <EntityDeploy Include="dataLayer\DbAteran2Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

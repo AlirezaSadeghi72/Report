@@ -15,7 +15,7 @@ namespace ReportSarfasl
     {
         public List<int> ListSar = new List<int>(), ListZirSar = new List<int>();
         private List<SarfaslService> dt;
-        private bool _isSearch = false, _isKeySpase = false;
+        private bool _isKeySpase = false;
         private Button btnPrint;
         private DataGridView dgvSarfasl;
         private Panel pnlFooter;
@@ -213,7 +213,7 @@ namespace ReportSarfasl
         #region Event Control Data Grid View
         private void dgvSarfasl_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter && OpenFormZirSarfasl != null)
                 _openZirSarfasl(sender, e);
         }
         private void dgvSarfasl_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -226,16 +226,17 @@ namespace ReportSarfasl
         {
             if (e.KeyCode == Keys.Escape)
             {
-                _isSearch = false;
                 txtFilter.Text = "";
+            }
+            else if (e.KeyCode == Keys.Enter && OpenFormZirSarfasl != null)
+            {
+                _openZirSarfasl(sender, e);
             }
             else if (dgvSarfasl.Rows.Count > 0)
             {
                 int rowIndexSelected = dgvSarfasl.SelectedRows[0].Index;
                 if (e.KeyCode == Keys.Up)
                 {
-                    _isSearch = true;
-                    txtFilter.Text = "";
                     if (rowIndexSelected > 0)
                     {
                         dgvSarfasl.Rows[rowIndexSelected - 1].Cells["select"].Selected = true;
@@ -243,29 +244,28 @@ namespace ReportSarfasl
                 }
                 else if (e.KeyCode == Keys.Down)
                 {
-                    _isSearch = true;
-                    txtFilter.Text = "";
                     if (rowIndexSelected < dgvSarfasl.RowCount - 1)
                     {
                         dgvSarfasl.Rows[rowIndexSelected + 1].Cells["select"].Selected = true;
                     }
                 }
             }
-            else if (e.KeyCode == Keys.Enter)
-            {
-                _openZirSarfasl(sender, e);
-            }
-
         }
         private void txtFilter_TextChanged(object sender, EventArgs e)
         {
             search();
         }
 
+        private void txtSarfasl_TextChanged(object sender, EventArgs e)
+        {
+            txtZirSarfasl.Text = "";
+            ListZirSar.Clear();
+        }
+
         private void btnShow_Click(object sender, EventArgs e)
         {
             //اتصال و اوردن اطلاعات
-            dgvSarfasl.DataSource = dt = conection.GetViewSarfaslses(ListSar, ListZirSar);
+            dgvSarfasl.DataSource = dt = conection.GetSarfaslseServis(ListSar, ListZirSar);
 
             SetGrid();
         }
@@ -331,19 +331,13 @@ namespace ReportSarfasl
         }
 
         public event EventHandler OpenFormZirSarfasl;
-        protected void _openZirSarfasl(object sender, KeyEventArgs e)
+        private void _openZirSarfasl(object sender, KeyEventArgs e)
         {
             if (dgvSarfasl.SelectedRows.Count > 0)
             {
                 this.OpenFormZirSarfasl(this, e);
                 //باز کردن زیر سرفصل های سرفصل انتخابی داخل گرید
             }
-        }
-
-        private void txtSarfasl_TextChanged(object sender, EventArgs e)
-        {
-            txtZirSarfasl.Text = "";
-            ListZirSar.Clear();
         }
 
         #endregion
@@ -373,13 +367,12 @@ namespace ReportSarfasl
             if (dt != null)
             {
                 var filter = txtFilter.Text.Trim();
-                if (filter == "" && !_isSearch)
+                if (filter == "")
                 {
                     dgvSarfasl.DataSource = dt;
                 }
                 else if (filter != "")
                 {
-                    _isSearch = false;
                     dgvSarfasl.DataSource = dt.Where(c => c.Name.Contains(filter)).ToList();
                 }
             }

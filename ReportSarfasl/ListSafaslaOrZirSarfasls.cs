@@ -158,25 +158,28 @@ namespace ReportSarfasl
         {
             // _choise == 1  -->  Sarfasl
             // _choise == 2  -->  Zir Sarfasl
+            if (!DesignMode)
+            {
+                if (Choise == 1)
+                {
+                    //اتصال
+                    dgvList.DataSource = dt = conection.GetSarfaslses();
+                }
+                else if (Choise == 2)
+                {
+                    //اتصال
+                    if (!listSarfsl.Any())
+                    {
+                        dgvList.DataSource = dt = conection.GetZirSarfasls();
+                    }
+                    else
+                    {
+                        dgvList.DataSource = dt = conection.GetZirSarfasls(z => listSarfsl.Contains(z.rdf_sarfasl));
+                    }
+                }
 
-            if (Choise == 1)
-            {
-                //اتصال
-                dgvList.DataSource = dt = conection.GetSarfaslses();
+                SetGrid();
             }
-            else if (Choise == 2)
-            {
-                //اتصال
-                if (!listSarfsl.Any())
-                {
-                    dgvList.DataSource = dt = conection.GetZirSarfasls();
-                }
-                else
-                {
-                    dgvList.DataSource = dt = conection.GetZirSarfasls(z => listSarfsl.Contains(z.rdf_sarfasl));
-                }
-            }
-            SetGrid();
         }
         #region Event Controls
 

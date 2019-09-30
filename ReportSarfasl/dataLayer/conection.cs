@@ -11,7 +11,7 @@ using ReportSarfasl.Services;
 
 namespace ReportSarfasl.dataLayer
 {
-    public class conection
+    public static class conection
     {
         #region private
 
@@ -43,6 +43,7 @@ namespace ReportSarfasl.dataLayer
             {
                 result = result.Where(where);
             }
+
             int Row = 1;
             return result.ToList().Select(z => new ZirSarfaslService()
             {
@@ -109,7 +110,7 @@ namespace ReportSarfasl.dataLayer
             }
         }
 
-        public static List<SarfaslService> GetViewSarfaslses(List<int> sarfaslID, List<int> zirsarfaslID)
+        public static List<SarfaslService> GetSarfaslseServis(List<int> sarfaslID, List<int> zirsarfaslID)
         {
 
             using (var context = new DbAtiran2Entities())
@@ -117,8 +118,8 @@ namespace ReportSarfasl.dataLayer
                 var result = context.act_zirsarfasls.AsNoTracking().Join(context.zirsarfasls.AsNoTracking(),
                     a => a.rdf_zirsarfasls,
                     z => z.rdf,
-                    (a, z) => new { a, z }).Join(context.sarfasls.AsNoTracking(), az => az.z.rdf_sarfasl, s => s.rdf,
-                    (az, s) => new { az, s });
+                    (a, z) => new {a, z}).Join(context.sarfasls.AsNoTracking(), az => az.z.rdf_sarfasl, s => s.rdf,
+                    (az, s) => new {az, s});
 
                 if (zirsarfaslID.Any())
                 {
@@ -137,7 +138,7 @@ namespace ReportSarfasl.dataLayer
                 //    man = g.Sum(r1 => r1.az.a.bed - r1.az.a.bes)
                 //    }).ToList();
                 int Row = 1;
-                var result1 = result.GroupBy(r2 => new { r2.s }).ToList().Select(
+                var result1 = result.GroupBy(r2 => new {r2.s}).ToList().Select(
                     g => new SarfaslService()
                     {
                         row = Row++,
@@ -176,6 +177,59 @@ namespace ReportSarfasl.dataLayer
             //}).ToList();
         }
 
+        public static List<ZirSarfaslService> GetZirSarfaslServices(List<int> zirsarfaslID)
+        {
+            using (var context = new DbAtiran2Entities())
+            {
+                var result = context.act_zirsarfasls.AsNoTracking().Join(context.zirsarfasls.AsNoTracking(),
+                    a => a.rdf_zirsarfasls,
+                    z => z.rdf,
+                    (a, z) => new {a, z});
+
+                if (zirsarfaslID.Any())
+                {
+                    result = result.Where(t => zirsarfaslID.Contains(t.z.rdf));
+                }
+
+                int Row = 1;
+                var result1 = result.GroupBy(r2 => new { r2.z }).ToList().Select(
+                    g => new ZirSarfaslService()
+                    {
+                        row = Row++,
+                        ID = g.Key.z.rdf,
+                        Name = g.Key.z.name,
+                        SarfaslID = g.Key.z.rdf_sarfasl,
+                        Active = g.Key.z.Active,
+                        has_dar = g.Key.z.has_dar,
+                        Man = g.Sum(r1 => r1.a.bed - r1.a.bes)
+                    }).ToList();
+                if (zirsarfaslID.Count > result1.Count)
+                {
+                    var ZirSarfasls = context.zirsarfasls.AsNoTracking().ToList();
+
+                    foreach (int id in zirsarfaslID)
+                    {
+                        if (!result1.Any(r => r.ID == id))
+                        {
+                            var ZirSafasl = ZirSarfasls.First(z => z.rdf == id);
+                            result1.Add(new ZirSarfaslService()
+                            {
+                                row = result1.Count + 1,
+                                ID = ZirSafasl.rdf,
+                                Name = ZirSafasl.name,
+                                SarfaslID = ZirSafasl.rdf_sarfasl,
+                                Active = ZirSafasl.Active,
+                                has_dar = ZirSafasl.has_dar,
+                                Man = decimal.Parse("0.0000")
+                            });
+                        }
+                    }
+                }
+
+                return result1;
+            }
+        }
+       
         //public static decimal manSarfasls(int sarfaslID)
         //{
         //    using (var context = new DbAtiran2Entities())
@@ -195,6 +249,7 @@ namespace ReportSarfasl.dataLayer
         //        return azs.Any() ? azs.Sum(a => a.bed - a.bes) : 0;
         //    }
         //}
+
         #endregion
 
         //public static IEnumerable<T> get<T>(Expression<Func<T, bool>> where = null) where T : class
