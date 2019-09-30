@@ -17,7 +17,6 @@ namespace ReportSarfasl.Services
         public string bed_bes { get; set; }
         public string description { get; set; }
         public string user { get; set; }
-        public decimal man { get; set; }
         public Nullable<int> kind { get; set; }
         public Nullable<int> sanadno { get; set; }
 
