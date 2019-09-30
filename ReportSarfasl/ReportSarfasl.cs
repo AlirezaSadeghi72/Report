@@ -366,13 +366,13 @@ namespace ReportSarfasl
             dgvSarfasl.Columns["Select"].Visible = true;
             dgvSarfasl.Columns["row"].Visible = true;
 
-            dgvSarfasl.Columns["name"].Visible = true;
-            dgvSarfasl.Columns["name"].HeaderText = "نام";
-            dgvSarfasl.Columns["name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvSarfasl.Columns["Name"].Visible = true;
+            dgvSarfasl.Columns["Name"].HeaderText = "نام";
+            dgvSarfasl.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
-            dgvSarfasl.Columns["man"].Visible = true;
-            dgvSarfasl.Columns["man"].HeaderText = "اعتبار";
-            dgvSarfasl.Columns["man"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvSarfasl.Columns["Man"].Visible = true;
+            dgvSarfasl.Columns["Man"].HeaderText = "مانده";
+            dgvSarfasl.Columns["Man"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
         }
 

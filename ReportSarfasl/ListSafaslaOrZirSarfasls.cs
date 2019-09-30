@@ -301,9 +301,9 @@ namespace ReportSarfasl
             foreach (DataGridViewColumn col in dgvList.Columns) col.Visible = false;
             foreach (DataGridViewRow row in dgvList.Rows) row.Cells["row"].Value = row.Index + 1;
 
-            dgvList.Columns["name"].Visible = true;
-            dgvList.Columns["name"].HeaderText = "نام";
-            dgvList.Columns["name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvList.Columns["Name"].Visible = true;
+            dgvList.Columns["Name"].HeaderText = "نام";
+            dgvList.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             dgvList.Columns["row"].Visible = true;
 
