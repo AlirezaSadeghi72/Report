@@ -12,6 +12,7 @@ namespace ReportSarfasl
     public class ReportZirSarfasl : UserControl
     {
         public List<int> ListZirSar = new List<int>();
+        public int SarfaslID;
         private List<ZirSarfaslService> dt;
         private bool _isSearch = false, _isKeySpase = false;
         private Panel pnlMain;
@@ -187,7 +188,10 @@ namespace ReportSarfasl
         {
             if (!this.DesignMode)
             {
-                dgvZirSarfal.DataSource = dt = conection.GetZirSarfaslServices(ListZirSar);
+                dgvZirSarfal.DataSource = dt = conection.GetZirSarfaslServices(ListZirSar, SarfaslID);
+
+                lblNumber.Text = dt.Count.ToString();
+                lblSumMan.Text = dt.Sum(d => d.Man).ToString();
 
                 SetGrid();
             }
@@ -256,7 +260,7 @@ namespace ReportSarfasl
         public event EventHandler OpenFormActZirSarfasl;
         private void _openActZirSarfasl(object sender, KeyEventArgs e)
         {
-            if (dgvZirSarfal.SelectedRows.Count > 0)
+            if (dgvZirSarfal.SelectedRows.Count > 0 && OpenFormActZirSarfasl !=null)
             {
                 this.OpenFormActZirSarfasl(this, e);
                 //باز کردن زیر سرفصل های سرفصل انتخابی داخل گرید
@@ -268,7 +272,7 @@ namespace ReportSarfasl
         {
             if (ButtenCancelClick != null)
             {
-                this.OpenFormActZirSarfasl(sender, e);
+                this.ButtenCancelClick(sender, e);
                 //بستن فرم
             }
         }
@@ -279,7 +283,7 @@ namespace ReportSarfasl
 
         #region Method
 
-        public void SetGrid()
+        private void SetGrid()
         {
             foreach (DataGridViewColumn col in dgvZirSarfal.Columns) col.Visible = false;
             //foreach (DataGridViewRow row in dgvSarfasl.Rows) row.Cells["row"].Value = row.Index + 1;

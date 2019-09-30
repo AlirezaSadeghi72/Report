@@ -14,6 +14,7 @@ namespace ReportSarfasl
     public class reportSarfasl : UserControl
     {
         public List<int> ListSar = new List<int>(), ListZirSar = new List<int>();
+        public int SarfaslIdSelected;
         private List<SarfaslService> dt;
         private bool _isKeySpase = false;
         private Button btnPrint;
@@ -27,6 +28,7 @@ namespace ReportSarfasl
         private Label lblZirSarfasl;
         public TextBox txtSarfasl;
         private Label lblSarfasls;
+        private Button btnCancel;
         private TextBox txtFilter;
 
         public reportSarfasl()
@@ -48,6 +50,7 @@ namespace ReportSarfasl
             this.txtFilter = new System.Windows.Forms.TextBox();
             this.pnlFooter = new System.Windows.Forms.Panel();
             this.btnPrint = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.pnlHeader.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -171,6 +174,7 @@ namespace ReportSarfasl
             // 
             // pnlFooter
             // 
+            this.pnlFooter.Controls.Add(this.btnCancel);
             this.pnlFooter.Controls.Add(this.btnPrint);
             this.pnlFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlFooter.Location = new System.Drawing.Point(0, 485);
@@ -180,13 +184,23 @@ namespace ReportSarfasl
             // 
             // btnPrint
             // 
-            this.btnPrint.Location = new System.Drawing.Point(42, 9);
+            this.btnPrint.Location = new System.Drawing.Point(103, 10);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(75, 23);
             this.btnPrint.TabIndex = 0;
             this.btnPrint.Text = "چاپ";
             this.btnPrint.UseVisualStyleBackColor = true;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(22, 10);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 1;
+            this.btnCancel.Text = "انصراف";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // reportSarfasl
             // 
@@ -214,7 +228,13 @@ namespace ReportSarfasl
         private void dgvSarfasl_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter && OpenFormZirSarfasl != null)
-                _openZirSarfasl(sender, e);
+            {
+                if (dgvSarfasl.SelectedRows.Count > 0 && dgvSarfasl.SelectedRows[0].Index > 0)
+                {
+                    SarfaslIdSelected = (int)dgvSarfasl.SelectedRows[0].Cells["ID"].Value;
+                    _openZirSarfasl(sender, e);
+                }
+            }
         }
         private void dgvSarfasl_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -230,7 +250,11 @@ namespace ReportSarfasl
             }
             else if (e.KeyCode == Keys.Enter && OpenFormZirSarfasl != null)
             {
-                _openZirSarfasl(sender, e);
+                if (dgvSarfasl.SelectedRows.Count > 0 && dgvSarfasl.SelectedRows[0].Index > 0)
+                {
+                    SarfaslIdSelected = (int)dgvSarfasl.SelectedRows[0].Cells["ID"].Value;
+                    _openZirSarfasl(sender, e);
+                }
             }
             else if (dgvSarfasl.Rows.Count > 0)
             {
@@ -333,13 +357,22 @@ namespace ReportSarfasl
         public event EventHandler OpenFormZirSarfasl;
         private void _openZirSarfasl(object sender, KeyEventArgs e)
         {
-            if (dgvSarfasl.SelectedRows.Count > 0)
+            if (dgvSarfasl.SelectedRows.Count > 0 && OpenFormZirSarfasl != null)
             {
                 this.OpenFormZirSarfasl(this, e);
                 //باز کردن زیر سرفصل های سرفصل انتخابی داخل گرید
             }
         }
 
+        public event EventHandler ButtenCancelClick;
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            if (ButtenCancelClick != null)
+            {
+                this.ButtenCancelClick(sender, e);
+                //بستن فرم
+            }
+        }
         #endregion
 
         #region Method

@@ -35,7 +35,13 @@ namespace ReportSarfasl.Forms
 
         private void reportSarfasl1_OpenFormZirSarfasl(object sender, EventArgs e)
         {
+            Form reportZirsarfasl = new frmReportZirSarfasl(reportSarfasl1.ListSar ,reportSarfasl1.SarfaslIdSelected);
+            reportZirsarfasl.ShowDialog();
+        }
 
+        private void reportSarfasl1_ButtenCancelClick(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -12,9 +12,16 @@ namespace ReportSarfasl.Forms
 {
     public partial class frmReportZirSarfasl : Form
     {
-        public frmReportZirSarfasl()
+        public frmReportZirSarfasl(List<int> ListZirSar,int sarfaslID)
         {
             InitializeComponent();
+            reportZirSarfasl1.ListZirSar = ListZirSar;
+            reportZirSarfasl1.SarfaslID = sarfaslID;
+        }
+
+        private void reportZirSarfasl1_ButtenCancelClick(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private void reportZirSarfasl1_OpenFormActZirSarfasl(object sender, EventArgs e)

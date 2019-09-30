@@ -110,7 +110,7 @@ namespace ReportSarfasl.dataLayer
             }
         }
 
-        public static List<SarfaslService> GetSarfaslseServis(List<int> sarfaslID, List<int> zirsarfaslID)
+        public static List<SarfaslService> GetSarfaslseServis(List<int> listSarfaslID, List<int> listZirsarfaslID)
         {
 
             using (var context = new DbAtiran2Entities())
@@ -118,17 +118,17 @@ namespace ReportSarfasl.dataLayer
                 var result = context.act_zirsarfasls.AsNoTracking().Join(context.zirsarfasls.AsNoTracking(),
                     a => a.rdf_zirsarfasls,
                     z => z.rdf,
-                    (a, z) => new {a, z}).Join(context.sarfasls.AsNoTracking(), az => az.z.rdf_sarfasl, s => s.rdf,
-                    (az, s) => new {az, s});
+                    (a, z) => new { a, z }).Join(context.sarfasls.AsNoTracking(), az => az.z.rdf_sarfasl, s => s.rdf,
+                    (az, s) => new { az, s });
 
-                if (zirsarfaslID.Any())
+                if (listZirsarfaslID.Any())
                 {
-                    result = result.Where(t => zirsarfaslID.Contains(t.az.z.rdf));
+                    result = result.Where(t => listZirsarfaslID.Contains(t.az.z.rdf));
                 }
 
-                if (sarfaslID.Any())
+                if (listSarfaslID.Any())
                 {
-                    result = result.Where(t => sarfaslID.Contains(t.s.rdf));
+                    result = result.Where(t => listSarfaslID.Contains(t.s.rdf));
                 }
 
                 //var ali = result.GroupBy(r2 => r2.s.rdf).Select(
@@ -138,7 +138,7 @@ namespace ReportSarfasl.dataLayer
                 //    man = g.Sum(r1 => r1.az.a.bed - r1.az.a.bes)
                 //    }).ToList();
                 int Row = 1;
-                var result1 = result.GroupBy(r2 => new {r2.s}).ToList().Select(
+                var result1 = result.GroupBy(r2 => new { r2.s }).ToList().Select(
                     g => new SarfaslService()
                     {
                         row = Row++,
@@ -147,11 +147,11 @@ namespace ReportSarfasl.dataLayer
                         GroupSarfaslID = g.Key.s.GroupSarfaslID,
                         Man = g.Sum(r1 => r1.az.a.bed - r1.az.a.bes)
                     }).ToList();
-                if (sarfaslID.Count > result1.Count)
+                if (listSarfaslID.Count > result1.Count)
                 {
                     var Sarfasls = context.sarfasls.AsNoTracking().ToList();
 
-                    foreach (int id in sarfaslID)
+                    foreach (int id in listSarfaslID)
                     {
                         if (!result1.Any(r => r.ID == id))
                         {
@@ -177,19 +177,20 @@ namespace ReportSarfasl.dataLayer
             //}).ToList();
         }
 
-        public static List<ZirSarfaslService> GetZirSarfaslServices(List<int> zirsarfaslID)
+        public static List<ZirSarfaslService> GetZirSarfaslServices(List<int> listZirsarfaslID, int sarfaslID)
         {
             using (var context = new DbAtiran2Entities())
             {
                 var result = context.act_zirsarfasls.AsNoTracking().Join(context.zirsarfasls.AsNoTracking(),
                     a => a.rdf_zirsarfasls,
                     z => z.rdf,
-                    (a, z) => new {a, z});
+                    (a, z) => new { a, z }).Where(az => az.z.rdf_sarfasl == sarfaslID);
 
-                if (zirsarfaslID.Any())
+                if (listZirsarfaslID.Any())
                 {
-                    result = result.Where(t => zirsarfaslID.Contains(t.z.rdf));
+                    result = result.Where(t => listZirsarfaslID.Contains(t.z.rdf));
                 }
+
 
                 int Row = 1;
                 var result1 = result.GroupBy(r2 => new { r2.z }).ToList().Select(
@@ -203,11 +204,17 @@ namespace ReportSarfasl.dataLayer
                         has_dar = g.Key.z.has_dar,
                         Man = g.Sum(r1 => r1.a.bed - r1.a.bes)
                     }).ToList();
-                if (zirsarfaslID.Count > result1.Count)
+
+                if (!listZirsarfaslID.Any())
+                {
+                    listZirsarfaslID = context.zirsarfasls.AsNoTracking().Where(z=>z.rdf_sarfasl==sarfaslID).Select(z=>z.rdf).ToList();
+                }
+
+                if (listZirsarfaslID.Count > result1.Count)
                 {
                     var ZirSarfasls = context.zirsarfasls.AsNoTracking().ToList();
 
-                    foreach (int id in zirsarfaslID)
+                    foreach (int id in listZirsarfaslID)
                     {
                         if (!result1.Any(r => r.ID == id))
                         {
@@ -229,7 +236,7 @@ namespace ReportSarfasl.dataLayer
                 return result1;
             }
         }
-       
+
         //public static decimal manSarfasls(int sarfaslID)
         //{
         //    using (var context = new DbAtiran2Entities())

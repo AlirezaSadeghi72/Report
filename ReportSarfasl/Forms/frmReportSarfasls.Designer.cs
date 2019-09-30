@@ -34,6 +34,7 @@
             // reportSarfasl1
             // 
             this.reportSarfasl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.reportSarfasl1.Font = new System.Drawing.Font("IRANSans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.reportSarfasl1.Location = new System.Drawing.Point(0, 0);
             this.reportSarfasl1.Name = "reportSarfasl1";
             this.reportSarfasl1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -42,6 +43,7 @@
             this.reportSarfasl1.txtSarfasl_KeyDownEnter += new System.EventHandler(this.reportSarfasl1_txtSarfasl_KeyDownEnter);
             this.reportSarfasl1.txtZirSarfasl_KeyDownEnter += new System.EventHandler(this.reportSarfasl1_txtZirSarfasl_KeyDownEnter);
             this.reportSarfasl1.OpenFormZirSarfasl += new System.EventHandler(this.reportSarfasl1_OpenFormZirSarfasl);
+            this.reportSarfasl1.ButtenCancelClick += new System.EventHandler(this.reportSarfasl1_ButtenCancelClick);
             // 
             // frmReportSarfasls
             // 
