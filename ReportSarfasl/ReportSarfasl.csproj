@@ -100,7 +100,9 @@
     <Compile Include="reportSarfasl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SarfaslService.cs" />
+    <Compile Include="Services\ActZirSarfaslService.cs" />
+    <Compile Include="Services\SarfaslService.cs" />
+    <Compile Include="Services\ZirSarfaslService.cs" />
     <EmbeddedResource Include="Forms\frmListSarfaslOrZirSarfasl.resx">
       <DependentUpon>frmListSarfaslOrZirSarfasl.cs</DependentUpon>
     </EmbeddedResource>
