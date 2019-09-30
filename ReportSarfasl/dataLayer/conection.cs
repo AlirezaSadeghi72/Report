@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Cryptography.Pkcs;
 using System.Text;
 using System.Threading.Tasks;
 using ReportSarfasl.Services;
@@ -12,7 +14,9 @@ namespace ReportSarfasl.dataLayer
     public class conection
     {
         #region private
-        private static List<SarfaslService> _getSarfaslses(DbAtiran2Entities context, Expression<Func<sarfasls, bool>> where = null)
+
+        private static List<SarfaslService> _getSarfaslses(DbAtiran2Entities context,
+            Expression<Func<sarfasls, bool>> where = null)
         {
             IQueryable<sarfasls> result = context.Set<sarfasls>().AsNoTracking();
             if (where != null)
@@ -20,46 +24,39 @@ namespace ReportSarfasl.dataLayer
                 result = result.Where(where);
             }
 
-            return result.Select(s => new SarfaslService()
+            int Row = 1;
+            return result.ToList().Select(s => new SarfaslService()
             {
+                row = Row++,
                 ID = s.rdf,
                 GroupSarfaslID = s.GroupSarfaslID,
-                Name = s.name,
-                ZirSarfasls = s.zirsarfasls.Select(z => new ZirSarfaslService()
-                {
-                    ID = z.rdf,
-                    SarfaslID = z.rdf_sarfasl,
-                    Name = z.name,
-                    has_dar = z.has_dar,
-                    Active = z.Active
-                }).ToList()
+                Name = s.name
             }).ToList();
 
         }
-        private static List<ZirSarfaslService> _getZirSarfasls(DbAtiran2Entities context, Expression<Func<zirsarfasls, bool>> where = null)
+
+        private static List<ZirSarfaslService> _getZirSarfasls(DbAtiran2Entities context,
+            Expression<Func<zirsarfasls, bool>> where = null)
         {
             IQueryable<zirsarfasls> result = context.Set<zirsarfasls>().AsNoTracking();
             if (where != null)
             {
                 result = result.Where(where);
             }
-
-            return result.Select(z => new ZirSarfaslService()
+            int Row = 1;
+            return result.ToList().Select(z => new ZirSarfaslService()
             {
+                row = Row++,
                 ID = z.rdf,
                 SarfaslID = z.rdf_sarfasl,
                 Name = z.name,
                 has_dar = z.has_dar,
-                Active = z.Active,
-                sarfasls = new SarfaslService()
-                {
-                    ID = z.sarfasls.rdf,
-                    GroupSarfaslID = z.sarfasls.GroupSarfaslID,
-                    Name = z.sarfasls.name
-                }
+                Active = z.Active
             }).ToList();
         }
-        private static List<ActZirSarfaslService> _getActZirSarfasls(DbAtiran2Entities context, Expression<Func<act_zirsarfasls, bool>> where = null)
+
+        private static List<ActZirSarfaslService> _getActZirSarfasls(DbAtiran2Entities context,
+            Expression<Func<act_zirsarfasls, bool>> where = null)
         {
             IQueryable<act_zirsarfasls> result = context.Set<act_zirsarfasls>().AsNoTracking();
             if (where != null)
@@ -67,8 +64,10 @@ namespace ReportSarfasl.dataLayer
                 result = result.Where(where);
             }
 
-            return result.Select(a => new ActZirSarfaslService()
+            int Row = 1;
+            return result.ToList().Select(a => new ActZirSarfaslService()
             {
+                row = Row++,
                 ID = a.rdf,
                 ZirSarfaslID = a.rdf_zirsarfasls,
                 date = a.date,
@@ -77,27 +76,15 @@ namespace ReportSarfasl.dataLayer
                 bed_bes = a.bed_bes,
                 description = a.dis,
                 kind = a.kind,
-                sanadno = a.sanadno,
-                zirsarfasls = new ZirSarfaslService()
-                {
-                    ID = a.zirsarfasls.rdf,
-                    SarfaslID = a.zirsarfasls.rdf_sarfasl,
-                    Name = a.zirsarfasls.name,
-                    has_dar = a.zirsarfasls.has_dar,
-                    Active = a.zirsarfasls.Active,
-                    sarfasls = new SarfaslService()
-                    {
-                        ID = a.zirsarfasls.sarfasls.rdf,
-                        GroupSarfaslID = a.zirsarfasls.sarfasls.GroupSarfaslID,
-                        Name = a.zirsarfasls.sarfasls.name
-                    }
-                }
+                sanadno = a.sanadno
             }).ToList();
 
         }
+
         #endregion
 
         #region public
+
         public static List<SarfaslService> GetSarfaslses(Expression<Func<sarfasls, bool>> where = null)
         {
             using (var context = new DbAtiran2Entities())
@@ -105,6 +92,7 @@ namespace ReportSarfasl.dataLayer
                 return _getSarfaslses(context, where);
             }
         }
+
         public static List<ZirSarfaslService> GetZirSarfasls(Expression<Func<zirsarfasls, bool>> where = null)
         {
             using (var context = new DbAtiran2Entities())
@@ -112,6 +100,7 @@ namespace ReportSarfasl.dataLayer
                 return _getZirSarfasls(context, where);
             }
         }
+
         public static List<ActZirSarfaslService> GetActZirSarfasls(Expression<Func<act_zirsarfasls, bool>> where = null)
         {
             using (var context = new DbAtiran2Entities())
@@ -122,85 +111,104 @@ namespace ReportSarfasl.dataLayer
 
         public static List<SarfaslService> GetViewSarfaslses(List<int> sarfaslID, List<int> zirsarfaslID)
         {
-            IQueryable<SarfaslService> result;
 
             using (var context = new DbAtiran2Entities())
             {
-                //AsNoTracking()
-                IQueryable<zirsarfasls> result_z = context.zirsarfasls.AsNoTracking();
-                IQueryable<sarfasls> result_s = context.sarfasls.AsNoTracking();
-                if (zirsarfaslID.Count > 0)
+                var result = context.act_zirsarfasls.AsNoTracking().Join(context.zirsarfasls.AsNoTracking(),
+                    a => a.rdf_zirsarfasls,
+                    z => z.rdf,
+                    (a, z) => new { a, z }).Join(context.sarfasls.AsNoTracking(), az => az.z.rdf_sarfasl, s => s.rdf,
+                    (az, s) => new { az, s });
+
+                if (zirsarfaslID.Any())
                 {
-                    result_z = context.zirsarfasls.Where(z => zirsarfaslID.Contains(z.rdf));
-                    //result_z = context.zirsarfasls.Where(z => zirsarfaslID.Any(a=>z.rdf_sarfasl==a));
-                }
-                else
-                {
-                    result_z = context.zirsarfasls;
+                    result = result.Where(t => zirsarfaslID.Contains(t.az.z.rdf));
                 }
 
                 if (sarfaslID.Any())
                 {
-                    result_s = context.sarfasls.Where(s => sarfaslID.Contains(s.rdf));
-                }
-                else
-                {
-                    result_s = context.sarfasls;
+                    result = result.Where(t => sarfaslID.Contains(t.s.rdf));
                 }
 
-                result = context.act_zirsarfasls.Join(result_z.ToList(), a => a.rdf_zirsarfasls, z => z.rdf,
-                        (a, z) => new { a, z })
-                    .Join(result_s.ToList(), az => az.z.rdf_sarfasl, s => s.rdf, (az, s) => new { az, s }).GroupBy(r2 => r2.s.rdf).Select(
-                        r =>
-                            new SarfaslService()
+                //var ali = result.GroupBy(r2 => r2.s.rdf).Select(
+                //    g => new
+                //{
+                //    sarfasl = g.Select(r=>r.s),
+                //    man = g.Sum(r1 => r1.az.a.bed - r1.az.a.bes)
+                //    }).ToList();
+                int Row = 1;
+                var result1 = result.GroupBy(r2 => new { r2.s }).ToList().Select(
+                    g => new SarfaslService()
+                    {
+                        row = Row++,
+                        ID = g.Key.s.rdf,
+                        Name = g.Key.s.name,
+                        GroupSarfaslID = g.Key.s.GroupSarfaslID,
+                        Man = g.Sum(r1 => r1.az.a.bed - r1.az.a.bes)
+                    }).ToList();
+                if (sarfaslID.Count > result1.Count)
+                {
+                    var Sarfasls = context.sarfasls.AsNoTracking().ToList();
+
+                    foreach (int id in sarfaslID)
+                    {
+                        if (!result1.Any(r => r.ID == id))
+                        {
+                            var Safasl = Sarfasls.First(s => s.rdf == id);
+                            result1.Add(new SarfaslService()
                             {
-                                ID = r.Key,
-                                Name = r.Select(r1 => r1.s.name).First(),
-                                GroupSarfaslID = r.Select(r1 => r1.s.GroupSarfaslID).First(),
-                                Man = r.Sum(r1 => r1.az.a.bed - r1.az.a.bes)
+                                row = result1.Count + 1,
+                                ID = Safasl.rdf,
+                                Name = Safasl.name,
+                                GroupSarfaslID = Safasl.GroupSarfaslID,
+                                Man = decimal.Parse("0.0000")
                             });
+                        }
+                    }
+                }
+
+                return result1;
             }
 
             //return (from read in result select new SarfaslService
             //{
             //    GroupSarfaslID = read.GroupSarfaslID
             //}).ToList();
-            return result.ToList();
         }
 
-        public static decimal manSarfasls(int sarfaslID)
-        {
-            using (var context = new DbAtiran2Entities())
-            {
-                List<ZirSarfaslService> zs = _getZirSarfasls(context, z => z.rdf_sarfasl == sarfaslID);
-                List<ActZirSarfaslService> azs = _getActZirSarfasls(context,
-                    a => zs.Select(z => z.ID).ToList().Contains(a.rdf_zirsarfasls));
-                return azs.Any() ? azs.Sum(a => a.bed - a.bes) : 0;
-            }
-        }
+        //public static decimal manSarfasls(int sarfaslID)
+        //{
+        //    using (var context = new DbAtiran2Entities())
+        //    {
+        //        List<ZirSarfaslService> zs = _getZirSarfasls(context, z => z.rdf_sarfasl == sarfaslID);
+        //        List<ActZirSarfaslService> azs = _getActZirSarfasls(context,
+        //            a => zs.Select(z => z.ID).ToList().Contains(a.rdf_zirsarfasls));
+        //        return azs.Any() ? azs.Sum(a => a.bed - a.bes) : 0;
+        //    }
+        //}
 
-        public static decimal manZirSarfasls(int zirSarfaslID)
-        {
-            using (var context = new DbAtiran2Entities())
-            {
-                List<ActZirSarfaslService> azs = _getActZirSarfasls(context, a => a.rdf_zirsarfasls == zirSarfaslID);
-                return azs.Any() ? azs.Sum(a => a.bed - a.bes) : 0;
-            }
-        }
+        //public static decimal manZirSarfasls(int zirSarfaslID)
+        //{
+        //    using (var context = new DbAtiran2Entities())
+        //    {
+        //        List<ActZirSarfaslService> azs = _getActZirSarfasls(context, a => a.rdf_zirsarfasls == zirSarfaslID);
+        //        return azs.Any() ? azs.Sum(a => a.bed - a.bes) : 0;
+        //    }
+        //}
         #endregion
 
-        public static IEnumerable<T> get<T>(Expression<Func<T, bool>> where = null) where T : class
-        {
-            using (var context = new DbAtiran2Entities())
-            {
-                IQueryable<T> result = context.Set<T>().AsNoTracking();
-                if (where != null)
-                {
-                    result = result.Where(where);
-                }
+        //public static IEnumerable<T> get<T>(Expression<Func<T, bool>> where = null) where T : class
+        //{
+        //    using (var context = new DbAtiran2Entities())
+        //    {
+        //        IQueryable<T> result = context.Set<T>().AsNoTracking();
+        //        if (where != null)
+        //        {
+        //            result = result.Where(where);
+        //        }
 
-                return result.ToList();
-            }
-        }
+        //        return result.ToList();
+        //    }
+        //}
     }
 }

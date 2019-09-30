@@ -5,13 +5,14 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using ReportSarfasl.dataLayer;
+using ReportSarfasl.Services;
 
 namespace ReportSarfasl
 {
     public class ListSafaslaOrZirSarfasls : UserControl
     {
         public int Choise;
-        public List<int> listSelected = new List<int>(),listSarfsl = new List<int>();
+        public List<int> listSelected = new List<int>(), listSarfsl = new List<int>();
         private bool _isSearch, _isKeySpase;
         private CheckBox chboxSelectedAll;
         private DataGridView dgvList;
@@ -20,7 +21,6 @@ namespace ReportSarfasl
         private Panel pnlFooter;
         private Panel pnlHeader;
         private Panel pnlMain;
-        private DataGridViewTextBoxColumn row;
         private DataGridViewCheckBoxColumn Select;
         private TextBox txtFilter;
 
@@ -38,7 +38,6 @@ namespace ReportSarfasl
             this.pnlMain = new System.Windows.Forms.Panel();
             this.dgvList = new System.Windows.Forms.DataGridView();
             this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.row = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlFooter = new System.Windows.Forms.Panel();
             this.pnlHeader.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -53,16 +52,16 @@ namespace ReportSarfasl
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(800, 67);
+            this.pnlHeader.Size = new System.Drawing.Size(800, 78);
             this.pnlHeader.TabIndex = 0;
             // 
             // chboxSelectedAll
             // 
             this.chboxSelectedAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chboxSelectedAll.AutoSize = true;
-            this.chboxSelectedAll.Location = new System.Drawing.Point(707, 40);
+            this.chboxSelectedAll.Location = new System.Drawing.Point(703, 49);
             this.chboxSelectedAll.Name = "chboxSelectedAll";
-            this.chboxSelectedAll.Size = new System.Drawing.Size(76, 17);
+            this.chboxSelectedAll.Size = new System.Drawing.Size(80, 23);
             this.chboxSelectedAll.TabIndex = 2;
             this.chboxSelectedAll.Text = "انتخاب همه";
             this.chboxSelectedAll.UseVisualStyleBackColor = true;
@@ -71,9 +70,9 @@ namespace ReportSarfasl
             // lblTextSelected
             // 
             this.lblTextSelected.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblTextSelected.Location = new System.Drawing.Point(0, 20);
+            this.lblTextSelected.Location = new System.Drawing.Point(0, 26);
             this.lblTextSelected.Name = "lblTextSelected";
-            this.lblTextSelected.Size = new System.Drawing.Size(800, 13);
+            this.lblTextSelected.Size = new System.Drawing.Size(800, 21);
             this.lblTextSelected.TabIndex = 1;
             this.lblTextSelected.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -82,7 +81,7 @@ namespace ReportSarfasl
             this.txtFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.txtFilter.Location = new System.Drawing.Point(0, 0);
             this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(800, 20);
+            this.txtFilter.Size = new System.Drawing.Size(800, 26);
             this.txtFilter.TabIndex = 0;
             this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
             this.txtFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtFilter_KeyDown);
@@ -91,9 +90,9 @@ namespace ReportSarfasl
             // 
             this.pnlMain.Controls.Add(this.dgvList);
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMain.Location = new System.Drawing.Point(0, 67);
+            this.pnlMain.Location = new System.Drawing.Point(0, 78);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(800, 460);
+            this.pnlMain.Size = new System.Drawing.Size(800, 449);
             this.pnlMain.TabIndex = 0;
             // 
             // dgvList
@@ -102,14 +101,14 @@ namespace ReportSarfasl
             this.dgvList.AllowUserToDeleteRows = false;
             this.dgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Select,
-            this.row});
+            this.Select});
             this.dgvList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvList.Location = new System.Drawing.Point(0, 0);
+            this.dgvList.MultiSelect = false;
             this.dgvList.Name = "dgvList";
             this.dgvList.ReadOnly = true;
             this.dgvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvList.Size = new System.Drawing.Size(800, 460);
+            this.dgvList.Size = new System.Drawing.Size(800, 449);
             this.dgvList.TabIndex = 0;
             this.dgvList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvList_CellClick);
             this.dgvList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvList_DataBindingComplete);
@@ -121,13 +120,6 @@ namespace ReportSarfasl
             this.Select.Name = "Select";
             this.Select.ReadOnly = true;
             this.Select.Visible = false;
-            // 
-            // row
-            // 
-            this.row.HeaderText = "ردیف";
-            this.row.Name = "row";
-            this.row.ReadOnly = true;
-            this.row.Visible = false;
             // 
             // pnlFooter
             // 
@@ -142,6 +134,7 @@ namespace ReportSarfasl
             this.Controls.Add(this.pnlFooter);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.pnlHeader);
+            this.Font = new System.Drawing.Font("IRANSans", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.Name = "ListSafaslaOrZirSarfasls";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.Size = new System.Drawing.Size(800, 527);
@@ -158,7 +151,7 @@ namespace ReportSarfasl
         {
             if (!this.DesignMode)
             {
-                
+
             }
         }
         private void ListSafaslaOrZirSarfasls_Load(object sender, EventArgs e)
@@ -200,7 +193,7 @@ namespace ReportSarfasl
             }
             else if (e.KeyCode == Keys.Space)
             {
-                if ((txtFilter.Text.Trim() == "" && _isSearch) /*|| (dgvList.Rows.Count == 1)*/)
+                if ((txtFilter.Text.Trim() == "" && _isSearch)|| (dgvList.Rows.Count == 1))
                 {
                     _isKeySpase = true;
                     txtFilter.Text = "";
@@ -266,8 +259,8 @@ namespace ReportSarfasl
         {
             foreach (DataGridViewRow row in dgvList.Rows)
             {
-                var search = (int)row.Cells["rdf"].Value;
-                if (listSelected.Find(i => i == search) == search)
+                var search = (int)row.Cells["ID"].Value;
+                if (listSelected.Any(i => i == search))
                 {
                     row.Cells["select"].Value = true;
                     row.DefaultCellStyle.BackColor = Color.PaleTurquoise;
@@ -299,15 +292,18 @@ namespace ReportSarfasl
         public void SetGrid()
         {
             foreach (DataGridViewColumn col in dgvList.Columns) col.Visible = false;
-            foreach (DataGridViewRow row in dgvList.Rows) row.Cells["row"].Value = row.Index + 1;
+            //foreach (DataGridViewRow row in dgvList.Rows) row.Cells["row"].Value = row.Index + 1;
+
+            dgvList.Columns["Select"].Visible = true;
+
+            dgvList.Columns["row"].Visible = true;
+            dgvList.Columns["row"].HeaderText = "رديف";
 
             dgvList.Columns["Name"].Visible = true;
             dgvList.Columns["Name"].HeaderText = "نام";
             dgvList.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
-            dgvList.Columns["row"].Visible = true;
 
-            dgvList.Columns["Select"].Visible = true;
         }
 
         private void SetCheckBoxColumn()
@@ -327,45 +323,50 @@ namespace ReportSarfasl
             }
         }
 
-       
+
         private void AddOrRemoveInListAndTextSelected(int rowData, bool isAdded)
         {
-            lblTextSelected.Text = lblTextSelected.Text.Replace(dgvList.Rows[rowData].Cells["name"].Value.ToString() + " , ", "");
-            listSelected.RemoveAll(i => i == (int)dgvList.Rows[rowData].Cells["rdf"].Value);
+            lblTextSelected.Text = lblTextSelected.Text.Replace(dgvList.Rows[rowData].Cells["Name"].Value.ToString() + " , ", "");
+            listSelected.RemoveAll(i => i == (int)dgvList.Rows[rowData].Cells["ID"].Value);
 
             if (isAdded)
             {
-                listSelected.Add((int)dgvList.Rows[rowData].Cells["rdf"].Value);
-                lblTextSelected.Text += dgvList.Rows[rowData].Cells["name"].Value + " , ";
+                listSelected.Add((int)dgvList.Rows[rowData].Cells["ID"].Value);
+                lblTextSelected.Text += dgvList.Rows[rowData].Cells["Name"].Value + " , ";
             }
         }
 
         private void search()
         {
-            var filter = txtFilter.Text.Trim();
-            if (filter == "" && !_isSearch)
+            if (dt!= null)
             {
-                dgvList.DataSource = dt;
-            }
-            else if (filter != "")
-            {
-                _isSearch = false;
-                switch (Choise)
+                var filter = txtFilter.Text.Trim();
+                if (filter == "" && !_isSearch)
                 {
-                    case 1:
-                        {
-                            dgvList.DataSource = (dt as List<sarfasls>).Where(c => c.name.Contains(filter)).ToList();
-                            break;
-                        }
-                    case 2:
-                        {
-                            dgvList.DataSource = (dt as List<zirsarfasls>).Where(c => c.name.Contains(filter)).ToList();
-                            break;
-                        }
-                    default:
-                        {
-                            throw new Exception("choised parametr (Chois in {1 -> Sarfasl. or 2 -> ZirSarfasl})");
-                        }
+                    dgvList.DataSource = dt;
+                }
+                else if (filter != "")
+                {
+                    _isSearch = false;
+                    switch (Choise)
+                    {
+                        case 1:
+                            {
+                                dgvList.DataSource = (dt as List<SarfaslService>).Where(c => c.Name.Contains(filter))
+                                    .ToList();
+                                break;
+                            }
+                        case 2:
+                            {
+                                dgvList.DataSource = (dt as List<ZirSarfaslService>).Where(c => c.Name.Contains(filter))
+                                    .ToList();
+                                break;
+                            }
+                        default:
+                            {
+                                throw new Exception("choised parametr (Chois in {1 -> Sarfasl. or 2 -> ZirSarfasl})");
+                            }
+                    }
                 }
             }
         }

@@ -7,20 +7,20 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using ReportSarfasl.dataLayer;
+using ReportSarfasl.Services;
 
 namespace ReportSarfasl
 {
     public class reportSarfasl : UserControl
     {
         public List<int> ListSar = new List<int>(), ListZirSar = new List<int>();
-        private List<sarfasls> dt;
+        private List<SarfaslService> dt;
         private bool _isSearch = false, _isKeySpase = false;
         private Button btnPrint;
         private DataGridView dgvSarfasl;
         private Panel pnlFooter;
         private Panel pnlHeader;
         private Panel pnlMain;
-        private DataGridViewTextBoxColumn row;
         private GroupBox groupBox1;
         private Button btnShow;
         public TextBox txtZirSarfasl;
@@ -45,7 +45,6 @@ namespace ReportSarfasl
             this.txtSarfasl = new System.Windows.Forms.TextBox();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.dgvSarfasl = new System.Windows.Forms.DataGridView();
-            this.row = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtFilter = new System.Windows.Forms.TextBox();
             this.pnlFooter = new System.Windows.Forms.Panel();
             this.btnPrint = new System.Windows.Forms.Button();
@@ -85,7 +84,7 @@ namespace ReportSarfasl
             this.lblZirSarfasl.AutoSize = true;
             this.lblZirSarfasl.Location = new System.Drawing.Point(774, 27);
             this.lblZirSarfasl.Name = "lblZirSarfasl";
-            this.lblZirSarfasl.Size = new System.Drawing.Size(80, 13);
+            this.lblZirSarfasl.Size = new System.Drawing.Size(76, 19);
             this.lblZirSarfasl.TabIndex = 7;
             this.lblZirSarfasl.Text = "زیر سرفصل ها :";
             // 
@@ -95,7 +94,7 @@ namespace ReportSarfasl
             this.lblSarfasls.AutoSize = true;
             this.lblSarfasls.Location = new System.Drawing.Point(1122, 27);
             this.lblSarfasls.Name = "lblSarfasls";
-            this.lblSarfasls.Size = new System.Drawing.Size(63, 13);
+            this.lblSarfasls.Size = new System.Drawing.Size(61, 19);
             this.lblSarfasls.TabIndex = 5;
             this.lblSarfasls.Text = "سرفصل ها :";
             // 
@@ -115,7 +114,7 @@ namespace ReportSarfasl
             this.txtZirSarfasl.Location = new System.Drawing.Point(528, 24);
             this.txtZirSarfasl.Name = "txtZirSarfasl";
             this.txtZirSarfasl.ReadOnly = true;
-            this.txtZirSarfasl.Size = new System.Drawing.Size(240, 20);
+            this.txtZirSarfasl.Size = new System.Drawing.Size(240, 26);
             this.txtZirSarfasl.TabIndex = 8;
             this.txtZirSarfasl.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtZirSarfasl.Click += new System.EventHandler(this.txtZirSarfasl_Click);
@@ -127,7 +126,7 @@ namespace ReportSarfasl
             this.txtSarfasl.Location = new System.Drawing.Point(876, 24);
             this.txtSarfasl.Name = "txtSarfasl";
             this.txtSarfasl.ReadOnly = true;
-            this.txtSarfasl.Size = new System.Drawing.Size(240, 20);
+            this.txtSarfasl.Size = new System.Drawing.Size(240, 26);
             this.txtSarfasl.TabIndex = 6;
             this.txtSarfasl.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtSarfasl.Click += new System.EventHandler(this.txtSarfasl_Click);
@@ -149,31 +148,23 @@ namespace ReportSarfasl
             this.dgvSarfasl.AllowUserToAddRows = false;
             this.dgvSarfasl.AllowUserToDeleteRows = false;
             this.dgvSarfasl.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSarfasl.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.row});
             this.dgvSarfasl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvSarfasl.Location = new System.Drawing.Point(0, 20);
+            this.dgvSarfasl.Location = new System.Drawing.Point(0, 26);
+            this.dgvSarfasl.MultiSelect = false;
             this.dgvSarfasl.Name = "dgvSarfasl";
             this.dgvSarfasl.ReadOnly = true;
             this.dgvSarfasl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSarfasl.Size = new System.Drawing.Size(1200, 442);
+            this.dgvSarfasl.Size = new System.Drawing.Size(1200, 436);
             this.dgvSarfasl.TabIndex = 1;
             this.dgvSarfasl.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSarfasl_CellDoubleClick);
             this.dgvSarfasl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvSarfasl_KeyDown);
-            // 
-            // row
-            // 
-            this.row.HeaderText = "ردیف";
-            this.row.Name = "row";
-            this.row.ReadOnly = true;
-            this.row.Visible = false;
             // 
             // txtFilter
             // 
             this.txtFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.txtFilter.Location = new System.Drawing.Point(0, 0);
             this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(1200, 20);
+            this.txtFilter.Size = new System.Drawing.Size(1200, 26);
             this.txtFilter.TabIndex = 0;
             this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
             this.txtFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtFilter_KeyDown);
@@ -202,6 +193,7 @@ namespace ReportSarfasl
             this.Controls.Add(this.pnlFooter);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.pnlHeader);
+            this.Font = new System.Drawing.Font("IRANSans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.Name = "reportSarfasl";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.Size = new System.Drawing.Size(1200, 527);
@@ -273,7 +265,7 @@ namespace ReportSarfasl
         private void btnShow_Click(object sender, EventArgs e)
         {
             //اتصال و اوردن اطلاعات
-            dgvSarfasl.DataSource = conection.GetViewSarfaslses(ListSar, ListZirSar);
+            dgvSarfasl.DataSource = dt = conection.GetViewSarfaslses(ListSar, ListZirSar);
 
             SetGrid();
         }
@@ -361,10 +353,10 @@ namespace ReportSarfasl
         public void SetGrid()
         {
             foreach (DataGridViewColumn col in dgvSarfasl.Columns) col.Visible = false;
-            foreach (DataGridViewRow row in dgvSarfasl.Rows) row.Cells["row"].Value = row.Index + 1;
+            //foreach (DataGridViewRow row in dgvSarfasl.Rows) row.Cells["row"].Value = row.Index + 1;
 
-            dgvSarfasl.Columns["Select"].Visible = true;
             dgvSarfasl.Columns["row"].Visible = true;
+            dgvSarfasl.Columns["row"].HeaderText = "رديف";
 
             dgvSarfasl.Columns["Name"].Visible = true;
             dgvSarfasl.Columns["Name"].HeaderText = "نام";
@@ -378,15 +370,18 @@ namespace ReportSarfasl
 
         private void search()
         {
-            var filter = txtFilter.Text.Trim();
-            if (filter == "" && !_isSearch)
+            if (dt != null)
             {
-                dgvSarfasl.DataSource = dt;
-            }
-            else if (filter != "")
-            {
-                _isSearch = false;
-                dgvSarfasl.DataSource = dt.Where(c => c.name.Contains(filter)).ToList();
+                var filter = txtFilter.Text.Trim();
+                if (filter == "" && !_isSearch)
+                {
+                    dgvSarfasl.DataSource = dt;
+                }
+                else if (filter != "")
+                {
+                    _isSearch = false;
+                    dgvSarfasl.DataSource = dt.Where(c => c.Name.Contains(filter)).ToList();
+                }
             }
         }
         #endregion
