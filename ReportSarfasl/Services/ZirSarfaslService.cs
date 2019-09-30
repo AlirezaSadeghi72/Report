@@ -15,7 +15,7 @@ namespace ReportSarfasl.Services
         public decimal man { get; set; }
         public Nullable<bool> Active { get; set; }
 
-        public virtual ICollection<ActZirSarfaslService> act_zirsarfasls { get; set; }
+        public virtual ICollection<ActZirSarfaslService> actzirsarfasls { get; set; }
         public virtual SarfaslService sarfasls { get; set; }
 
 

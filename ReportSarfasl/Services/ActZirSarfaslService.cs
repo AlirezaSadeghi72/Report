@@ -10,7 +10,6 @@ namespace ReportSarfasl.Services
     {
         public int ID { get; set; }
         public int ZirSarfaslID { get; set; }
-        public string Name { get; set; }
         public string date { get; set; }
         public decimal bed { get; set; }
         public decimal bes { get; set; }
