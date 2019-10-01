@@ -52,16 +52,16 @@ namespace ReportSarfasl
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(800, 78);
+            this.pnlHeader.Size = new System.Drawing.Size(900, 66);
             this.pnlHeader.TabIndex = 0;
             // 
             // chboxSelectedAll
             // 
             this.chboxSelectedAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chboxSelectedAll.AutoSize = true;
-            this.chboxSelectedAll.Location = new System.Drawing.Point(703, 49);
+            this.chboxSelectedAll.Location = new System.Drawing.Point(799, 34);
             this.chboxSelectedAll.Name = "chboxSelectedAll";
-            this.chboxSelectedAll.Size = new System.Drawing.Size(80, 23);
+            this.chboxSelectedAll.Size = new System.Drawing.Size(86, 24);
             this.chboxSelectedAll.TabIndex = 2;
             this.chboxSelectedAll.Text = "انتخاب همه";
             this.chboxSelectedAll.UseVisualStyleBackColor = true;
@@ -70,9 +70,9 @@ namespace ReportSarfasl
             // lblTextSelected
             // 
             this.lblTextSelected.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblTextSelected.Location = new System.Drawing.Point(0, 26);
+            this.lblTextSelected.Location = new System.Drawing.Point(0, 28);
             this.lblTextSelected.Name = "lblTextSelected";
-            this.lblTextSelected.Size = new System.Drawing.Size(800, 21);
+            this.lblTextSelected.Size = new System.Drawing.Size(900, 21);
             this.lblTextSelected.TabIndex = 1;
             this.lblTextSelected.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -81,7 +81,7 @@ namespace ReportSarfasl
             this.txtFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.txtFilter.Location = new System.Drawing.Point(0, 0);
             this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(800, 26);
+            this.txtFilter.Size = new System.Drawing.Size(900, 28);
             this.txtFilter.TabIndex = 0;
             this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
             this.txtFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtFilter_KeyDown);
@@ -90,9 +90,9 @@ namespace ReportSarfasl
             // 
             this.pnlMain.Controls.Add(this.dgvList);
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMain.Location = new System.Drawing.Point(0, 78);
+            this.pnlMain.Location = new System.Drawing.Point(0, 66);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(800, 449);
+            this.pnlMain.Size = new System.Drawing.Size(900, 534);
             this.pnlMain.TabIndex = 0;
             // 
             // dgvList
@@ -108,7 +108,7 @@ namespace ReportSarfasl
             this.dgvList.Name = "dgvList";
             this.dgvList.ReadOnly = true;
             this.dgvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvList.Size = new System.Drawing.Size(800, 449);
+            this.dgvList.Size = new System.Drawing.Size(900, 534);
             this.dgvList.TabIndex = 0;
             this.dgvList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvList_CellClick);
             this.dgvList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvList_DataBindingComplete);
@@ -124,9 +124,9 @@ namespace ReportSarfasl
             // pnlFooter
             // 
             this.pnlFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlFooter.Location = new System.Drawing.Point(0, 517);
+            this.pnlFooter.Location = new System.Drawing.Point(0, 590);
             this.pnlFooter.Name = "pnlFooter";
-            this.pnlFooter.Size = new System.Drawing.Size(800, 10);
+            this.pnlFooter.Size = new System.Drawing.Size(900, 10);
             this.pnlFooter.TabIndex = 1;
             // 
             // ListSafaslaOrZirSarfasls
@@ -137,7 +137,7 @@ namespace ReportSarfasl
             this.Font = new System.Drawing.Font("IRANSans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.Name = "ListSafaslaOrZirSarfasls";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.Size = new System.Drawing.Size(800, 527);
+            this.Size = new System.Drawing.Size(900, 600);
             this.Load += new System.EventHandler(this.ListSafaslaOrZirSarfasls_Load);
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
@@ -147,13 +147,6 @@ namespace ReportSarfasl
 
         }
 
-        protected override void InitLayout()
-        {
-            if (!this.DesignMode)
-            {
-
-            }
-        }
         private void ListSafaslaOrZirSarfasls_Load(object sender, EventArgs e)
         {
             // _choise == 1  -->  Sarfasl
@@ -168,7 +161,7 @@ namespace ReportSarfasl
                 else if (Choise == 2)
                 {
                     //اتصال
-                    if (!listSarfsl.Any())
+                    if (listSarfsl.Any())
                     {
                         dgvList.DataSource = dt = conection.GetZirSarfasls();
                     }
@@ -281,7 +274,19 @@ namespace ReportSarfasl
 
         #region Event Handler
 
-
+        public event EventHandler CloseUserControl;
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Enter)
+            {
+                if (CloseUserControl != null)
+                {
+                    CloseUserControl(this,EventArgs.Empty);
+                }
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
 
         #endregion
 

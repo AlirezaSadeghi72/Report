@@ -54,6 +54,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="border.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="dataLayer\act_zirsarfasls.cs">
       <DependentUpon>DbAteran2Model.tt</DependentUpon>
     </Compile>
@@ -125,6 +128,9 @@
     <Compile Include="Services\ActZirSarfaslService.cs" />
     <Compile Include="Services\SarfaslService.cs" />
     <Compile Include="Services\ZirSarfaslService.cs" />
+    <EmbeddedResource Include="border.resx">
+      <DependentUpon>border.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmListSarfaslOrZirSarfasl.resx">
       <DependentUpon>frmListSarfaslOrZirSarfasl.cs</DependentUpon>
     </EmbeddedResource>

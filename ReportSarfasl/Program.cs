@@ -15,7 +15,7 @@ namespace ReportSarfasl
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmReportSarfasls());
+            Application.Run(new MainForm());
         }
     }
 }

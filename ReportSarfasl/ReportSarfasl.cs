@@ -65,7 +65,7 @@ namespace ReportSarfasl
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(1200, 65);
+            this.pnlHeader.Size = new System.Drawing.Size(900, 65);
             this.pnlHeader.TabIndex = 0;
             // 
             // groupBox1
@@ -78,7 +78,7 @@ namespace ReportSarfasl
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1200, 65);
+            this.groupBox1.Size = new System.Drawing.Size(900, 65);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             // 
@@ -86,7 +86,7 @@ namespace ReportSarfasl
             // 
             this.lblZirSarfasl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblZirSarfasl.AutoSize = true;
-            this.lblZirSarfasl.Location = new System.Drawing.Point(774, 27);
+            this.lblZirSarfasl.Location = new System.Drawing.Point(474, 27);
             this.lblZirSarfasl.Name = "lblZirSarfasl";
             this.lblZirSarfasl.Size = new System.Drawing.Size(81, 20);
             this.lblZirSarfasl.TabIndex = 7;
@@ -96,7 +96,7 @@ namespace ReportSarfasl
             // 
             this.lblSarfasls.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSarfasls.AutoSize = true;
-            this.lblSarfasls.Location = new System.Drawing.Point(1122, 27);
+            this.lblSarfasls.Location = new System.Drawing.Point(822, 27);
             this.lblSarfasls.Name = "lblSarfasls";
             this.lblSarfasls.Size = new System.Drawing.Size(65, 20);
             this.lblSarfasls.TabIndex = 5;
@@ -115,7 +115,7 @@ namespace ReportSarfasl
             // txtZirSarfasl
             // 
             this.txtZirSarfasl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtZirSarfasl.Location = new System.Drawing.Point(528, 24);
+            this.txtZirSarfasl.Location = new System.Drawing.Point(228, 24);
             this.txtZirSarfasl.Name = "txtZirSarfasl";
             this.txtZirSarfasl.ReadOnly = true;
             this.txtZirSarfasl.Size = new System.Drawing.Size(240, 28);
@@ -127,7 +127,7 @@ namespace ReportSarfasl
             // txtSarfasl
             // 
             this.txtSarfasl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSarfasl.Location = new System.Drawing.Point(876, 24);
+            this.txtSarfasl.Location = new System.Drawing.Point(576, 24);
             this.txtSarfasl.Name = "txtSarfasl";
             this.txtSarfasl.ReadOnly = true;
             this.txtSarfasl.Size = new System.Drawing.Size(240, 28);
@@ -144,7 +144,7 @@ namespace ReportSarfasl
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMain.Location = new System.Drawing.Point(0, 65);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(1200, 462);
+            this.pnlMain.Size = new System.Drawing.Size(900, 535);
             this.pnlMain.TabIndex = 1;
             // 
             // dgvSarfasl
@@ -158,7 +158,7 @@ namespace ReportSarfasl
             this.dgvSarfasl.Name = "dgvSarfasl";
             this.dgvSarfasl.ReadOnly = true;
             this.dgvSarfasl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSarfasl.Size = new System.Drawing.Size(1200, 434);
+            this.dgvSarfasl.Size = new System.Drawing.Size(900, 507);
             this.dgvSarfasl.TabIndex = 1;
             this.dgvSarfasl.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSarfasl_CellDoubleClick);
             this.dgvSarfasl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvSarfasl_KeyDown);
@@ -168,7 +168,7 @@ namespace ReportSarfasl
             this.txtFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.txtFilter.Location = new System.Drawing.Point(0, 0);
             this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(1200, 28);
+            this.txtFilter.Size = new System.Drawing.Size(900, 28);
             this.txtFilter.TabIndex = 0;
             this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
             this.txtFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtFilter_KeyDown);
@@ -178,9 +178,9 @@ namespace ReportSarfasl
             this.pnlFooter.Controls.Add(this.btnCancel);
             this.pnlFooter.Controls.Add(this.btnPrint);
             this.pnlFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlFooter.Location = new System.Drawing.Point(0, 485);
+            this.pnlFooter.Location = new System.Drawing.Point(0, 558);
             this.pnlFooter.Name = "pnlFooter";
-            this.pnlFooter.Size = new System.Drawing.Size(1200, 42);
+            this.pnlFooter.Size = new System.Drawing.Size(900, 42);
             this.pnlFooter.TabIndex = 2;
             // 
             // btnCancel
@@ -211,7 +211,7 @@ namespace ReportSarfasl
             this.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.Name = "reportSarfasl";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.Size = new System.Drawing.Size(1200, 527);
+            this.Size = new System.Drawing.Size(900, 600);
             this.pnlHeader.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -238,7 +238,7 @@ namespace ReportSarfasl
         {
             if (dgvSarfasl.SelectedRows.Count > 0 && dgvSarfasl.SelectedRows[0].Index >= 0)
             {
-                _openZirSarfasl(sender, new KeyEventArgs(Keys.A));
+                _openZirSarfasl(sender, EventArgs.Empty);
             }
         }
         #endregion
@@ -364,7 +364,7 @@ namespace ReportSarfasl
         }
 
         public event EventHandler OpenFormZirSarfasl;
-        private void _openZirSarfasl(object sender, KeyEventArgs e)
+        private void _openZirSarfasl(object sender, EventArgs e)
         {
             if (dgvSarfasl.SelectedRows.Count > 0 && OpenFormZirSarfasl != null)
             {

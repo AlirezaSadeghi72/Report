@@ -34,11 +34,13 @@
             // listSafaslaOrZirSarfasls1
             // 
             this.listSafaslaOrZirSarfasls1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listSafaslaOrZirSarfasls1.Font = new System.Drawing.Font("IRANSans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.listSafaslaOrZirSarfasls1.Location = new System.Drawing.Point(0, 0);
             this.listSafaslaOrZirSarfasls1.Name = "listSafaslaOrZirSarfasls1";
             this.listSafaslaOrZirSarfasls1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.listSafaslaOrZirSarfasls1.Size = new System.Drawing.Size(800, 527);
             this.listSafaslaOrZirSarfasls1.TabIndex = 0;
+            this.listSafaslaOrZirSarfasls1.CloseUserControl += new System.EventHandler(this.listSafaslaOrZirSarfasls1_CloseUserControl);
             // 
             // frmListSarfaslOrZirSarfasl
             // 
@@ -46,7 +48,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 527);
             this.Controls.Add(this.listSafaslaOrZirSarfasls1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "frmListSarfaslOrZirSarfasl";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.ResumeLayout(false);

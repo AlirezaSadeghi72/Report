@@ -74,7 +74,7 @@ namespace ReportSarfasl
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(800, 54);
+            this.pnlHeader.Size = new System.Drawing.Size(700, 54);
             this.pnlHeader.TabIndex = 0;
             // 
             // groupBox2
@@ -83,7 +83,7 @@ namespace ReportSarfasl
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(800, 54);
+            this.groupBox2.Size = new System.Drawing.Size(700, 54);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "جزييات زيرسرفصل";
@@ -103,7 +103,7 @@ namespace ReportSarfasl
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMain.Location = new System.Drawing.Point(0, 54);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(800, 406);
+            this.pnlMain.Size = new System.Drawing.Size(700, 346);
             this.pnlMain.TabIndex = 0;
             // 
             // groupBox1
@@ -113,7 +113,7 @@ namespace ReportSarfasl
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(800, 406);
+            this.groupBox1.Size = new System.Drawing.Size(700, 346);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "عملكرد هاي  زيرسرفصل";
@@ -129,7 +129,7 @@ namespace ReportSarfasl
             this.dgvActZirSarfasl.Name = "dgvActZirSarfasl";
             this.dgvActZirSarfasl.ReadOnly = true;
             this.dgvActZirSarfasl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvActZirSarfasl.Size = new System.Drawing.Size(794, 351);
+            this.dgvActZirSarfasl.Size = new System.Drawing.Size(694, 291);
             this.dgvActZirSarfasl.TabIndex = 1;
             // 
             // txtFilter
@@ -137,7 +137,7 @@ namespace ReportSarfasl
             this.txtFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.txtFilter.Location = new System.Drawing.Point(3, 24);
             this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(794, 28);
+            this.txtFilter.Size = new System.Drawing.Size(694, 28);
             this.txtFilter.TabIndex = 0;
             this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
             this.txtFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtFilter_KeyDown);
@@ -155,9 +155,9 @@ namespace ReportSarfasl
             this.pnlFooter.Controls.Add(this.btnCancel);
             this.pnlFooter.Controls.Add(this.btnPrint);
             this.pnlFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlFooter.Location = new System.Drawing.Point(0, 396);
+            this.pnlFooter.Location = new System.Drawing.Point(0, 336);
             this.pnlFooter.Name = "pnlFooter";
-            this.pnlFooter.Size = new System.Drawing.Size(800, 64);
+            this.pnlFooter.Size = new System.Drawing.Size(700, 64);
             this.pnlFooter.TabIndex = 0;
             // 
             // label5
@@ -261,7 +261,7 @@ namespace ReportSarfasl
             this.Font = new System.Drawing.Font("IRANSans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.Name = "ReportActZirSarfasl";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.Size = new System.Drawing.Size(800, 460);
+            this.Size = new System.Drawing.Size(700, 400);
             this.Load += new System.EventHandler(this.ReportActZirSarfasl_Load);
             this.pnlHeader.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);

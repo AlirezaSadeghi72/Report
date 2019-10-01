@@ -57,7 +57,7 @@ namespace ReportSarfasl
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMain.Location = new System.Drawing.Point(0, 0);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(1000, 480);
+            this.pnlMain.Size = new System.Drawing.Size(800, 500);
             this.pnlMain.TabIndex = 1;
             // 
             // groupBox1
@@ -67,7 +67,7 @@ namespace ReportSarfasl
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1000, 480);
+            this.groupBox1.Size = new System.Drawing.Size(800, 500);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "ليست زيرسرفصل هاي      سرفصل :   ";
@@ -83,7 +83,7 @@ namespace ReportSarfasl
             this.dgvZirSarfal.Name = "dgvZirSarfal";
             this.dgvZirSarfal.ReadOnly = true;
             this.dgvZirSarfal.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvZirSarfal.Size = new System.Drawing.Size(994, 425);
+            this.dgvZirSarfal.Size = new System.Drawing.Size(794, 445);
             this.dgvZirSarfal.TabIndex = 0;
             this.dgvZirSarfal.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvZirSarfal_CellDoubleClick);
             this.dgvZirSarfal.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvZirSarfal_KeyDown);
@@ -93,7 +93,7 @@ namespace ReportSarfasl
             this.txtFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.txtFilter.Location = new System.Drawing.Point(3, 24);
             this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(994, 28);
+            this.txtFilter.Size = new System.Drawing.Size(794, 28);
             this.txtFilter.TabIndex = 1;
             this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
             this.txtFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtFilter_KeyDown);
@@ -107,9 +107,9 @@ namespace ReportSarfasl
             this.pnlFooter.Controls.Add(this.lblNumber);
             this.pnlFooter.Controls.Add(this.label1);
             this.pnlFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlFooter.Location = new System.Drawing.Point(0, 440);
+            this.pnlFooter.Location = new System.Drawing.Point(0, 462);
             this.pnlFooter.Name = "pnlFooter";
-            this.pnlFooter.Size = new System.Drawing.Size(1000, 40);
+            this.pnlFooter.Size = new System.Drawing.Size(800, 38);
             this.pnlFooter.TabIndex = 2;
             // 
             // btnCancel
@@ -133,8 +133,9 @@ namespace ReportSarfasl
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(719, 9);
+            this.label3.Location = new System.Drawing.Point(513, 10);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(91, 20);
             this.label3.TabIndex = 0;
@@ -142,8 +143,9 @@ namespace ReportSarfasl
             // 
             // lblSumMan
             // 
+            this.lblSumMan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSumMan.Font = new System.Drawing.Font("IRANSans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.lblSumMan.Location = new System.Drawing.Point(526, 9);
+            this.lblSumMan.Location = new System.Drawing.Point(320, 10);
             this.lblSumMan.Name = "lblSumMan";
             this.lblSumMan.Size = new System.Drawing.Size(187, 20);
             this.lblSumMan.TabIndex = 0;
@@ -153,8 +155,9 @@ namespace ReportSarfasl
             // 
             // lblNumber
             // 
+            this.lblNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblNumber.Font = new System.Drawing.Font("IRANSans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.lblNumber.Location = new System.Drawing.Point(810, 9);
+            this.lblNumber.Location = new System.Drawing.Point(604, 10);
             this.lblNumber.Name = "lblNumber";
             this.lblNumber.Size = new System.Drawing.Size(82, 20);
             this.lblNumber.TabIndex = 0;
@@ -163,8 +166,9 @@ namespace ReportSarfasl
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(888, 9);
+            this.label1.Location = new System.Drawing.Point(682, 10);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(110, 20);
             this.label1.TabIndex = 0;
@@ -177,7 +181,7 @@ namespace ReportSarfasl
             this.Font = new System.Drawing.Font("IRANSans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.Name = "ReportZirSarfasl";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.Size = new System.Drawing.Size(1000, 480);
+            this.Size = new System.Drawing.Size(800, 500);
             this.Load += new System.EventHandler(this.ReportZirSarfasl_Load);
             this.pnlMain.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);

@@ -12,7 +12,7 @@ namespace ReportSarfasl.Forms
 {
     public partial class frmListSarfaslOrZirSarfasl : Form
     {
-        public List<int> listSelected;
+        public List<int> listSelected = new List<int>();
         public string Text;
         public frmListSarfaslOrZirSarfasl(bool isSarfasl, List<int> listSelected, string text,
             List<int> listSarfasl = null)
@@ -23,17 +23,13 @@ namespace ReportSarfasl.Forms
             listSafaslaOrZirSarfasls1.listSarfsl = listSarfasl;
             listSafaslaOrZirSarfasls1.lblTextSelected.Text = text;
         }
+        
 
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        private void listSafaslaOrZirSarfasls1_CloseUserControl(object sender, EventArgs e)
         {
-            if (keyData == Keys.Enter)
-            {
-                listSelected = listSafaslaOrZirSarfasls1.listSelected;
-                Text = listSafaslaOrZirSarfasls1.lblTextSelected.Text;
-                this.Close();
-                return true;
-            }
-            return base.ProcessCmdKey(ref msg, keyData);
+            listSelected = listSafaslaOrZirSarfasls1.listSelected;
+            Text = listSafaslaOrZirSarfasls1.lblTextSelected.Text;
+            this.Close();
         }
     }
 }
