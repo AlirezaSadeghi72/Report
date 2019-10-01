@@ -19,7 +19,7 @@ namespace ReportSarfasl.Forms
 
         private void reportSarfasl1_txtSarfasl_KeyDownEnter(object sender, EventArgs e)
         {
-            var sarfasl = new frmListSarfaslOrZirSarfasl(true, reportSarfasl1.ListSar , reportSarfasl1.txtSarfasl.Text);
+            var sarfasl = new frmListSarfaslOrZirSarfasl(true, reportSarfasl1.ListSar, reportSarfasl1.txtSarfasl.Text);
             sarfasl.ShowDialog();
             reportSarfasl1.ListSar = sarfasl.listSelected;
             reportSarfasl1.txtSarfasl.Text = sarfasl.Text;
@@ -35,8 +35,14 @@ namespace ReportSarfasl.Forms
 
         private void reportSarfasl1_OpenFormZirSarfasl(object sender, EventArgs e)
         {
-            Form reportZirsarfasl = new frmReportZirSarfasl(reportSarfasl1.ListZirSar ,reportSarfasl1.SarfaslIdSelected);
+            Form reportZirsarfasl = new frmReportZirSarfasl(reportSarfasl1.ListZirSar, reportSarfasl1.SarfaslIdSelected);
             reportZirsarfasl.ShowDialog();
+        }
+
+        private void reportSarfasl1_OpenFormActZirSarfasl(object sender, EventArgs e)
+        {
+            Form reportActZirsarfasl = new frmReportActZirSarfasl(sarfaslID: reportSarfasl1.SarfaslIdSelected, listZirsarfasl: reportSarfasl1.ListZirSar);
+            reportActZirsarfasl.ShowDialog();
         }
 
         private void reportSarfasl1_ButtenCancelClick(object sender, EventArgs e)

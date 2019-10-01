@@ -34,24 +34,27 @@
             // reportSarfasl1
             // 
             this.reportSarfasl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.reportSarfasl1.Font = new System.Drawing.Font("IRANSans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.reportSarfasl1.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.reportSarfasl1.Location = new System.Drawing.Point(0, 0);
             this.reportSarfasl1.Name = "reportSarfasl1";
             this.reportSarfasl1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.reportSarfasl1.Size = new System.Drawing.Size(1200, 527);
+            this.reportSarfasl1.Size = new System.Drawing.Size(1200, 537);
             this.reportSarfasl1.TabIndex = 0;
             this.reportSarfasl1.txtSarfasl_KeyDownEnter += new System.EventHandler(this.reportSarfasl1_txtSarfasl_KeyDownEnter);
             this.reportSarfasl1.txtZirSarfasl_KeyDownEnter += new System.EventHandler(this.reportSarfasl1_txtZirSarfasl_KeyDownEnter);
             this.reportSarfasl1.OpenFormZirSarfasl += new System.EventHandler(this.reportSarfasl1_OpenFormZirSarfasl);
+            this.reportSarfasl1.OpenFormActZirSarfasl += new System.EventHandler(this.reportSarfasl1_OpenFormActZirSarfasl);
             this.reportSarfasl1.ButtenCancelClick += new System.EventHandler(this.reportSarfasl1_ButtenCancelClick);
             // 
             // frmReportSarfasls
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1200, 527);
+            this.ClientSize = new System.Drawing.Size(1200, 537);
             this.Controls.Add(this.reportSarfasl1);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "frmReportSarfasls";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmReportSarfasls";

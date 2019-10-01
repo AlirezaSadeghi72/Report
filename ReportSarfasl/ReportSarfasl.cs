@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
@@ -87,7 +88,7 @@ namespace ReportSarfasl
             this.lblZirSarfasl.AutoSize = true;
             this.lblZirSarfasl.Location = new System.Drawing.Point(774, 27);
             this.lblZirSarfasl.Name = "lblZirSarfasl";
-            this.lblZirSarfasl.Size = new System.Drawing.Size(76, 19);
+            this.lblZirSarfasl.Size = new System.Drawing.Size(81, 20);
             this.lblZirSarfasl.TabIndex = 7;
             this.lblZirSarfasl.Text = "زیر سرفصل ها :";
             // 
@@ -97,15 +98,15 @@ namespace ReportSarfasl
             this.lblSarfasls.AutoSize = true;
             this.lblSarfasls.Location = new System.Drawing.Point(1122, 27);
             this.lblSarfasls.Name = "lblSarfasls";
-            this.lblSarfasls.Size = new System.Drawing.Size(61, 19);
+            this.lblSarfasls.Size = new System.Drawing.Size(65, 20);
             this.lblSarfasls.TabIndex = 5;
             this.lblSarfasls.Text = "سرفصل ها :";
             // 
             // btnShow
             // 
-            this.btnShow.Location = new System.Drawing.Point(6, 38);
+            this.btnShow.Location = new System.Drawing.Point(6, 27);
             this.btnShow.Name = "btnShow";
-            this.btnShow.Size = new System.Drawing.Size(75, 23);
+            this.btnShow.Size = new System.Drawing.Size(80, 34);
             this.btnShow.TabIndex = 9;
             this.btnShow.Text = "نمایش";
             this.btnShow.UseVisualStyleBackColor = true;
@@ -117,7 +118,7 @@ namespace ReportSarfasl
             this.txtZirSarfasl.Location = new System.Drawing.Point(528, 24);
             this.txtZirSarfasl.Name = "txtZirSarfasl";
             this.txtZirSarfasl.ReadOnly = true;
-            this.txtZirSarfasl.Size = new System.Drawing.Size(240, 26);
+            this.txtZirSarfasl.Size = new System.Drawing.Size(240, 28);
             this.txtZirSarfasl.TabIndex = 8;
             this.txtZirSarfasl.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtZirSarfasl.Click += new System.EventHandler(this.txtZirSarfasl_Click);
@@ -129,7 +130,7 @@ namespace ReportSarfasl
             this.txtSarfasl.Location = new System.Drawing.Point(876, 24);
             this.txtSarfasl.Name = "txtSarfasl";
             this.txtSarfasl.ReadOnly = true;
-            this.txtSarfasl.Size = new System.Drawing.Size(240, 26);
+            this.txtSarfasl.Size = new System.Drawing.Size(240, 28);
             this.txtSarfasl.TabIndex = 6;
             this.txtSarfasl.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtSarfasl.Click += new System.EventHandler(this.txtSarfasl_Click);
@@ -152,12 +153,12 @@ namespace ReportSarfasl
             this.dgvSarfasl.AllowUserToDeleteRows = false;
             this.dgvSarfasl.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSarfasl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvSarfasl.Location = new System.Drawing.Point(0, 26);
+            this.dgvSarfasl.Location = new System.Drawing.Point(0, 28);
             this.dgvSarfasl.MultiSelect = false;
             this.dgvSarfasl.Name = "dgvSarfasl";
             this.dgvSarfasl.ReadOnly = true;
             this.dgvSarfasl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSarfasl.Size = new System.Drawing.Size(1200, 436);
+            this.dgvSarfasl.Size = new System.Drawing.Size(1200, 434);
             this.dgvSarfasl.TabIndex = 1;
             this.dgvSarfasl.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSarfasl_CellDoubleClick);
             this.dgvSarfasl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvSarfasl_KeyDown);
@@ -167,7 +168,7 @@ namespace ReportSarfasl
             this.txtFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.txtFilter.Location = new System.Drawing.Point(0, 0);
             this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(1200, 26);
+            this.txtFilter.Size = new System.Drawing.Size(1200, 28);
             this.txtFilter.TabIndex = 0;
             this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
             this.txtFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtFilter_KeyDown);
@@ -184,9 +185,9 @@ namespace ReportSarfasl
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(22, 10);
+            this.btnCancel.Location = new System.Drawing.Point(22, 6);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(75, 30);
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "انصراف";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -194,9 +195,9 @@ namespace ReportSarfasl
             // 
             // btnPrint
             // 
-            this.btnPrint.Location = new System.Drawing.Point(103, 10);
+            this.btnPrint.Location = new System.Drawing.Point(103, 6);
             this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(75, 23);
+            this.btnPrint.Size = new System.Drawing.Size(75, 30);
             this.btnPrint.TabIndex = 0;
             this.btnPrint.Text = "چاپ";
             this.btnPrint.UseVisualStyleBackColor = true;
@@ -207,7 +208,7 @@ namespace ReportSarfasl
             this.Controls.Add(this.pnlFooter);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.pnlHeader);
-            this.Font = new System.Drawing.Font("IRANSans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.Name = "reportSarfasl";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.Size = new System.Drawing.Size(1200, 527);
@@ -227,19 +228,16 @@ namespace ReportSarfasl
         #region Event Control Data Grid View
         private void dgvSarfasl_KeyDown(object sender, KeyEventArgs e)
         {
-            
-                if (dgvSarfasl.SelectedRows.Count > 0 && dgvSarfasl.SelectedRows[0].Index >= 0)
-                {
-                    SarfaslIdSelected = (int)dgvSarfasl.SelectedRows[0].Cells["ID"].Value;
-                    _openZirSarfasl(sender, e);
-                }
-           
+            if (e.KeyData == Keys.Enter)
+            {
+                _openActZirSarfasl(sender, e);
+            }
+
         }
         private void dgvSarfasl_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dgvSarfasl.SelectedRows.Count > 0 && dgvSarfasl.SelectedRows[0].Index >= 0)
             {
-                SarfaslIdSelected = (int) dgvSarfasl.SelectedRows[0].Cells["ID"].Value;
                 _openZirSarfasl(sender, new KeyEventArgs(Keys.A));
             }
         }
@@ -298,8 +296,12 @@ namespace ReportSarfasl
         {
             if (keyData == Keys.Enter)
             {
-                dgvSarfasl_KeyDown(dgvSarfasl, new KeyEventArgs(keyData));
-                return true;
+                if (dgvSarfasl.Focused)
+                {
+                    dgvSarfasl_KeyDown(dgvSarfasl, new KeyEventArgs(keyData));
+                    return true;
+                }
+
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
@@ -343,6 +345,7 @@ namespace ReportSarfasl
             {
                 txtSarfasl.Focus();
             }
+
             if (txtZirSarfasl_KeyDownEnter != null)
             {
                 if (e.KeyCode == Keys.Enter)
@@ -365,7 +368,18 @@ namespace ReportSarfasl
         {
             if (dgvSarfasl.SelectedRows.Count > 0 && OpenFormZirSarfasl != null)
             {
+                SarfaslIdSelected = (int)dgvSarfasl.SelectedRows[0].Cells["ID"].Value;
                 this.OpenFormZirSarfasl(this, e);
+                //باز کردن زیر سرفصل های سرفصل انتخابی داخل گرید
+            }
+        }
+        public event EventHandler OpenFormActZirSarfasl;
+        private void _openActZirSarfasl(object sender, KeyEventArgs e)
+        {
+            if (dgvSarfasl.SelectedRows.Count > 0 && OpenFormZirSarfasl != null)
+            {
+                SarfaslIdSelected = (int)dgvSarfasl.SelectedRows[0].Cells["ID"].Value;
+                this.OpenFormActZirSarfasl(this, e);
                 //باز کردن زیر سرفصل های سرفصل انتخابی داخل گرید
             }
         }
@@ -397,6 +411,8 @@ namespace ReportSarfasl
 
             dgvSarfasl.Columns["Man"].Visible = true;
             dgvSarfasl.Columns["Man"].HeaderText = "مانده";
+            dgvSarfasl.Columns["Man"].DefaultCellStyle.Format = "#,0.0000";
+            dgvSarfasl.Columns["Man"].DefaultCellStyle.Font = new Font("IRANSans(FaNum)", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             dgvSarfasl.Columns["Man"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
         }

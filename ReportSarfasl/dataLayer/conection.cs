@@ -130,7 +130,7 @@ namespace ReportSarfasl.dataLayer
                 {
                     result = result.Where(t => listSarfaslID.Contains(t.s.rdf));
                 }
-                else if(listZirsarfaslID.Any())
+                else if (listZirsarfaslID.Any())
                 {
                     listSarfaslID = context.zirsarfasls.Where(z => listZirsarfaslID.Contains(z.rdf))
                         .GroupBy(z => z.rdf_sarfasl).Select(z => z.Key).ToList();
@@ -156,6 +156,7 @@ namespace ReportSarfasl.dataLayer
                         GroupSarfaslID = g.Key.s.GroupSarfaslID,
                         Man = g.Sum(r1 => r1.az.a.bed - r1.az.a.bes)
                     }).ToList();
+
                 if (listSarfaslID.Count > result1.Count)
                 {
                     var Sarfasls = context.sarfasls.AsNoTracking().ToList();
@@ -193,21 +194,29 @@ namespace ReportSarfasl.dataLayer
                 var result = context.act_zirsarfasls.AsNoTracking().Join(context.zirsarfasls.AsNoTracking(),
                     a => a.rdf_zirsarfasls,
                     z => z.rdf,
-                    (a, z) => new { a, z }).Where(az => az.z.rdf_sarfasl == sarfaslID).Where(az=>az.z.rdf_sarfasl == sarfaslID);
+                    (a, z) => new { a, z }).Where(az => az.z.rdf_sarfasl == sarfaslID).Where(az => az.z.rdf_sarfasl == sarfaslID);
 
                 var ZirsarfaslID = context.zirsarfasls.AsNoTracking().Where(z => z.rdf_sarfasl == sarfaslID).Select(z => z.rdf).ToList();
 
                 if (listZirsarfaslID.Any())
                 {
                     listZirsarfaslID = listZirsarfaslID.Where(z => ZirsarfaslID.Contains(z)).ToList();
-                    result = result.Where(az => listZirsarfaslID.Contains(az.z.rdf));
+                    if (listZirsarfaslID.Any())
+                    {
+                        result = result.Where(az => listZirsarfaslID.Contains(az.z.rdf));
+                    }
+                    else
+                    {
+                        result = result.Where(az => az.z.rdf == null);
+                        listZirsarfaslID = ZirsarfaslID;
+                    }
                 }
                 else
                 {
                     listZirsarfaslID = ZirsarfaslID;
                 }
 
-
+                //var ali = result.GroupBy(r2 => new { r2.z }).ToList();
                 int Row = 1;
                 var result1 = result.GroupBy(r2 => new { r2.z }).ToList().Select(
                     g => new ZirSarfaslService()
@@ -220,7 +229,7 @@ namespace ReportSarfasl.dataLayer
                         has_dar = g.Key.z.has_dar,
                         Man = g.Sum(r1 => r1.a.bed - r1.a.bes)
                     }).ToList();
-                
+
                 if (listZirsarfaslID.Count > result1.Count)
                 {
                     var ZirSarfasls = context.zirsarfasls.AsNoTracking().ToList();
@@ -245,6 +254,34 @@ namespace ReportSarfasl.dataLayer
                 }
 
                 return result1;
+            }
+        }
+        public static List<ActZirSarfaslService> GetActZirSarfaslServices(int zirSarfaslID = -1, int sarfaslID = -1, List<int> listZirsarfasl = null)
+        {
+            using (var context = new DbAtiran2Entities())
+            {
+                if (zirSarfaslID != -1)
+                    return _getActZirSarfasls(context, a => a.rdf_zirsarfasls == zirSarfaslID);
+
+                if (sarfaslID != -1)
+                {
+                    var ZirsarfaslID = context.zirsarfasls.AsNoTracking().Where(z => z.rdf_sarfasl == sarfaslID).Select(z => z.rdf).ToList();
+
+                    if (listZirsarfasl.Any())
+                    {
+                        var listZirsarfasl1 = listZirsarfasl.Where(z => ZirsarfaslID.Contains(z)).ToList();
+                        if (listZirsarfasl1.Any())
+                        {
+                            return _getActZirSarfasls(context, a => listZirsarfasl1.Contains(a.rdf_zirsarfasls));
+                        }
+
+                        return _getActZirSarfasls(context, a => listZirsarfasl.Contains(a.rdf_zirsarfasls));
+                    }
+
+                    return _getActZirSarfasls(context, a => ZirsarfaslID.Contains(a.rdf_zirsarfasls));
+                }
+
+                throw new NullReferenceException();
             }
         }
 

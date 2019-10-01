@@ -4,6 +4,7 @@ using ReportSarfasl.Forms;
 
 namespace ReportSarfasl
 {
+    
     internal static class Program
     {
         /// <summary>

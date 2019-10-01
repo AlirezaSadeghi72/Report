@@ -26,7 +26,8 @@ namespace ReportSarfasl.Forms
 
         private void reportZirSarfasl1_OpenFormActZirSarfasl(object sender, EventArgs e)
         {
-
+            Form reportActZirSarfasl= new frmReportActZirSarfasl(zirSarfaslID:reportZirSarfasl1.ZirSarfaslIdSelected);
+            reportActZirSarfasl.ShowDialog();
         }
     }
 }
