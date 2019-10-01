@@ -130,6 +130,15 @@ namespace ReportSarfasl.dataLayer
                 {
                     result = result.Where(t => listSarfaslID.Contains(t.s.rdf));
                 }
+                else if(listZirsarfaslID.Any())
+                {
+                    listSarfaslID = context.zirsarfasls.Where(z => listZirsarfaslID.Contains(z.rdf))
+                        .GroupBy(z => z.rdf_sarfasl).Select(z => z.Key).ToList();
+                }
+                else
+                {
+                    listSarfaslID = context.sarfasls.Select(s => s.rdf).ToList();
+                }
 
                 //var ali = result.GroupBy(r2 => r2.s.rdf).Select(
                 //    g => new
@@ -184,11 +193,18 @@ namespace ReportSarfasl.dataLayer
                 var result = context.act_zirsarfasls.AsNoTracking().Join(context.zirsarfasls.AsNoTracking(),
                     a => a.rdf_zirsarfasls,
                     z => z.rdf,
-                    (a, z) => new { a, z }).Where(az => az.z.rdf_sarfasl == sarfaslID);
+                    (a, z) => new { a, z }).Where(az => az.z.rdf_sarfasl == sarfaslID).Where(az=>az.z.rdf_sarfasl == sarfaslID);
+
+                var ZirsarfaslID = context.zirsarfasls.AsNoTracking().Where(z => z.rdf_sarfasl == sarfaslID).Select(z => z.rdf).ToList();
 
                 if (listZirsarfaslID.Any())
                 {
-                    result = result.Where(t => listZirsarfaslID.Contains(t.z.rdf));
+                    listZirsarfaslID = listZirsarfaslID.Where(z => ZirsarfaslID.Contains(z)).ToList();
+                    result = result.Where(az => listZirsarfaslID.Contains(az.z.rdf));
+                }
+                else
+                {
+                    listZirsarfaslID = ZirsarfaslID;
                 }
 
 
@@ -204,12 +220,7 @@ namespace ReportSarfasl.dataLayer
                         has_dar = g.Key.z.has_dar,
                         Man = g.Sum(r1 => r1.a.bed - r1.a.bes)
                     }).ToList();
-
-                if (!listZirsarfaslID.Any())
-                {
-                    listZirsarfaslID = context.zirsarfasls.AsNoTracking().Where(z=>z.rdf_sarfasl==sarfaslID).Select(z=>z.rdf).ToList();
-                }
-
+                
                 if (listZirsarfaslID.Count > result1.Count)
                 {
                     var ZirSarfasls = context.zirsarfasls.AsNoTracking().ToList();

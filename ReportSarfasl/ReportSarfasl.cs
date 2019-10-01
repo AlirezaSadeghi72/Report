@@ -49,8 +49,8 @@ namespace ReportSarfasl
             this.dgvSarfasl = new System.Windows.Forms.DataGridView();
             this.txtFilter = new System.Windows.Forms.TextBox();
             this.pnlFooter = new System.Windows.Forms.Panel();
-            this.btnPrint = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.btnPrint = new System.Windows.Forms.Button();
             this.pnlHeader.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -182,16 +182,6 @@ namespace ReportSarfasl
             this.pnlFooter.Size = new System.Drawing.Size(1200, 42);
             this.pnlFooter.TabIndex = 2;
             // 
-            // btnPrint
-            // 
-            this.btnPrint.Location = new System.Drawing.Point(103, 10);
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(75, 23);
-            this.btnPrint.TabIndex = 0;
-            this.btnPrint.Text = "چاپ";
-            this.btnPrint.UseVisualStyleBackColor = true;
-            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
-            // 
             // btnCancel
             // 
             this.btnCancel.Location = new System.Drawing.Point(22, 10);
@@ -201,6 +191,16 @@ namespace ReportSarfasl
             this.btnCancel.Text = "انصراف";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.Location = new System.Drawing.Point(103, 10);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(75, 23);
+            this.btnPrint.TabIndex = 0;
+            this.btnPrint.Text = "چاپ";
+            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // reportSarfasl
             // 
@@ -227,18 +227,21 @@ namespace ReportSarfasl
         #region Event Control Data Grid View
         private void dgvSarfasl_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter && OpenFormZirSarfasl != null)
-            {
-                if (dgvSarfasl.SelectedRows.Count > 0 && dgvSarfasl.SelectedRows[0].Index > 0)
+            
+                if (dgvSarfasl.SelectedRows.Count > 0 && dgvSarfasl.SelectedRows[0].Index >= 0)
                 {
                     SarfaslIdSelected = (int)dgvSarfasl.SelectedRows[0].Cells["ID"].Value;
                     _openZirSarfasl(sender, e);
                 }
-            }
+           
         }
         private void dgvSarfasl_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            _openZirSarfasl(sender, new KeyEventArgs(Keys.A));
+            if (dgvSarfasl.SelectedRows.Count > 0 && dgvSarfasl.SelectedRows[0].Index >= 0)
+            {
+                SarfaslIdSelected = (int) dgvSarfasl.SelectedRows[0].Cells["ID"].Value;
+                _openZirSarfasl(sender, new KeyEventArgs(Keys.A));
+            }
         }
         #endregion
 
@@ -247,14 +250,6 @@ namespace ReportSarfasl
             if (e.KeyCode == Keys.Escape)
             {
                 txtFilter.Text = "";
-            }
-            else if (e.KeyCode == Keys.Enter && OpenFormZirSarfasl != null)
-            {
-                if (dgvSarfasl.SelectedRows.Count > 0 && dgvSarfasl.SelectedRows[0].Index > 0)
-                {
-                    SarfaslIdSelected = (int)dgvSarfasl.SelectedRows[0].Cells["ID"].Value;
-                    _openZirSarfasl(sender, e);
-                }
             }
             else if (dgvSarfasl.Rows.Count > 0)
             {
@@ -297,6 +292,17 @@ namespace ReportSarfasl
         private void btnPrint_Click(object sender, EventArgs e)
         {
             //چاپ
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Enter)
+            {
+                dgvSarfasl_KeyDown(dgvSarfasl, new KeyEventArgs(keyData));
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
         #endregion
 
