@@ -30,7 +30,7 @@ namespace ReportSarfasl
         public TextBox txtSarfasl;
         private Label lblSarfasls;
         private Button btnCancel;
-        private TextBox txtFilter;
+        public TextBox txtFilter;
 
         public reportSarfasl()
         {
@@ -159,6 +159,16 @@ namespace ReportSarfasl
             this.dgvSarfasl.ReadOnly = true;
             this.dgvSarfasl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvSarfasl.Size = new System.Drawing.Size(900, 507);
+            
+            dgvSarfasl.RowsDefaultCellStyle.BackColor = Color.Bisque;
+            dgvSarfasl.AlternatingRowsDefaultCellStyle.BackColor = Color.Beige;
+            dgvSarfasl.CellBorderStyle = DataGridViewCellBorderStyle.None;
+
+            //style for row selected in dataGridView
+            dgvSarfasl.DefaultCellStyle.SelectionBackColor = Color.Red;
+            dgvSarfasl.DefaultCellStyle.SelectionForeColor = Color.Yellow;
+
+            dgvSarfasl.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             this.dgvSarfasl.TabIndex = 1;
             this.dgvSarfasl.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSarfasl_CellDoubleClick);
             this.dgvSarfasl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvSarfasl_KeyDown);
@@ -251,20 +261,22 @@ namespace ReportSarfasl
             }
             else if (dgvSarfasl.Rows.Count > 0)
             {
+                int countRowGrid = dgvSarfasl.Rows.Count;
                 int rowIndexSelected = dgvSarfasl.SelectedRows[0].Index;
                 if (e.KeyCode == Keys.Up)
                 {
-                    if (rowIndexSelected > 0)
+                    if (rowIndexSelected == 0)
                     {
-                        dgvSarfasl.Rows[rowIndexSelected - 1].Cells["select"].Selected = true;
+                        dgvSarfasl.Rows[countRowGrid - 1].Selected = true;
+                    }
+                    else
+                    {
+                        dgvSarfasl.Rows[rowIndexSelected - 1].Selected = true;
                     }
                 }
                 else if (e.KeyCode == Keys.Down)
                 {
-                    if (rowIndexSelected < dgvSarfasl.RowCount - 1)
-                    {
-                        dgvSarfasl.Rows[rowIndexSelected + 1].Cells["select"].Selected = true;
-                    }
+                    dgvSarfasl.Rows[(rowIndexSelected + 1) % countRowGrid].Selected = true;
                 }
             }
         }
@@ -285,6 +297,8 @@ namespace ReportSarfasl
             dgvSarfasl.DataSource = dt = conection.GetSarfaslseServis(ListSar, ListZirSar);
 
             SetGrid();
+
+            txtFilter.Focus();
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
@@ -331,7 +345,9 @@ namespace ReportSarfasl
         private void txtSarfasl_Click(object sender, EventArgs e)
         {
             if (txtSarfasl_KeyDownEnter != null)
+            {
                 txtSarfasl_KeyDownEnter(this, e);
+            }
         }
 
         public event EventHandler txtZirSarfasl_KeyDownEnter;

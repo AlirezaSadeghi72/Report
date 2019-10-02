@@ -25,7 +25,7 @@ namespace ReportSarfasl
         private Label label1;
         private Button btnCancel;
         private Button btnPrint;
-        private TextBox txtFilter;
+        public TextBox txtFilter;
         private Panel pnlFooter;
 
         public ReportZirSarfasl()
@@ -34,6 +34,9 @@ namespace ReportSarfasl
         }
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgvZirSarfal = new System.Windows.Forms.DataGridView();
@@ -76,12 +79,24 @@ namespace ReportSarfasl
             // 
             this.dgvZirSarfal.AllowUserToAddRows = false;
             this.dgvZirSarfal.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Beige;
+            this.dgvZirSarfal.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvZirSarfal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("IRANSans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Red;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Yellow;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvZirSarfal.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvZirSarfal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvZirSarfal.Location = new System.Drawing.Point(3, 52);
             this.dgvZirSarfal.MultiSelect = false;
             this.dgvZirSarfal.Name = "dgvZirSarfal";
             this.dgvZirSarfal.ReadOnly = true;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Bisque;
+            this.dgvZirSarfal.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvZirSarfal.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvZirSarfal.Size = new System.Drawing.Size(794, 445);
             this.dgvZirSarfal.TabIndex = 0;
@@ -203,6 +218,8 @@ namespace ReportSarfasl
                 lblSumMan.Text = dt.Sum(d => d.Man).ToMan();
 
                 SetGrid();
+
+                txtFilter.Focus();
             }
         }
 
@@ -225,24 +242,22 @@ namespace ReportSarfasl
             }
             else if (dgvZirSarfal.Rows.Count > 0)
             {
+                int countRowGrid = dgvZirSarfal.Rows.Count;
                 int rowIndexSelected = dgvZirSarfal.SelectedRows[0].Index;
                 if (e.KeyCode == Keys.Up)
                 {
-                    _isSearch = true;
-                    txtFilter.Text = "";
-                    if (rowIndexSelected > 0)
+                    if (rowIndexSelected == 0)
                     {
-                        dgvZirSarfal.Rows[rowIndexSelected - 1].Cells["select"].Selected = true;
+                        dgvZirSarfal.Rows[countRowGrid - 1].Selected = true;
+                    }
+                    else
+                    {
+                        dgvZirSarfal.Rows[rowIndexSelected - 1].Selected = true;
                     }
                 }
                 else if (e.KeyCode == Keys.Down)
                 {
-                    _isSearch = true;
-                    txtFilter.Text = "";
-                    if (rowIndexSelected < dgvZirSarfal.RowCount - 1)
-                    {
-                        dgvZirSarfal.Rows[rowIndexSelected + 1].Cells["select"].Selected = true;
-                    }
+                    dgvZirSarfal.Rows[(rowIndexSelected + 1) % countRowGrid].Selected = true;
                 }
             }
         }

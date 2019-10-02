@@ -130,7 +130,17 @@ namespace ReportSarfasl
             this.dgvActZirSarfasl.ReadOnly = true;
             this.dgvActZirSarfasl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvActZirSarfasl.Size = new System.Drawing.Size(694, 291);
+
+            //style for row in dataGridView
+            dgvActZirSarfasl.RowsDefaultCellStyle.BackColor = Color.Bisque;
+            dgvActZirSarfasl.AlternatingRowsDefaultCellStyle.BackColor = Color.Beige;
+
+            //style for row selected in dataGridView
+            dgvActZirSarfasl.DefaultCellStyle.SelectionBackColor = Color.Red;
+            dgvActZirSarfasl.DefaultCellStyle.SelectionForeColor = Color.Yellow;
+
             this.dgvActZirSarfasl.TabIndex = 1;
+
             // 
             // txtFilter
             // 
@@ -295,6 +305,8 @@ namespace ReportSarfasl
                 lblBes.Text = dt.Sum(d => d.bes).ToMan();
 
                 SetGrid();
+
+                txtFilter.Focus();
             }
         }
 
@@ -317,16 +329,16 @@ namespace ReportSarfasl
                 {
                     if (rowIndexSelected == 0)
                     {
-                        dgvActZirSarfasl.Rows[countRowGrid - 1].Cells["select"].Selected = true;
+                        dgvActZirSarfasl.Rows[countRowGrid - 1].Selected = true;
                     }
                     else
                     {
-                        dgvActZirSarfasl.Rows[rowIndexSelected - 1].Cells["select"].Selected = true;
+                        dgvActZirSarfasl.Rows[rowIndexSelected - 1].Selected = true;
                     }
                 }
                 else if (e.KeyCode == Keys.Down)
                 {
-                    dgvActZirSarfasl.Rows[(rowIndexSelected + 1) % countRowGrid].Cells["select"].Selected = true;
+                    dgvActZirSarfasl.Rows[(rowIndexSelected + 1) % countRowGrid].Selected = true;
                 }
             }
         }

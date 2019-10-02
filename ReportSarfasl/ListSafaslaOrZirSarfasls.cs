@@ -52,14 +52,14 @@ namespace ReportSarfasl
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(900, 66);
+            this.pnlHeader.Size = new System.Drawing.Size(900, 82);
             this.pnlHeader.TabIndex = 0;
             // 
             // chboxSelectedAll
             // 
             this.chboxSelectedAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chboxSelectedAll.AutoSize = true;
-            this.chboxSelectedAll.Location = new System.Drawing.Point(799, 34);
+            this.chboxSelectedAll.Location = new System.Drawing.Point(810, 52);
             this.chboxSelectedAll.Name = "chboxSelectedAll";
             this.chboxSelectedAll.Size = new System.Drawing.Size(86, 24);
             this.chboxSelectedAll.TabIndex = 2;
@@ -90,9 +90,9 @@ namespace ReportSarfasl
             // 
             this.pnlMain.Controls.Add(this.dgvList);
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMain.Location = new System.Drawing.Point(0, 66);
+            this.pnlMain.Location = new System.Drawing.Point(0, 82);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(900, 534);
+            this.pnlMain.Size = new System.Drawing.Size(900, 518);
             this.pnlMain.TabIndex = 0;
             // 
             // dgvList
@@ -108,7 +108,7 @@ namespace ReportSarfasl
             this.dgvList.Name = "dgvList";
             this.dgvList.ReadOnly = true;
             this.dgvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvList.Size = new System.Drawing.Size(900, 534);
+            this.dgvList.Size = new System.Drawing.Size(900, 518);
             this.dgvList.TabIndex = 0;
             this.dgvList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvList_CellClick);
             this.dgvList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvList_DataBindingComplete);
@@ -172,6 +172,8 @@ namespace ReportSarfasl
                 }
 
                 SetGrid();
+
+                txtFilter.Focus();
             }
         }
         #region Event Controls
