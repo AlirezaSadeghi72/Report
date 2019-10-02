@@ -160,15 +160,14 @@ namespace ReportSarfasl
             this.dgvSarfasl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvSarfasl.Size = new System.Drawing.Size(900, 507);
             
+            //style for row in dataGridView
             dgvSarfasl.RowsDefaultCellStyle.BackColor = Color.Bisque;
             dgvSarfasl.AlternatingRowsDefaultCellStyle.BackColor = Color.Beige;
-            dgvSarfasl.CellBorderStyle = DataGridViewCellBorderStyle.None;
 
             //style for row selected in dataGridView
             dgvSarfasl.DefaultCellStyle.SelectionBackColor = Color.Red;
             dgvSarfasl.DefaultCellStyle.SelectionForeColor = Color.Yellow;
 
-            dgvSarfasl.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             this.dgvSarfasl.TabIndex = 1;
             this.dgvSarfasl.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSarfasl_CellDoubleClick);
             this.dgvSarfasl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvSarfasl_KeyDown);
