@@ -168,7 +168,7 @@ namespace ReportSarfasl
             else if (_choise == 2)
             {
                 //اتصال
-                if (_listSarfsl.Any())
+                if (!_listSarfsl.Any())
                 {
                     dgvList.DataSource = dt = conection.GetZirSarfasls();
                 }
@@ -319,7 +319,6 @@ namespace ReportSarfasl
             dgvList.Columns["Name"].HeaderText = "نام";
             dgvList.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
-
         }
 
         private void SetCheckBoxColumn()
@@ -341,7 +340,7 @@ namespace ReportSarfasl
 
         private void AddOrRemoveInListAndTextSelected(int rowData, bool isAdded)
         {
-            lblTextSelected.Text = lblTextSelected.Text.Replace(dgvList.Rows[rowData].Cells["Name"].Value.ToString() + " , ", "");
+            lblTextSelected.Text = lblTextSelected.Text.Replace(dgvList.Rows[rowData].Cells["Name"].Value + " , ", "");
             ListSelected.RemoveAll(i => i == (int)dgvList.Rows[rowData].Cells["ID"].Value);
 
             if (isAdded)

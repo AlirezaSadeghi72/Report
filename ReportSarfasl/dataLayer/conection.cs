@@ -172,7 +172,7 @@ namespace ReportSarfasl.dataLayer
                                 ID = Safasl.rdf,
                                 Name = Safasl.name,
                                 GroupSarfaslID = Safasl.GroupSarfaslID,
-                                Man = decimal.Parse("0.0000")
+                                Man = 0
                             });
                         }
                     }
@@ -247,7 +247,7 @@ namespace ReportSarfasl.dataLayer
                                 SarfaslID = ZirSafasl.rdf_sarfasl,
                                 Active = ZirSafasl.Active,
                                 has_dar = ZirSafasl.has_dar,
-                                Man = decimal.Parse("0.0000")
+                                Man = 0
                             });
                         }
                     }

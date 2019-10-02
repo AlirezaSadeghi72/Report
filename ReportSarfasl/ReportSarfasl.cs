@@ -18,7 +18,7 @@ namespace ReportSarfasl
         private List<int> _listSar = new List<int>(), _listZirSar = new List<int>();
         private int _sarfaslIdSelected;
         private List<SarfaslService> dt;
-        private bool _isKeySpase = false;
+        //private bool _isKeySpase = false;
         private Button btnPrint;
         private DataGridView dgvSarfasl;
         private Panel pnlFooter;
@@ -31,6 +31,7 @@ namespace ReportSarfasl
         private TextBox txtSarfasl;
         private Label lblSarfasls;
         private Button btnCancel;
+        private Label lblFooter;
         private TextBox txtFilter;
 
         public reportSarfasl()
@@ -40,9 +41,9 @@ namespace ReportSarfasl
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblZirSarfasl = new System.Windows.Forms.Label();
@@ -54,6 +55,7 @@ namespace ReportSarfasl
             this.dgvSarfasl = new System.Windows.Forms.DataGridView();
             this.txtFilter = new System.Windows.Forms.TextBox();
             this.pnlFooter = new System.Windows.Forms.Panel();
+            this.lblFooter = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
             this.pnlHeader.SuspendLayout();
@@ -157,24 +159,34 @@ namespace ReportSarfasl
             // 
             this.dgvSarfasl.AllowUserToAddRows = false;
             this.dgvSarfasl.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.Beige;
-            this.dgvSarfasl.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            this.dgvSarfasl.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(160)))), ((int)(((byte)(200)))));
+            this.dgvSarfasl.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(26)))), ((int)(((byte)(71)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvSarfasl.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvSarfasl.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.Red;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Yellow;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvSarfasl.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.DeepSkyBlue;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvSarfasl.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvSarfasl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvSarfasl.EnableHeadersVisualStyles = false;
             this.dgvSarfasl.Location = new System.Drawing.Point(0, 28);
             this.dgvSarfasl.MultiSelect = false;
             this.dgvSarfasl.Name = "dgvSarfasl";
             this.dgvSarfasl.ReadOnly = true;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.Bisque;
-            this.dgvSarfasl.RowsDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Blue;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
+            this.dgvSarfasl.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvSarfasl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvSarfasl.Size = new System.Drawing.Size(900, 507);
             this.dgvSarfasl.TabIndex = 1;
@@ -195,13 +207,22 @@ namespace ReportSarfasl
             // 
             // pnlFooter
             // 
+            this.pnlFooter.Controls.Add(this.lblFooter);
             this.pnlFooter.Controls.Add(this.btnCancel);
             this.pnlFooter.Controls.Add(this.btnPrint);
             this.pnlFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlFooter.Location = new System.Drawing.Point(0, 558);
+            this.pnlFooter.Location = new System.Drawing.Point(0, 541);
             this.pnlFooter.Name = "pnlFooter";
-            this.pnlFooter.Size = new System.Drawing.Size(900, 42);
+            this.pnlFooter.Size = new System.Drawing.Size(900, 59);
             this.pnlFooter.TabIndex = 2;
+            // 
+            // lblFooter
+            // 
+            this.lblFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblFooter.Location = new System.Drawing.Point(0, 39);
+            this.lblFooter.Name = "lblFooter";
+            this.lblFooter.Size = new System.Drawing.Size(900, 20);
+            this.lblFooter.TabIndex = 10;
             // 
             // btnCancel
             // 
@@ -307,6 +328,8 @@ namespace ReportSarfasl
             dgvSarfasl.DataSource = dt = conection.GetSarfaslseServis(_listSar, _listZirSar);
 
             SetGrid();
+
+            SetTextLabelFooter(dt.Count, dt.Sum(d => d.Man));
 
             txtFilter.Focus();
         }
@@ -419,9 +442,10 @@ namespace ReportSarfasl
 
             dgvSarfasl.Columns["Man"].Visible = true;
             dgvSarfasl.Columns["Man"].HeaderText = "مانده";
-            dgvSarfasl.Columns["Man"].DefaultCellStyle.Format = "#,0.0000";
+            dgvSarfasl.Columns["Man"].DefaultCellStyle.Format = "#,0";
             dgvSarfasl.Columns["Man"].DefaultCellStyle.Font = new Font("IRANSans(FaNum)", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             dgvSarfasl.Columns["Man"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
 
         }
 
@@ -430,21 +454,19 @@ namespace ReportSarfasl
             if (dt != null)
             {
                 var filter = txtFilter.Text.Trim();
-                if (filter == "")
-                {
-                    dgvSarfasl.DataSource = dt;
-                }
-                else if (filter != "")
-                {
-                    dgvSarfasl.DataSource = dt.Where(c => c.Name.Contains(filter)).ToList();
-                }
+
+                var dt1 = dt.Where(c => c.Name.Contains(filter)).ToList();
+                dgvSarfasl.DataSource = dt1;
+
+                SetTextLabelFooter(dt1.Count, dt1.Sum(d => d.Man));
             }
         }
 
         private void ShowList(bool isSarfasl)
         {
             DefultForm listForm = new DefultForm();
-            ListSafaslaOrZirSarfasls _list = isSarfasl ? new ListSafaslaOrZirSarfasls(true, _listSar, txtSarfasl.Text) :
+            ListSafaslaOrZirSarfasls _list = isSarfasl ?
+                new ListSafaslaOrZirSarfasls(true, _listSar, txtSarfasl.Text) :
                 new ListSafaslaOrZirSarfasls(false, _listZirSar, txtZirSarfasl.Text, _listSar);
             listForm.ShowDialog(_list, new Size(800, 500));
 
@@ -466,14 +488,19 @@ namespace ReportSarfasl
             DefultForm reportZirSarfasl = new DefultForm();
             reportZirSarfasl.ShowDialog(new ReportZirSarfasl(_listZirSar, _sarfaslIdSelected), new Size(800, 500));
         }
-
         
-
         private void ShowReportActZirSarfasl()
         {
             _sarfaslIdSelected = (int)dgvSarfasl.SelectedRows[0].Cells["ID"].Value;
             DefultForm reportActZirSarfasl = new DefultForm();
             reportActZirSarfasl.ShowDialog(new ReportActZirSarfasl(sarfaslID: _sarfaslIdSelected, listZirsarfasl: _listZirSar), new Size(800, 500));
+        }
+
+        private void SetTextLabelFooter(int number, decimal sum)
+        {
+            string status = (sum > 0) ? "بدهكار" : (sum == 0) ? "--" : "بستانكار";
+            lblFooter.Text =
+                $"تعداد: {number}     اختلاف: {Math.Abs(sum).ToMan()} ({status})";
         }
 
         #endregion

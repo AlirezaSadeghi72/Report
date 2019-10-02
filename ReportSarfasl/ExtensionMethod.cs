@@ -13,7 +13,7 @@ namespace ReportSarfasl
     {
         public static string ToMan(this decimal i)
         {
-            return i.ToString("#,0.0000");
+            return i.ToString("#,0");
         }
 
         public static void ShowDialog(this DefultForm form, UserControl Childe, Size sizeForm)
@@ -26,6 +26,13 @@ namespace ReportSarfasl
                 Temp.Opacity = 0.7D;
                 Temp.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
                 Temp.ShowInTaskbar = false;
+                Temp.KeyDown += (sender, e) =>
+                {
+                    if (e.KeyCode == System.Windows.Forms.Keys.Escape)
+                    {
+                        form.Close();
+                    }
+                };
                 Temp.Load += (sender, e) =>
                 {
                     Childe.Dock = DockStyle.Fill;
