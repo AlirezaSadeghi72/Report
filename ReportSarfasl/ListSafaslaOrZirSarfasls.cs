@@ -11,8 +11,9 @@ namespace ReportSarfasl
 {
     public class ListSafaslaOrZirSarfasls : UserControl
     {
-        public int Choise;
-        public List<int> listSelected = new List<int>(), listSarfsl = new List<int>();
+        private int _choise;
+        public List<int> ListSelected = new List<int>();
+        private List<int> _listSarfsl = new List<int>();
         private bool _isSearch, _isKeySpase;
         private CheckBox chboxSelectedAll;
         private DataGridView dgvList;
@@ -24,9 +25,14 @@ namespace ReportSarfasl
         private DataGridViewCheckBoxColumn Select;
         private TextBox txtFilter;
 
-        public ListSafaslaOrZirSarfasls()
+        public ListSafaslaOrZirSarfasls(bool isSarfasl, List<int> listSelected, string text,
+            List<int> listSarfasl = null)
         {
             InitializeComponent();
+            _choise = isSarfasl ? 1 : 2;
+            ListSelected = listSelected;
+            _listSarfsl = listSarfasl;
+            lblTextSelected.Text = text;
         }
 
         private void InitializeComponent()
@@ -84,7 +90,9 @@ namespace ReportSarfasl
             this.txtFilter.Size = new System.Drawing.Size(900, 28);
             this.txtFilter.TabIndex = 0;
             this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
+            this.txtFilter.Enter += new System.EventHandler(this.txtFilter_Enter);
             this.txtFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtFilter_KeyDown);
+            this.txtFilter.Leave += new System.EventHandler(this.txtFilter_Leave);
             // 
             // pnlMain
             // 
@@ -151,30 +159,28 @@ namespace ReportSarfasl
         {
             // _choise == 1  -->  Sarfasl
             // _choise == 2  -->  Zir Sarfasl
-            if (!DesignMode)
+
+            if (_choise == 1)
             {
-                if (Choise == 1)
-                {
-                    //اتصال
-                    dgvList.DataSource = dt = conection.GetSarfaslses();
-                }
-                else if (Choise == 2)
-                {
-                    //اتصال
-                    if (listSarfsl.Any())
-                    {
-                        dgvList.DataSource = dt = conection.GetZirSarfasls();
-                    }
-                    else
-                    {
-                        dgvList.DataSource = dt = conection.GetZirSarfasls(z => listSarfsl.Contains(z.rdf_sarfasl));
-                    }
-                }
-
-                SetGrid();
-
-                txtFilter.Focus();
+                //اتصال
+                dgvList.DataSource = dt = conection.GetSarfaslses();
             }
+            else if (_choise == 2)
+            {
+                //اتصال
+                if (_listSarfsl.Any())
+                {
+                    dgvList.DataSource = dt = conection.GetZirSarfasls();
+                }
+                else
+                {
+                    dgvList.DataSource = dt = conection.GetZirSarfasls(z => _listSarfsl.Contains(z.rdf_sarfasl));
+                }
+            }
+
+            SetGrid();
+
+            txtFilter.Focus();
         }
         #region Event Controls
 
@@ -191,7 +197,7 @@ namespace ReportSarfasl
             }
             else if (e.KeyCode == Keys.Space)
             {
-                if ((txtFilter.Text.Trim() == "" && _isSearch)|| (dgvList.Rows.Count == 1))
+                if ((txtFilter.Text.Trim() == "" && _isSearch) || (dgvList.Rows.Count == 1))
                 {
                     _isKeySpase = true;
                     txtFilter.Text = "";
@@ -258,7 +264,7 @@ namespace ReportSarfasl
             foreach (DataGridViewRow row in dgvList.Rows)
             {
                 var search = (int)row.Cells["ID"].Value;
-                if (listSelected.Any(i => i == search))
+                if (ListSelected.Any(i => i == search))
                 {
                     row.Cells["select"].Value = true;
                     row.DefaultCellStyle.BackColor = Color.PaleTurquoise;
@@ -272,19 +278,24 @@ namespace ReportSarfasl
         }
         #endregion
 
+        private void txtFilter_Enter(object sender, EventArgs e)
+        {
+            txtFilter.BackColor = Color.Bisque;
+        }
+        private void txtFilter_Leave(object sender, EventArgs e)
+        {
+            txtFilter.BackColor = Color.White;
+        }
+
         #endregion
 
-        #region Event Handler
+        #region Event override
 
-        public event EventHandler CloseUserControl;
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (keyData == Keys.Enter)
+            if (keyData == Keys.Enter|| (keyData == Keys.Escape && !txtFilter.Focused))
             {
-                if (CloseUserControl != null)
-                {
-                    CloseUserControl(this,EventArgs.Empty);
-                }
+                ((Form)this.TopLevelControl).Close();
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);
@@ -293,11 +304,6 @@ namespace ReportSarfasl
         #endregion
 
         #region Method
-
-        public void GetData()
-        {
-
-        }
 
         public void SetGrid()
         {
@@ -333,22 +339,21 @@ namespace ReportSarfasl
             }
         }
 
-
         private void AddOrRemoveInListAndTextSelected(int rowData, bool isAdded)
         {
             lblTextSelected.Text = lblTextSelected.Text.Replace(dgvList.Rows[rowData].Cells["Name"].Value.ToString() + " , ", "");
-            listSelected.RemoveAll(i => i == (int)dgvList.Rows[rowData].Cells["ID"].Value);
+            ListSelected.RemoveAll(i => i == (int)dgvList.Rows[rowData].Cells["ID"].Value);
 
             if (isAdded)
             {
-                listSelected.Add((int)dgvList.Rows[rowData].Cells["ID"].Value);
+                ListSelected.Add((int)dgvList.Rows[rowData].Cells["ID"].Value);
                 lblTextSelected.Text += dgvList.Rows[rowData].Cells["Name"].Value + " , ";
             }
         }
 
         private void search()
         {
-            if (dt!= null)
+            if (dt != null)
             {
                 var filter = txtFilter.Text.Trim();
                 if (filter == "" && !_isSearch)
@@ -358,7 +363,7 @@ namespace ReportSarfasl
                 else if (filter != "")
                 {
                     _isSearch = false;
-                    switch (Choise)
+                    switch (_choise)
                     {
                         case 1:
                             {

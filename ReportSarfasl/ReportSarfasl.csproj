@@ -90,33 +90,6 @@
     <Compile Include="Forms\DefultForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmListSarfaslOrZirSarfasl.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmListSarfaslOrZirSarfasl.Designer.cs">
-      <DependentUpon>frmListSarfaslOrZirSarfasl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmReportActZirSarfasl.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmReportActZirSarfasl.Designer.cs">
-      <DependentUpon>frmReportActZirSarfasl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmReportSarfasls.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmReportSarfasls.Designer.cs">
-      <DependentUpon>frmReportSarfasls.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmReportZirSarfasl.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmReportZirSarfasl.Designer.cs">
-      <DependentUpon>frmReportZirSarfasl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="ShowDefultForm.cs" />
     <Compile Include="ListSafaslaOrZirSarfasls.cs">
       <SubType>UserControl</SubType>
@@ -143,21 +116,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DefultForm.resx">
       <DependentUpon>DefultForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmListSarfaslOrZirSarfasl.resx">
-      <DependentUpon>frmListSarfaslOrZirSarfasl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmReportActZirSarfasl.resx">
-      <DependentUpon>frmReportActZirSarfasl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmReportSarfasls.resx">
-      <DependentUpon>frmReportSarfasls.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmReportZirSarfasl.resx">
-      <DependentUpon>frmReportZirSarfasl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListSafaslaOrZirSarfasls.resx">
       <DependentUpon>ListSafaslaOrZirSarfasls.cs</DependentUpon>

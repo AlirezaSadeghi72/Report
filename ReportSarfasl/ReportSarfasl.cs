@@ -8,14 +8,15 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using ReportSarfasl.dataLayer;
+using ReportSarfasl.Forms;
 using ReportSarfasl.Services;
 
 namespace ReportSarfasl
 {
     public class reportSarfasl : UserControl
     {
-        public List<int> ListSar = new List<int>(), ListZirSar = new List<int>();
-        public int SarfaslIdSelected;
+        private List<int> _listSar = new List<int>(), _listZirSar = new List<int>();
+        private int _sarfaslIdSelected;
         private List<SarfaslService> dt;
         private bool _isKeySpase = false;
         private Button btnPrint;
@@ -25,12 +26,12 @@ namespace ReportSarfasl
         private Panel pnlMain;
         private GroupBox groupBox1;
         private Button btnShow;
-        public TextBox txtZirSarfasl;
+        private TextBox txtZirSarfasl;
         private Label lblZirSarfasl;
-        public TextBox txtSarfasl;
+        private TextBox txtSarfasl;
         private Label lblSarfasls;
         private Button btnCancel;
-        public TextBox txtFilter;
+        private TextBox txtFilter;
 
         public reportSarfasl()
         {
@@ -39,6 +40,9 @@ namespace ReportSarfasl
 
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblZirSarfasl = new System.Windows.Forms.Label();
@@ -104,12 +108,14 @@ namespace ReportSarfasl
             // 
             // btnShow
             // 
+            this.btnShow.BackColor = System.Drawing.Color.SlateGray;
+            this.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnShow.Location = new System.Drawing.Point(6, 27);
             this.btnShow.Name = "btnShow";
             this.btnShow.Size = new System.Drawing.Size(80, 34);
             this.btnShow.TabIndex = 9;
             this.btnShow.Text = "نمایش";
-            this.btnShow.UseVisualStyleBackColor = true;
+            this.btnShow.UseVisualStyleBackColor = false;
             this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
             // 
             // txtZirSarfasl
@@ -151,23 +157,26 @@ namespace ReportSarfasl
             // 
             this.dgvSarfasl.AllowUserToAddRows = false;
             this.dgvSarfasl.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.Beige;
+            this.dgvSarfasl.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvSarfasl.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.Red;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Yellow;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvSarfasl.DefaultCellStyle = dataGridViewCellStyle8;
             this.dgvSarfasl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvSarfasl.Location = new System.Drawing.Point(0, 28);
             this.dgvSarfasl.MultiSelect = false;
             this.dgvSarfasl.Name = "dgvSarfasl";
             this.dgvSarfasl.ReadOnly = true;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.Bisque;
+            this.dgvSarfasl.RowsDefaultCellStyle = dataGridViewCellStyle9;
             this.dgvSarfasl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvSarfasl.Size = new System.Drawing.Size(900, 507);
-            
-            //style for row in dataGridView
-            dgvSarfasl.RowsDefaultCellStyle.BackColor = Color.Bisque;
-            dgvSarfasl.AlternatingRowsDefaultCellStyle.BackColor = Color.Beige;
-
-            //style for row selected in dataGridView
-            dgvSarfasl.DefaultCellStyle.SelectionBackColor = Color.Red;
-            dgvSarfasl.DefaultCellStyle.SelectionForeColor = Color.Yellow;
-
             this.dgvSarfasl.TabIndex = 1;
             this.dgvSarfasl.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSarfasl_CellDoubleClick);
             this.dgvSarfasl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvSarfasl_KeyDown);
@@ -180,7 +189,9 @@ namespace ReportSarfasl
             this.txtFilter.Size = new System.Drawing.Size(900, 28);
             this.txtFilter.TabIndex = 0;
             this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
+            this.txtFilter.Enter += new System.EventHandler(this.txtFilter_Enter);
             this.txtFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtFilter_KeyDown);
+            this.txtFilter.Leave += new System.EventHandler(this.txtFilter_Leave);
             // 
             // pnlFooter
             // 
@@ -194,6 +205,7 @@ namespace ReportSarfasl
             // 
             // btnCancel
             // 
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnCancel.Location = new System.Drawing.Point(22, 6);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 30);
@@ -204,12 +216,15 @@ namespace ReportSarfasl
             // 
             // btnPrint
             // 
-            this.btnPrint.Location = new System.Drawing.Point(103, 6);
+            this.btnPrint.BackColor = System.Drawing.Color.Indigo;
+            this.btnPrint.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnPrint.ForeColor = System.Drawing.Color.White;
+            this.btnPrint.Location = new System.Drawing.Point(97, 6);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(75, 30);
             this.btnPrint.TabIndex = 0;
             this.btnPrint.Text = "چاپ";
-            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.UseVisualStyleBackColor = false;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // reportSarfasl
@@ -234,122 +249,33 @@ namespace ReportSarfasl
 
         #region Event Controls
 
-        #region Event Control Data Grid View
-        private void dgvSarfasl_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyData == Keys.Enter)
-            {
-                _openActZirSarfasl(sender, e);
-            }
-
-        }
-        private void dgvSarfasl_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (dgvSarfasl.SelectedRows.Count > 0 && dgvSarfasl.SelectedRows[0].Index >= 0)
-            {
-                _openZirSarfasl(sender, EventArgs.Empty);
-            }
-        }
-        #endregion
-
-        private void txtFilter_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape)
-            {
-                txtFilter.Text = "";
-            }
-            else if (dgvSarfasl.Rows.Count > 0)
-            {
-                int countRowGrid = dgvSarfasl.Rows.Count;
-                int rowIndexSelected = dgvSarfasl.SelectedRows[0].Index;
-                if (e.KeyCode == Keys.Up)
-                {
-                    if (rowIndexSelected == 0)
-                    {
-                        dgvSarfasl.Rows[countRowGrid - 1].Selected = true;
-                    }
-                    else
-                    {
-                        dgvSarfasl.Rows[rowIndexSelected - 1].Selected = true;
-                    }
-                }
-                else if (e.KeyCode == Keys.Down)
-                {
-                    dgvSarfasl.Rows[(rowIndexSelected + 1) % countRowGrid].Selected = true;
-                }
-            }
-        }
-        private void txtFilter_TextChanged(object sender, EventArgs e)
-        {
-            search();
-        }
-
-        private void txtSarfasl_TextChanged(object sender, EventArgs e)
-        {
-            txtZirSarfasl.Text = "";
-            ListZirSar.Clear();
-        }
-
-        private void btnShow_Click(object sender, EventArgs e)
-        {
-            //اتصال و اوردن اطلاعات
-            dgvSarfasl.DataSource = dt = conection.GetSarfaslseServis(ListSar, ListZirSar);
-
-            SetGrid();
-
-            txtFilter.Focus();
-        }
-
-        private void btnPrint_Click(object sender, EventArgs e)
-        {
-            //چاپ
-        }
-
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if (keyData == Keys.Enter)
-            {
-                if (dgvSarfasl.Focused)
-                {
-                    dgvSarfasl_KeyDown(dgvSarfasl, new KeyEventArgs(keyData));
-                    return true;
-                }
-
-            }
-
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
-        #endregion
-
-        #region Event Handler
-
-        public event EventHandler txtSarfasl_KeyDownEnter;
         private void txtSarfasl_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Left)
             {
                 txtZirSarfasl.Focus();
             }
-            if (txtSarfasl_KeyDownEnter != null)
+            if (e.KeyCode == Keys.Enter)
             {
-                if (e.KeyCode == Keys.Enter)
-                {
-                    txtSarfasl_KeyDownEnter(this, e);
-                    //var sarfasl = new ListSafaslaOrZirSarfasls(1, _listSar);
-                    //sarfasl.Show();
-                    //_listSar = sarfasl.listSelectes;
-                }
+                //txtSarfasl_KeyDownEnter(this, e);
+                ShowList(true);
+
+                //var sarfasl = new ListSafaslaOrZirSarfasls(1, _listSar);
+                //sarfasl.Show();
+                //_listSar = sarfasl.listSelectes;
+
             }
         }
         private void txtSarfasl_Click(object sender, EventArgs e)
         {
-            if (txtSarfasl_KeyDownEnter != null)
-            {
-                txtSarfasl_KeyDownEnter(this, e);
-            }
+            ShowList(true);
+        }
+        private void txtSarfasl_TextChanged(object sender, EventArgs e)
+        {
+            txtZirSarfasl.Text = "";
+            _listZirSar.Clear();
         }
 
-        public event EventHandler txtZirSarfasl_KeyDownEnter;
         private void txtZirSarfasl_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Left)
@@ -361,53 +287,120 @@ namespace ReportSarfasl
                 txtSarfasl.Focus();
             }
 
-            if (txtZirSarfasl_KeyDownEnter != null)
+            if (e.KeyCode == Keys.Enter)
             {
-                if (e.KeyCode == Keys.Enter)
-                {
-                    this.txtZirSarfasl_KeyDownEnter(this, e);
-                    //var zirsarfasl = new ListSafaslaOrZirSarfasls(2, _listZirSar);
-                    //zirsarfasl.Show();
-                    //_listZirSar = zirsarfasl.listSelectes;
-                }
+                //this.txtZirSarfasl_KeyDownEnter(this, e);
+                ShowList(false);
+                //var zirsarfasl = new ListSafaslaOrZirSarfasls(2, _listZirSar);
+                //zirsarfasl.Show();
+                //_listZirSar = zirsarfasl.listSelectes;
             }
         }
         private void txtZirSarfasl_Click(object sender, EventArgs e)
         {
-            if (txtZirSarfasl_KeyDownEnter != null)
-                txtZirSarfasl_KeyDownEnter(this, e);
+            ShowList(false);
         }
 
-        public event EventHandler OpenFormZirSarfasl;
-        private void _openZirSarfasl(object sender, EventArgs e)
+        private void btnShow_Click(object sender, EventArgs e)
         {
-            if (dgvSarfasl.SelectedRows.Count > 0 && OpenFormZirSarfasl != null)
-            {
-                SarfaslIdSelected = (int)dgvSarfasl.SelectedRows[0].Cells["ID"].Value;
-                this.OpenFormZirSarfasl(this, e);
-                //باز کردن زیر سرفصل های سرفصل انتخابی داخل گرید
-            }
-        }
-        public event EventHandler OpenFormActZirSarfasl;
-        private void _openActZirSarfasl(object sender, KeyEventArgs e)
-        {
-            if (dgvSarfasl.SelectedRows.Count > 0 && OpenFormZirSarfasl != null)
-            {
-                SarfaslIdSelected = (int)dgvSarfasl.SelectedRows[0].Cells["ID"].Value;
-                this.OpenFormActZirSarfasl(this, e);
-                //باز کردن زیر سرفصل های سرفصل انتخابی داخل گرید
-            }
+            //اتصال و اوردن اطلاعات
+            dgvSarfasl.DataSource = dt = conection.GetSarfaslseServis(_listSar, _listZirSar);
+
+            SetGrid();
+
+            txtFilter.Focus();
         }
 
-        public event EventHandler ButtenCancelClick;
+        private void txtFilter_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                txtFilter.Text = "";
+            }
+            else if (dgvSarfasl.Rows.Count > 0)
+            {
+                if (e.KeyData == Keys.Enter)
+                {
+                    ShowReportZirSarfasl();
+                }
+                else
+                {
+                    int countRowGrid = dgvSarfasl.Rows.Count;
+                    int rowIndexSelected = dgvSarfasl.SelectedRows[0].Index;
+                    if (e.KeyCode == Keys.Up)
+                    {
+                        if (rowIndexSelected == 0)
+                        {
+                            dgvSarfasl.Rows[countRowGrid - 1].Selected = true;
+                        }
+                        else
+                        {
+                            dgvSarfasl.Rows[rowIndexSelected - 1].Selected = true;
+                        }
+                    }
+                    else if (e.KeyCode == Keys.Down)
+                    {
+                        dgvSarfasl.Rows[(rowIndexSelected + 1) % countRowGrid].Selected = true;
+                    }
+                }
+
+            }
+        }
+        private void txtFilter_TextChanged(object sender, EventArgs e)
+        {
+            search();
+        }
+
+        #region Event Control Data Grid View
+
+        private void dgvSarfasl_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                ShowReportZirSarfasl();
+            }
+        }
+        private void dgvSarfasl_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            ShowReportActZirSarfasl();
+
+        }
+
+        #endregion
+
+        private void txtFilter_Enter(object sender, EventArgs e)
+        {
+            txtFilter.BackColor = Color.Bisque;
+        }
+        private void txtFilter_Leave(object sender, EventArgs e)
+        {
+            txtFilter.BackColor = Color.White;
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            //چاپ
+        }
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            if (ButtenCancelClick != null)
-            {
-                this.ButtenCancelClick(sender, e);
-                //بستن فرم
-            }
+            ((Form)this.TopLevelControl).Close();
+            //بستن فرم
         }
+        #endregion
+
+        #region Event override
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Escape && !txtFilter.Focused)
+            {
+                ((Form)this.TopLevelControl).Close();
+                return false;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
         #endregion
 
         #region Method
@@ -447,6 +440,42 @@ namespace ReportSarfasl
                 }
             }
         }
+
+        private void ShowList(bool isSarfasl)
+        {
+            DefultForm listForm = new DefultForm();
+            ListSafaslaOrZirSarfasls _list = isSarfasl ? new ListSafaslaOrZirSarfasls(true, _listSar, txtSarfasl.Text) :
+                new ListSafaslaOrZirSarfasls(false, _listZirSar, txtZirSarfasl.Text, _listSar);
+            listForm.ShowDialog(_list, new Size(800, 500));
+
+            if (isSarfasl)
+            {
+                txtSarfasl.Text = _list.lblTextSelected.Text;
+                _listSar = _list.ListSelected;
+            }
+            else
+            {
+                txtZirSarfasl.Text = _list.lblTextSelected.Text;
+                _listZirSar = _list.ListSelected;
+            }
+        }
+
+        private void ShowReportZirSarfasl()
+        {
+            _sarfaslIdSelected = (int)dgvSarfasl.SelectedRows[0].Cells["ID"].Value;
+            DefultForm reportZirSarfasl = new DefultForm();
+            reportZirSarfasl.ShowDialog(new ReportZirSarfasl(_listZirSar, _sarfaslIdSelected), new Size(800, 500));
+        }
+
+        
+
+        private void ShowReportActZirSarfasl()
+        {
+            _sarfaslIdSelected = (int)dgvSarfasl.SelectedRows[0].Cells["ID"].Value;
+            DefultForm reportActZirSarfasl = new DefultForm();
+            reportActZirSarfasl.ShowDialog(new ReportActZirSarfasl(sarfaslID: _sarfaslIdSelected, listZirsarfasl: _listZirSar), new Size(800, 500));
+        }
+
         #endregion
     }
 }

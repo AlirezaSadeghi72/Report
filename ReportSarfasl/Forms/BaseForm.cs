@@ -18,7 +18,7 @@ namespace ReportSarfasl.Forms
         {
             DefultForm reportSarfaForm = new DefultForm();
             reportSarfaForm.ShowDialog(new reportSarfasl(), new Size(900, 600));
-            this.Close();
+            //this.Close();
         }
         private void InitializeComponent()
         {

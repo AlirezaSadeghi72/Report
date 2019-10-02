@@ -15,11 +15,12 @@ namespace ReportSarfasl
         {
             using (var Temp = new System.Windows.Forms.Form())
             {
-                Temp.Dock = System.Windows.Forms.DockStyle.Fill;
+                //Temp.Dock = System.Windows.Forms.DockStyle.Fill;
                 Temp.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-                Temp.BackColor = System.Drawing.Color.FromArgb(78, 31, 145);
+                Temp.BackColor = System.Drawing.Color.SlateGray;
                 Temp.Opacity = 0.7D;
                 Temp.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+                Temp.ShowInTaskbar = false;
                 Temp.Load += (sender, e) =>
                 {
                     Childe.Dock = DockStyle.Fill;
