@@ -84,6 +84,9 @@
       <DependentUpon>DbAteran2Model.tt</DependentUpon>
     </Compile>
     <Compile Include="ExtensionMethod.cs" />
+    <Compile Include="Forms\BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\frmListSarfaslOrZirSarfasl.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,6 +133,9 @@
     <Compile Include="Services\ZirSarfaslService.cs" />
     <EmbeddedResource Include="border.resx">
       <DependentUpon>border.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BaseForm.resx">
+      <DependentUpon>BaseForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmListSarfaslOrZirSarfasl.resx">
       <DependentUpon>frmListSarfaslOrZirSarfasl.cs</DependentUpon>
