@@ -110,7 +110,7 @@ namespace ReportSarfasl.dataLayer
             }
         }
 
-        public static List<SarfaslService> GetSarfaslseServis(List<int> listSarfaslID, List<int> listZirsarfaslID)
+        public static List<SarfaslService> GetSarfaslseServis(List<int> listSarfaslID, List<int> listZirsarfaslID , string FromDate , string ToDate)
         {
 
             using (var context = new DbAtiran2Entities())
@@ -123,12 +123,12 @@ namespace ReportSarfasl.dataLayer
 
                 if (listZirsarfaslID.Any())
                 {
-                    result = result.Where(t => listZirsarfaslID.Contains(t.az.z.rdf));
+                    result = result.Where(r => listZirsarfaslID.Contains(r.az.z.rdf));
                 }
 
                 if (listSarfaslID.Any())
                 {
-                    result = result.Where(t => listSarfaslID.Contains(t.s.rdf));
+                    result = result.Where(r => listSarfaslID.Contains(r.s.rdf));
                 }
                 else if (listZirsarfaslID.Any())
                 {
@@ -140,6 +140,8 @@ namespace ReportSarfasl.dataLayer
                     listSarfaslID = context.sarfasls.Select(s => s.rdf).ToList();
                 }
 
+                result = result.Where(r => r.az.a.date.CompareTo(FromDate) >= 0 && r.az.a.date.CompareTo(ToDate) <= 0);
+                
                 //var ali = result.GroupBy(r2 => r2.s.rdf).Select(
                 //    g => new
                 //{
@@ -187,7 +189,7 @@ namespace ReportSarfasl.dataLayer
             //}).ToList();
         }
 
-        public static List<ZirSarfaslService> GetZirSarfaslServices(List<int> listZirsarfaslID, int sarfaslID)
+        public static List<ZirSarfaslService> GetZirSarfaslServices(List<int> listZirsarfaslID, int sarfaslID, string FromDate , string ToDate)
         {
             using (var context = new DbAtiran2Entities())
             {
@@ -215,6 +217,8 @@ namespace ReportSarfasl.dataLayer
                 {
                     listZirsarfaslID = ZirsarfaslID;
                 }
+
+                result = result.Where(r => r.a.date.CompareTo(FromDate) >= 0 && r.a.date.CompareTo(ToDate) <= 0);
 
                 //var ali = result.GroupBy(r2 => new { r2.z }).ToList();
                 int Row = 1;
@@ -256,12 +260,12 @@ namespace ReportSarfasl.dataLayer
                 return result1;
             }
         }
-        public static List<ActZirSarfaslService> GetActZirSarfaslServices(int zirSarfaslID = -1, int sarfaslID = -1, List<int> listZirsarfasl = null)
+        public static List<ActZirSarfaslService> GetActZirSarfaslServices(string FromDate,string ToDate,int zirSarfaslID = -1, int sarfaslID = -1, List<int> listZirsarfasl = null )
         {
             using (var context = new DbAtiran2Entities())
             {
                 if (zirSarfaslID != -1)
-                    return _getActZirSarfasls(context, a => a.rdf_zirsarfasls == zirSarfaslID);
+                    return _getActZirSarfasls(context, a => a.rdf_zirsarfasls == zirSarfaslID && a.date.CompareTo(FromDate) >= 0 && a.date.CompareTo(ToDate) <= 0);
 
                 if (sarfaslID != -1)
                 {
@@ -272,13 +276,13 @@ namespace ReportSarfasl.dataLayer
                         var listZirsarfasl1 = listZirsarfasl.Where(z => ZirsarfaslID.Contains(z)).ToList();
                         if (listZirsarfasl1.Any())
                         {
-                            return _getActZirSarfasls(context, a => listZirsarfasl1.Contains(a.rdf_zirsarfasls));
+                            return _getActZirSarfasls(context, a => listZirsarfasl1.Contains(a.rdf_zirsarfasls) && a.date.CompareTo(FromDate) >= 0 && a.date.CompareTo(ToDate) <= 0);
                         }
 
-                        return _getActZirSarfasls(context, a => listZirsarfasl.Contains(a.rdf_zirsarfasls));
+                        return _getActZirSarfasls(context, a => listZirsarfasl.Contains(a.rdf_zirsarfasls) && a.date.CompareTo(FromDate) >= 0 && a.date.CompareTo(ToDate) <= 0);
                     }
 
-                    return _getActZirSarfasls(context, a => ZirsarfaslID.Contains(a.rdf_zirsarfasls));
+                    return _getActZirSarfasls(context, a => ZirsarfaslID.Contains(a.rdf_zirsarfasls) && a.date.CompareTo(FromDate) >= 0 && a.date.CompareTo(ToDate) <= 0);
                 }
 
                 throw new NullReferenceException();

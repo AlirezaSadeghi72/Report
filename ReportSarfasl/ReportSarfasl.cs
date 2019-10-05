@@ -18,7 +18,6 @@ namespace ReportSarfasl
         private List<int> _listSar = new List<int>(), _listZirSar = new List<int>();
         private int _sarfaslIdSelected;
         private List<SarfaslService> dt;
-        //private bool _isKeySpase = false;
         private Button btnPrint;
         private DataGridView dgvSarfasl;
         private Panel pnlFooter;
@@ -27,12 +26,15 @@ namespace ReportSarfasl
         private GroupBox groupBox1;
         private Button btnShow;
         private TextBox txtZirSarfasl;
+        //DateTime ali = DateTime.ParseExact("2011/11/12","yyyy/mm/dd",null);
         private Label lblZirSarfasl;
         private TextBox txtSarfasl;
         private Label lblSarfasls;
         private Button btnCancel;
         private Label lblFooter;
+        private TextDate textDate1;
         private TextBox txtFilter;
+
 
         public reportSarfasl()
         {
@@ -58,6 +60,7 @@ namespace ReportSarfasl
             this.lblFooter = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
+            this.textDate1 = new ReportSarfasl.TextDate();
             this.pnlHeader.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -71,11 +74,12 @@ namespace ReportSarfasl
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(900, 65);
+            this.pnlHeader.Size = new System.Drawing.Size(900, 109);
             this.pnlHeader.TabIndex = 0;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textDate1);
             this.groupBox1.Controls.Add(this.lblZirSarfasl);
             this.groupBox1.Controls.Add(this.lblSarfasls);
             this.groupBox1.Controls.Add(this.btnShow);
@@ -84,7 +88,7 @@ namespace ReportSarfasl
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(900, 65);
+            this.groupBox1.Size = new System.Drawing.Size(900, 109);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             // 
@@ -92,7 +96,7 @@ namespace ReportSarfasl
             // 
             this.lblZirSarfasl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblZirSarfasl.AutoSize = true;
-            this.lblZirSarfasl.Location = new System.Drawing.Point(474, 27);
+            this.lblZirSarfasl.Location = new System.Drawing.Point(474, 57);
             this.lblZirSarfasl.Name = "lblZirSarfasl";
             this.lblZirSarfasl.Size = new System.Drawing.Size(81, 20);
             this.lblZirSarfasl.TabIndex = 7;
@@ -102,7 +106,7 @@ namespace ReportSarfasl
             // 
             this.lblSarfasls.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSarfasls.AutoSize = true;
-            this.lblSarfasls.Location = new System.Drawing.Point(822, 27);
+            this.lblSarfasls.Location = new System.Drawing.Point(822, 57);
             this.lblSarfasls.Name = "lblSarfasls";
             this.lblSarfasls.Size = new System.Drawing.Size(65, 20);
             this.lblSarfasls.TabIndex = 5;
@@ -112,7 +116,7 @@ namespace ReportSarfasl
             // 
             this.btnShow.BackColor = System.Drawing.Color.SlateGray;
             this.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnShow.Location = new System.Drawing.Point(6, 27);
+            this.btnShow.Location = new System.Drawing.Point(6, 54);
             this.btnShow.Name = "btnShow";
             this.btnShow.Size = new System.Drawing.Size(80, 34);
             this.btnShow.TabIndex = 9;
@@ -123,7 +127,7 @@ namespace ReportSarfasl
             // txtZirSarfasl
             // 
             this.txtZirSarfasl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtZirSarfasl.Location = new System.Drawing.Point(228, 24);
+            this.txtZirSarfasl.Location = new System.Drawing.Point(228, 54);
             this.txtZirSarfasl.Name = "txtZirSarfasl";
             this.txtZirSarfasl.ReadOnly = true;
             this.txtZirSarfasl.Size = new System.Drawing.Size(240, 28);
@@ -135,7 +139,7 @@ namespace ReportSarfasl
             // txtSarfasl
             // 
             this.txtSarfasl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSarfasl.Location = new System.Drawing.Point(576, 24);
+            this.txtSarfasl.Location = new System.Drawing.Point(576, 54);
             this.txtSarfasl.Name = "txtSarfasl";
             this.txtSarfasl.ReadOnly = true;
             this.txtSarfasl.Size = new System.Drawing.Size(240, 28);
@@ -150,9 +154,9 @@ namespace ReportSarfasl
             this.pnlMain.Controls.Add(this.dgvSarfasl);
             this.pnlMain.Controls.Add(this.txtFilter);
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMain.Location = new System.Drawing.Point(0, 65);
+            this.pnlMain.Location = new System.Drawing.Point(0, 109);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(900, 535);
+            this.pnlMain.Size = new System.Drawing.Size(900, 432);
             this.pnlMain.TabIndex = 1;
             // 
             // dgvSarfasl
@@ -188,7 +192,7 @@ namespace ReportSarfasl
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
             this.dgvSarfasl.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvSarfasl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSarfasl.Size = new System.Drawing.Size(900, 507);
+            this.dgvSarfasl.Size = new System.Drawing.Size(900, 404);
             this.dgvSarfasl.TabIndex = 1;
             this.dgvSarfasl.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSarfasl_CellDoubleClick);
             this.dgvSarfasl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvSarfasl_KeyDown);
@@ -248,11 +252,21 @@ namespace ReportSarfasl
             this.btnPrint.UseVisualStyleBackColor = false;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
+            // textDate1
+            // 
+            this.textDate1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.textDate1.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.textDate1.Location = new System.Drawing.Point(3, 24);
+            this.textDate1.Name = "textDate1";
+            this.textDate1.Size = new System.Drawing.Size(894, 24);
+            this.textDate1.TabIndex = 10;
+            this.textDate1.KeyEnterTextBoxToYear += new System.EventHandler(this.textDate1_KeyEnterTextBoxToYear_1);
+            // 
             // reportSarfasl
             // 
-            this.Controls.Add(this.pnlFooter);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.pnlHeader);
+            this.Controls.Add(this.pnlFooter);
             this.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.Name = "reportSarfasl";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -325,7 +339,7 @@ namespace ReportSarfasl
         private void btnShow_Click(object sender, EventArgs e)
         {
             //اتصال و اوردن اطلاعات
-            dgvSarfasl.DataSource = dt = conection.GetSarfaslseServis(_listSar, _listZirSar);
+            dgvSarfasl.DataSource = dt = conection.GetSarfaslseServis(_listSar, _listZirSar,textDate1.FromDate,textDate1.ToDate);
 
             SetGrid();
 
@@ -373,7 +387,14 @@ namespace ReportSarfasl
         {
             search();
         }
-
+        private void txtFilter_Enter(object sender, EventArgs e)
+        {
+            txtFilter.BackColor = Color.Bisque;
+        }
+        private void txtFilter_Leave(object sender, EventArgs e)
+        {
+            txtFilter.BackColor = Color.White;
+        }
         #region Event Control Data Grid View
 
         private void dgvSarfasl_KeyDown(object sender, KeyEventArgs e)
@@ -390,15 +411,6 @@ namespace ReportSarfasl
         }
 
         #endregion
-
-        private void txtFilter_Enter(object sender, EventArgs e)
-        {
-            txtFilter.BackColor = Color.Bisque;
-        }
-        private void txtFilter_Leave(object sender, EventArgs e)
-        {
-            txtFilter.BackColor = Color.White;
-        }
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
@@ -486,14 +498,19 @@ namespace ReportSarfasl
         {
             _sarfaslIdSelected = (int)dgvSarfasl.SelectedRows[0].Cells["ID"].Value;
             DefultForm reportZirSarfasl = new DefultForm();
-            reportZirSarfasl.ShowDialog(new ReportZirSarfasl(_listZirSar, _sarfaslIdSelected), new Size(800, 500));
+            reportZirSarfasl.ShowDialog(new ReportZirSarfasl(_listZirSar, _sarfaslIdSelected, textDate1.FromDate, textDate1.ToDate), new Size(800, 500));
         }
-        
+
         private void ShowReportActZirSarfasl()
         {
             _sarfaslIdSelected = (int)dgvSarfasl.SelectedRows[0].Cells["ID"].Value;
             DefultForm reportActZirSarfasl = new DefultForm();
-            reportActZirSarfasl.ShowDialog(new ReportActZirSarfasl(sarfaslID: _sarfaslIdSelected, listZirsarfasl: _listZirSar), new Size(800, 500));
+            reportActZirSarfasl.ShowDialog(new ReportActZirSarfasl(textDate1.FromDate,textDate1.ToDate,sarfaslID: _sarfaslIdSelected, listZirsarfasl: _listZirSar), new Size(800, 500));
+        }
+
+        private void textDate1_KeyEnterTextBoxToYear_1(object sender, EventArgs e)
+        {
+            txtSarfasl.Focus();
         }
 
         private void SetTextLabelFooter(int number, decimal sum)

@@ -107,6 +107,9 @@
     <Compile Include="Services\ActZirSarfaslService.cs" />
     <Compile Include="Services\SarfaslService.cs" />
     <Compile Include="Services\ZirSarfaslService.cs" />
+    <Compile Include="User_Cotrol\TextDate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <EmbeddedResource Include="border.resx">
       <DependentUpon>border.cs</DependentUpon>
     </EmbeddedResource>
@@ -136,6 +139,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReportZirSarfasl.resx">
       <DependentUpon>ReportZirSarfasl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User_Cotrol\TextDate.resx">
+      <DependentUpon>TextDate.cs</DependentUpon>
     </EmbeddedResource>
     <EntityDeploy Include="dataLayer\DbAteran2Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
