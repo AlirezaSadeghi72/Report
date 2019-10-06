@@ -79,7 +79,12 @@
     <Compile Include="dataLayer\sarfasls.cs">
       <DependentUpon>DbAteran2Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="dataLayer\viewSarfasls.cs" />
+    <Compile Include="dataLayer\USP_GetSarfaslseServis_Result.cs">
+      <DependentUpon>DbAteran2Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dataLayer\USP_GetZirSarfaslServices_Result.cs">
+      <DependentUpon>DbAteran2Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="dataLayer\zirsarfasls.cs">
       <DependentUpon>DbAteran2Model.tt</DependentUpon>
     </Compile>

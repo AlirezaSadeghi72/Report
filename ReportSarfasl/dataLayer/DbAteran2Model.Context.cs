@@ -12,6 +12,8 @@ namespace ReportSarfasl.dataLayer
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class DbAtiran2Entities : DbContext
     {
@@ -28,5 +30,47 @@ namespace ReportSarfasl.dataLayer
         public virtual DbSet<act_zirsarfasls> act_zirsarfasls { get; set; }
         public virtual DbSet<sarfasls> sarfasls { get; set; }
         public virtual DbSet<zirsarfasls> zirsarfasls { get; set; }
+    
+        public virtual ObjectResult<USP_GetSarfaslseServis_Result> USP_GetSarfaslseServis(string listSarfasl, string listZirSarfasl, string fromDate, string toDate)
+        {
+            var listSarfaslParameter = listSarfasl != null ?
+                new ObjectParameter("listSarfasl", listSarfasl) :
+                new ObjectParameter("listSarfasl", typeof(string));
+    
+            var listZirSarfaslParameter = listZirSarfasl != null ?
+                new ObjectParameter("listZirSarfasl", listZirSarfasl) :
+                new ObjectParameter("listZirSarfasl", typeof(string));
+    
+            var fromDateParameter = fromDate != null ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(string));
+    
+            var toDateParameter = toDate != null ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_GetSarfaslseServis_Result>("USP_GetSarfaslseServis", listSarfaslParameter, listZirSarfaslParameter, fromDateParameter, toDateParameter);
+        }
+    
+        public virtual ObjectResult<USP_GetZirSarfaslServices_Result> USP_GetZirSarfaslServices(string listZirSarfasl, Nullable<int> sarfaslID, string fromDate, string toDate)
+        {
+            var listZirSarfaslParameter = listZirSarfasl != null ?
+                new ObjectParameter("listZirSarfasl", listZirSarfasl) :
+                new ObjectParameter("listZirSarfasl", typeof(string));
+    
+            var sarfaslIDParameter = sarfaslID.HasValue ?
+                new ObjectParameter("SarfaslID", sarfaslID) :
+                new ObjectParameter("SarfaslID", typeof(int));
+    
+            var fromDateParameter = fromDate != null ?
+                new ObjectParameter("FromDate", fromDate) :
+                new ObjectParameter("FromDate", typeof(string));
+    
+            var toDateParameter = toDate != null ?
+                new ObjectParameter("ToDate", toDate) :
+                new ObjectParameter("ToDate", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_GetZirSarfaslServices_Result>("USP_GetZirSarfaslServices", listZirSarfaslParameter, sarfaslIDParameter, fromDateParameter, toDateParameter);
+        }
     }
 }

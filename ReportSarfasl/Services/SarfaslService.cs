@@ -13,5 +13,7 @@ namespace ReportSarfasl.Services
         public int GroupSarfaslID { get; set; }
         public string Name { get; set; }
         public decimal Man { get; set; }
+        public decimal bed { get; set; }
+        public decimal bes { get; set; }
     }
 }

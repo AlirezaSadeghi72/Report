@@ -5,10 +5,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Atiran2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self"
-              xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator"
-              xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation"
-              xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Atiran2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="act_zirsarfasls">
           <Key>
             <PropertyRef Name="rdf" />
@@ -77,6 +74,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="USP_GetSarfaslseServis" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="listSarfasl" Type="varchar(max)" Mode="In" />
+          <Parameter Name="listZirSarfasl" Type="varchar(max)" Mode="In" />
+          <Parameter Name="FromDate" Type="char" Mode="In" />
+          <Parameter Name="ToDate" Type="char" Mode="In" />
+        </Function>
+        <Function Name="USP_GetZirSarfaslServices" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="listZirSarfasl" Type="varchar(max)" Mode="In" />
+          <Parameter Name="SarfaslID" Type="int" Mode="In" />
+          <Parameter Name="FromDate" Type="char" Mode="In" />
+          <Parameter Name="ToDate" Type="char" Mode="In" />
+        </Function>
         <EntityContainer Name="Atiran2ModelStoreContainer">
           <EntitySet Name="act_zirsarfasls" EntityType="Self.act_zirsarfasls" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sarfasls" EntityType="Self.sarfasls" Schema="dbo" store:Type="Tables" />
@@ -90,8 +99,7 @@
             <End Role="zirsarfasls" EntitySet="zirsarfasls" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Atiran2Model" Alias="Self" annotation:UseStrongSpatialTypes="false"
@@ -186,7 +194,35 @@
             <End Role="sarfasls" EntitySet="sarfasls" />
             <End Role="zirsarfasls" EntitySet="zirsarfasls" />
           </AssociationSet>
+          <FunctionImport Name="USP_GetSarfaslseServis" ReturnType="Collection(Atiran2Model.USP_GetSarfaslseServis_Result)">
+            <Parameter Name="listSarfasl" Mode="In" Type="String" />
+            <Parameter Name="listZirSarfasl" Mode="In" Type="String" />
+            <Parameter Name="FromDate" Mode="In" Type="String" />
+            <Parameter Name="ToDate" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="USP_GetZirSarfaslServices" ReturnType="Collection(Atiran2Model.USP_GetZirSarfaslServices_Result)">
+            <Parameter Name="listZirSarfasl" Mode="In" Type="String" />
+            <Parameter Name="SarfaslID" Mode="In" Type="Int32" />
+            <Parameter Name="FromDate" Mode="In" Type="String" />
+            <Parameter Name="ToDate" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="USP_GetSarfaslseServis_Result">
+          <Property Type="Int32" Name="rdf" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" />
+          <Property Type="Int32" Name="GroupSarfaslID" Nullable="false" />
+          <Property Type="Decimal" Name="Bed" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="Bes" Nullable="true" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="USP_GetZirSarfaslServices_Result">
+          <Property Type="Int32" Name="rdf" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="false" />
+          <Property Type="Int32" Name="rdf_sarfasl" Nullable="false" />
+          <Property Type="Boolean" Name="Active" Nullable="true" />
+          <Property Type="String" Name="has_dar" Nullable="false" MaxLength="1" />
+          <Property Type="Decimal" Name="Bed" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="Bes" Nullable="true" Precision="19" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -237,6 +273,30 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_GetSarfaslseServis" FunctionName="Atiran2Model.Store.USP_GetSarfaslseServis">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Atiran2Model.USP_GetSarfaslseServis_Result">
+                <ScalarProperty Name="rdf" ColumnName="rdf" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="GroupSarfaslID" ColumnName="GroupSarfaslID" />
+                <ScalarProperty Name="Bed" ColumnName="Bed" />
+                <ScalarProperty Name="Bes" ColumnName="Bes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_GetZirSarfaslServices" FunctionName="Atiran2Model.Store.USP_GetZirSarfaslServices">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Atiran2Model.USP_GetZirSarfaslServices_Result">
+                <ScalarProperty Name="rdf" ColumnName="rdf" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="rdf_sarfasl" ColumnName="rdf_sarfasl" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="has_dar" ColumnName="has_dar" />
+                <ScalarProperty Name="Bed" ColumnName="Bed" />
+                <ScalarProperty Name="Bes" ColumnName="Bes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
