@@ -33,6 +33,7 @@ namespace ReportSarfasl
         private Button btnCancel;
         private Label lblFooter;
         private TextDate textDate1;
+        private Label lblFooterNumber;
         private TextBox txtFilter;
 
 
@@ -60,6 +61,7 @@ namespace ReportSarfasl
             this.lblFooter = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
+            this.lblFooterNumber = new System.Windows.Forms.Label();
             this.textDate1 = new ReportSarfasl.TextDate();
             this.pnlHeader.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -195,6 +197,7 @@ namespace ReportSarfasl
             this.dgvSarfasl.Size = new System.Drawing.Size(900, 404);
             this.dgvSarfasl.TabIndex = 1;
             this.dgvSarfasl.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSarfasl_CellDoubleClick);
+            this.dgvSarfasl.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvSarfasl_DataBindingComplete);
             this.dgvSarfasl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvSarfasl_KeyDown);
             // 
             // txtFilter
@@ -214,6 +217,7 @@ namespace ReportSarfasl
             this.pnlFooter.Controls.Add(this.lblFooter);
             this.pnlFooter.Controls.Add(this.btnCancel);
             this.pnlFooter.Controls.Add(this.btnPrint);
+            this.pnlFooter.Controls.Add(this.lblFooterNumber);
             this.pnlFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlFooter.Location = new System.Drawing.Point(0, 541);
             this.pnlFooter.Name = "pnlFooter";
@@ -222,11 +226,12 @@ namespace ReportSarfasl
             // 
             // lblFooter
             // 
-            this.lblFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lblFooter.Location = new System.Drawing.Point(0, 39);
+            this.lblFooter.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblFooter.Location = new System.Drawing.Point(270, 0);
             this.lblFooter.Name = "lblFooter";
-            this.lblFooter.Size = new System.Drawing.Size(900, 20);
+            this.lblFooter.Size = new System.Drawing.Size(525, 59);
             this.lblFooter.TabIndex = 10;
+            this.lblFooter.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // btnCancel
             // 
@@ -252,14 +257,25 @@ namespace ReportSarfasl
             this.btnPrint.UseVisualStyleBackColor = false;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
+            // lblFooterNumber
+            // 
+            this.lblFooterNumber.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblFooterNumber.Location = new System.Drawing.Point(795, 0);
+            this.lblFooterNumber.Name = "lblFooterNumber";
+            this.lblFooterNumber.Size = new System.Drawing.Size(105, 59);
+            this.lblFooterNumber.TabIndex = 11;
+            this.lblFooterNumber.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // textDate1
             // 
             this.textDate1.Dock = System.Windows.Forms.DockStyle.Top;
             this.textDate1.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.textDate1.FromDate = "1398/07/14";
             this.textDate1.Location = new System.Drawing.Point(3, 24);
             this.textDate1.Name = "textDate1";
             this.textDate1.Size = new System.Drawing.Size(894, 24);
             this.textDate1.TabIndex = 10;
+            this.textDate1.ToDate = "1398/07/14";
             this.textDate1.KeyEnterTextBoxToYear += new System.EventHandler(this.textDate1_KeyEnterTextBoxToYear_1);
             // 
             // reportSarfasl
@@ -283,6 +299,11 @@ namespace ReportSarfasl
         }
 
         #region Event Controls
+
+        private void textDate1_KeyEnterTextBoxToYear_1(object sender, EventArgs e)
+        {
+            txtSarfasl.Focus();
+        }
 
         private void txtSarfasl_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
@@ -343,7 +364,7 @@ namespace ReportSarfasl
 
             SetGrid();
 
-            SetTextLabelFooter(dt.Count, dt.Sum(d => d.Man));
+            SetTextLabelFooter(dt.Count, dt.Sum(d => d.Man) , dt.Sum(d=>d.Man+d.Man_Befor));
 
             txtFilter.Focus();
         }
@@ -410,6 +431,14 @@ namespace ReportSarfasl
             ShowReportActZirSarfasl();
 
         }
+        private void dgvSarfasl_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            foreach (DataGridViewRow row in dgvSarfasl.Rows)
+            {
+                row.Cells["Man"].Value = Math.Abs((decimal)row.Cells["Man"].Value).ToString();
+                row.Cells["Man_Befor"].Value = Math.Abs((decimal)row.Cells["Man_Befor"].Value).ToString();
+            }
+        }
 
         #endregion
 
@@ -451,14 +480,35 @@ namespace ReportSarfasl
 
             dgvSarfasl.Columns["Name"].Visible = true;
             dgvSarfasl.Columns["Name"].HeaderText = "نام";
-            dgvSarfasl.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            //dgvSarfasl.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            dgvSarfasl.Columns["bed"].Visible = true;
+            dgvSarfasl.Columns["bed"].HeaderText = "بدهكار";
+            dgvSarfasl.Columns["bed"].DefaultCellStyle.Format = "#,0";
+
+            dgvSarfasl.Columns["bes"].Visible = true;
+            dgvSarfasl.Columns["bes"].HeaderText = "بستانكار";
+            dgvSarfasl.Columns["bes"].DefaultCellStyle.Format = "#,0";
 
             dgvSarfasl.Columns["Man"].Visible = true;
-            dgvSarfasl.Columns["Man"].HeaderText = "مانده";
+            dgvSarfasl.Columns["Man"].HeaderText = "مانده اين بازه";
             dgvSarfasl.Columns["Man"].DefaultCellStyle.Format = "#,0";
             dgvSarfasl.Columns["Man"].DefaultCellStyle.Font = new Font("IRANSans(FaNum)", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            dgvSarfasl.Columns["Man"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            //dgvSarfasl.Columns["Man"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
+            dgvSarfasl.Columns["bed_bes"].Visible = true;
+            dgvSarfasl.Columns["bed_bes"].HeaderText = "تشخيص";
+
+            dgvSarfasl.Columns["Man_Befor"].Visible = true;
+            dgvSarfasl.Columns["Man_Befor"].HeaderText = "مانده قبلي";
+            dgvSarfasl.Columns["Man_Befor"].DefaultCellStyle.Format = "#,0";
+            dgvSarfasl.Columns["Man_Befor"].DefaultCellStyle.Font = new Font("IRANSans(FaNum)", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+
+            dgvSarfasl.Columns["bed_bes_Befor"].Visible = true;
+            dgvSarfasl.Columns["bed_bes_Befor"].HeaderText = "تشخيص";
+
+            dgvSarfasl.Columns["who_def"].Visible = true;
+            dgvSarfasl.Columns["who_def"].HeaderText = "كاربر";
 
         }
 
@@ -471,7 +521,7 @@ namespace ReportSarfasl
                 var dt1 = dt.Where(c => c.Name.Contains(filter)).ToList();
                 dgvSarfasl.DataSource = dt1;
 
-                SetTextLabelFooter(dt1.Count, dt1.Sum(d => d.Man));
+                SetTextLabelFooter(dt1.Count, dt1.Sum(d => d.Man), dt1.Sum(d => d.Man+d.Man_Befor));
             }
         }
 
@@ -509,16 +559,15 @@ namespace ReportSarfasl
             reportActZirSarfasl.ShowDialog(new ReportActZirSarfasl(textDate1.FromDate,textDate1.ToDate,sarfaslID: _sarfaslIdSelected, listZirsarfasl: _listZirSar), new Size(800, 500));
         }
 
-        private void textDate1_KeyEnterTextBoxToYear_1(object sender, EventArgs e)
-        {
-            txtSarfasl.Focus();
-        }
+        
 
-        private void SetTextLabelFooter(int number, decimal sum)
+        private void SetTextLabelFooter(int number, decimal sum , decimal sumAll )
         {
-            string status = (sum > 0) ? "بدهكار" : (sum == 0) ? "--" : "بستانكار";
-            lblFooter.Text =
-                $"تعداد: {number}     اختلاف: {Math.Abs(sum).ToMan()} ({status})";
+            string status1 = sum > 0 ? "بد" : sum == 0 ? "--" : "بس";
+            string status2 = sumAll > 0 ? "بد" : sumAll == 0 ? "--" : "بس";
+
+            lblFooterNumber.Text =$"تعداد: {number}";
+            lblFooter.Text = $"   مانده در بازه: {Math.Abs(sum).ToMan()} ({status1})\n   مانده كل : {Math.Abs(sumAll).ToMan()} ({status2})";
         }
 
         #endregion

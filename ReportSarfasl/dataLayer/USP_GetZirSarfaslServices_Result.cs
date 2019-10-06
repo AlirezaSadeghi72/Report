@@ -20,5 +20,8 @@ namespace ReportSarfasl.dataLayer
         public string has_dar { get; set; }
         public Nullable<decimal> Bed { get; set; }
         public Nullable<decimal> Bes { get; set; }
+        public Nullable<decimal> Man { get; set; }
+        public int ID { get; set; }
+        public Nullable<decimal> Man_All { get; set; }
     }
 }

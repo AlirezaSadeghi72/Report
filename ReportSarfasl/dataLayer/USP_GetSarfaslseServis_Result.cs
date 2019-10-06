@@ -16,7 +16,12 @@ namespace ReportSarfasl.dataLayer
         public int rdf { get; set; }
         public string name { get; set; }
         public int GroupSarfaslID { get; set; }
+        public string who_def { get; set; }
+        public string has_dar { get; set; }
         public Nullable<decimal> Bed { get; set; }
         public Nullable<decimal> Bes { get; set; }
+        public Nullable<decimal> Man { get; set; }
+        public int ID { get; set; }
+        public Nullable<decimal> Man_All { get; set; }
     }
 }

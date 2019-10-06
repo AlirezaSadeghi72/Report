@@ -18,6 +18,7 @@ namespace ReportSarfasl.Services
         public string date { get; set; }
         public string user { get; set; }
         public Nullable<int> kind { get; set; }
+        public string kindName { get; set; }
         public Nullable<int> sanadno { get; set; }
     }
 }
