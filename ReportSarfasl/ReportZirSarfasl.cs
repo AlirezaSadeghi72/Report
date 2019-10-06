@@ -240,16 +240,16 @@ namespace ReportSarfasl
                 {
                     if (rowIndexSelected == 0)
                     {
-                        dgvZirSarfal.Rows[countRowGrid - 1].Selected = true;
+                        dgvZirSarfal.Rows[countRowGrid - 1].Cells[0].Selected = true;
                     }
                     else
                     {
-                        dgvZirSarfal.Rows[rowIndexSelected - 1].Selected = true;
+                        dgvZirSarfal.Rows[rowIndexSelected - 1].Cells[0].Selected = true;
                     }
                 }
                 else if (e.KeyCode == Keys.Down)
                 {
-                    dgvZirSarfal.Rows[(rowIndexSelected + 1) % countRowGrid].Selected = true;
+                    dgvZirSarfal.Rows[(rowIndexSelected + 1) % countRowGrid].Cells[0].Selected = true;
                 }
             }
         }

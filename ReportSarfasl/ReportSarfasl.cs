@@ -368,16 +368,17 @@ namespace ReportSarfasl
                     {
                         if (rowIndexSelected == 0)
                         {
-                            dgvSarfasl.Rows[countRowGrid - 1].Selected = true;
+                            //dgvSarfasl.Rows[countRowGrid - 1].Selected = true;
+                            dgvSarfasl.Rows[countRowGrid - 1].Cells[0].Selected = true;
                         }
                         else
                         {
-                            dgvSarfasl.Rows[rowIndexSelected - 1].Selected = true;
+                            dgvSarfasl.Rows[rowIndexSelected - 1].Cells[0].Selected = true;
                         }
                     }
                     else if (e.KeyCode == Keys.Down)
                     {
-                        dgvSarfasl.Rows[(rowIndexSelected + 1) % countRowGrid].Selected = true;
+                        dgvSarfasl.Rows[(rowIndexSelected + 1) % countRowGrid].Cells[0].Selected = true;
                     }
                 }
 

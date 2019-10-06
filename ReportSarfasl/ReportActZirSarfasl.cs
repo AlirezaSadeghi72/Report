@@ -287,16 +287,16 @@ namespace ReportSarfasl
                 {
                     if (rowIndexSelected == 0)
                     {
-                        dgvActZirSarfasl.Rows[countRowGrid - 1].Selected = true;
+                        dgvActZirSarfasl.Rows[countRowGrid - 1].Cells[0].Selected = true;
                     }
                     else
                     {
-                        dgvActZirSarfasl.Rows[rowIndexSelected - 1].Selected = true;
+                        dgvActZirSarfasl.Rows[rowIndexSelected - 1].Cells[0].Selected = true;
                     }
                 }
                 else if (e.KeyCode == Keys.Down)
                 {
-                    dgvActZirSarfasl.Rows[(rowIndexSelected + 1) % countRowGrid].Selected = true;
+                    dgvActZirSarfasl.Rows[(rowIndexSelected + 1) % countRowGrid].Cells[0].Selected = true;
                 }
             }
         }
