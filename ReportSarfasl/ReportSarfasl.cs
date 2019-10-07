@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using ReportSarfasl.dataLayer;
 using ReportSarfasl.Forms;
 using ReportSarfasl.Services;
+using Stimulsoft.Report;
 
 namespace ReportSarfasl
 {
@@ -495,6 +496,12 @@ namespace ReportSarfasl
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
+            //StiReport report = new StiReport();
+
+            //report.Load("report.mrt");
+
+            //report.Show();
+
             //چاپ
         }
 
