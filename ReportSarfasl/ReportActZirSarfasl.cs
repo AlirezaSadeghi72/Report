@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ReportSarfasl.Forms;
 using ReportSarfasl.Services;
 
 namespace ReportSarfasl
@@ -13,7 +14,7 @@ namespace ReportSarfasl
     public class ReportActZirSarfasl : UserControl
     {
         private int _zirSarfaslID, _sarfaslID;
-        private List<int> _listZirSar = new List<int>();
+        private List<int> _listZirSar = new List<int>(), _choiseKind = new List<int>();
         private bool _isActForSarfasl;
         private List<ActZirSarfaslService> dt;
         private Panel pnlHeader;
@@ -28,9 +29,10 @@ namespace ReportSarfasl
         private TextDate textDate1;
         private Label lblFooter;
         private Label lblFooterNumber;
+        private CheckBox chbActKind;
         private Panel pnlFooter;
 
-        public ReportActZirSarfasl(string FromDate, string ToDate,int zirSarfaslID =-1, int sarfaslID = -1, List<int> listZirsarfasl = null)
+        public ReportActZirSarfasl(string FromDate, string ToDate, int zirSarfaslID = -1, int sarfaslID = -1, List<int> listZirsarfasl = null)
         {
             InitializeComponent();
             textDate1.FromDate = FromDate;
@@ -60,6 +62,7 @@ namespace ReportSarfasl
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chbActKind = new System.Windows.Forms.CheckBox();
             this.textDate1 = new ReportSarfasl.TextDate();
             this.label2 = new System.Windows.Forms.Label();
             this.pnlMain = new System.Windows.Forms.Panel();
@@ -67,10 +70,10 @@ namespace ReportSarfasl
             this.dgvActZirSarfasl = new System.Windows.Forms.DataGridView();
             this.txtFilter = new System.Windows.Forms.TextBox();
             this.pnlFooter = new System.Windows.Forms.Panel();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnPrint = new System.Windows.Forms.Button();
             this.lblFooter = new System.Windows.Forms.Label();
             this.lblFooterNumber = new System.Windows.Forms.Label();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnPrint = new System.Windows.Forms.Button();
             this.pnlHeader.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -85,31 +88,44 @@ namespace ReportSarfasl
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(700, 54);
+            this.pnlHeader.Size = new System.Drawing.Size(749, 54);
             this.pnlHeader.TabIndex = 1;
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.chbActKind);
             this.groupBox2.Controls.Add(this.textDate1);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(700, 54);
+            this.groupBox2.Size = new System.Drawing.Size(749, 54);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "جزييات زيرسرفصل";
+            // 
+            // chbActKind
+            // 
+            this.chbActKind.AutoSize = true;
+            this.chbActKind.Location = new System.Drawing.Point(167, 21);
+            this.chbActKind.Name = "chbActKind";
+            this.chbActKind.Size = new System.Drawing.Size(79, 24);
+            this.chbActKind.TabIndex = 0;
+            this.chbActKind.Text = "نوع عملكرد";
+            this.chbActKind.UseVisualStyleBackColor = true;
+            this.chbActKind.CheckedChanged += new System.EventHandler(this.chbActKind_CheckedChanged);
+            this.chbActKind.KeyDown += new System.Windows.Forms.KeyEventHandler(this.chbActKind_KeyDown);
             // 
             // textDate1
             // 
             this.textDate1.Enabled = false;
             this.textDate1.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.textDate1.FromDate = "1398/07/14";
-            this.textDate1.Location = new System.Drawing.Point(304, 24);
+            this.textDate1.FromDate = "1398/07/15";
+            this.textDate1.Location = new System.Drawing.Point(302, 21);
             this.textDate1.Name = "textDate1";
             this.textDate1.Size = new System.Drawing.Size(390, 24);
-            this.textDate1.TabIndex = 1;
-            this.textDate1.ToDate = "1398/07/14";
+            this.textDate1.TabIndex = 0;
+            this.textDate1.ToDate = "1398/07/15";
             // 
             // label2
             // 
@@ -126,7 +142,7 @@ namespace ReportSarfasl
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMain.Location = new System.Drawing.Point(0, 54);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(700, 290);
+            this.pnlMain.Size = new System.Drawing.Size(749, 420);
             this.pnlMain.TabIndex = 2;
             // 
             // groupBox1
@@ -136,7 +152,7 @@ namespace ReportSarfasl
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(700, 290);
+            this.groupBox1.Size = new System.Drawing.Size(749, 420);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "عملكرد هاي  زيرسرفصل";
@@ -174,7 +190,7 @@ namespace ReportSarfasl
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
             this.dgvActZirSarfasl.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvActZirSarfasl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvActZirSarfasl.Size = new System.Drawing.Size(694, 235);
+            this.dgvActZirSarfasl.Size = new System.Drawing.Size(743, 365);
             this.dgvActZirSarfasl.TabIndex = 6;
             // 
             // txtFilter
@@ -182,7 +198,7 @@ namespace ReportSarfasl
             this.txtFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.txtFilter.Location = new System.Drawing.Point(3, 24);
             this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(694, 28);
+            this.txtFilter.Size = new System.Drawing.Size(743, 28);
             this.txtFilter.TabIndex = 5;
             this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
             this.txtFilter.Enter += new System.EventHandler(this.txtFilter_Enter);
@@ -196,15 +212,33 @@ namespace ReportSarfasl
             this.pnlFooter.Controls.Add(this.btnCancel);
             this.pnlFooter.Controls.Add(this.btnPrint);
             this.pnlFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlFooter.Location = new System.Drawing.Point(0, 344);
+            this.pnlFooter.Location = new System.Drawing.Point(0, 474);
             this.pnlFooter.Name = "pnlFooter";
-            this.pnlFooter.Size = new System.Drawing.Size(700, 56);
+            this.pnlFooter.Size = new System.Drawing.Size(749, 57);
             this.pnlFooter.TabIndex = 3;
+            // 
+            // lblFooter
+            // 
+            this.lblFooter.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblFooter.Location = new System.Drawing.Point(162, 0);
+            this.lblFooter.Name = "lblFooter";
+            this.lblFooter.Size = new System.Drawing.Size(482, 57);
+            this.lblFooter.TabIndex = 12;
+            this.lblFooter.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblFooterNumber
+            // 
+            this.lblFooterNumber.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblFooterNumber.Location = new System.Drawing.Point(644, 0);
+            this.lblFooterNumber.Name = "lblFooterNumber";
+            this.lblFooterNumber.Size = new System.Drawing.Size(105, 57);
+            this.lblFooterNumber.TabIndex = 13;
+            this.lblFooterNumber.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnCancel
             // 
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnCancel.Location = new System.Drawing.Point(13, 3);
+            this.btnCancel.Location = new System.Drawing.Point(3, 6);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 30);
             this.btnCancel.TabIndex = 7;
@@ -217,31 +251,13 @@ namespace ReportSarfasl
             this.btnPrint.BackColor = System.Drawing.Color.Indigo;
             this.btnPrint.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnPrint.ForeColor = System.Drawing.Color.White;
-            this.btnPrint.Location = new System.Drawing.Point(88, 3);
+            this.btnPrint.Location = new System.Drawing.Point(78, 6);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(75, 30);
             this.btnPrint.TabIndex = 6;
             this.btnPrint.Text = "چاپ";
             this.btnPrint.UseVisualStyleBackColor = true;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
-            // 
-            // lblFooter
-            // 
-            this.lblFooter.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblFooter.Location = new System.Drawing.Point(169, 0);
-            this.lblFooter.Name = "lblFooter";
-            this.lblFooter.Size = new System.Drawing.Size(426, 56);
-            this.lblFooter.TabIndex = 12;
-            this.lblFooter.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblFooterNumber
-            // 
-            this.lblFooterNumber.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblFooterNumber.Location = new System.Drawing.Point(595, 0);
-            this.lblFooterNumber.Name = "lblFooterNumber";
-            this.lblFooterNumber.Size = new System.Drawing.Size(105, 56);
-            this.lblFooterNumber.TabIndex = 13;
-            this.lblFooterNumber.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ReportActZirSarfasl
             // 
@@ -251,7 +267,7 @@ namespace ReportSarfasl
             this.Font = new System.Drawing.Font("IRANSans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.Name = "ReportActZirSarfasl";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.Size = new System.Drawing.Size(700, 400);
+            this.Size = new System.Drawing.Size(749, 531);
             this.Load += new System.EventHandler(this.ReportActZirSarfasl_Load);
             this.pnlHeader.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -269,23 +285,46 @@ namespace ReportSarfasl
         {
             if (_isActForSarfasl)
             {
-                dgvActZirSarfasl.DataSource = dt = conection.GetActZirSarfaslServices(textDate1.FromDate,textDate1.ToDate,sarfaslID: _sarfaslID, listZirsarfasl: _listZirSar);
+                dgvActZirSarfasl.DataSource = dt = conection.GetActZirSarfaslServices(textDate1.FromDate, textDate1.ToDate, sarfaslID: _sarfaslID, listZirsarfasl: _listZirSar);
             }
             else
             {
-                dgvActZirSarfasl.DataSource = dt = conection.GetActZirSarfaslServices(textDate1.FromDate, textDate1.ToDate,zirSarfaslID: _zirSarfaslID);
+                dgvActZirSarfasl.DataSource = dt = conection.GetActZirSarfaslServices(textDate1.FromDate, textDate1.ToDate, zirSarfaslID: _zirSarfaslID);
             }
 
             var befor = dt.FirstOrDefault(d => d.ID == 0) ?? new ActZirSarfaslService();
 
-            SetTextLabelFooter(dt.Count, dt.Sum(d => d.bed - d.bes), dt.Sum(d => d.bed), dt.Sum(d => d.bes),befor.bed-befor.bes);
+            SetTextLabelFooter(dt.Count, dt.Sum(d => d.bed), dt.Sum(d => d.bes), dt.Sum(d => d.bed - d.bes), befor.bed, befor.bes);
 
             SetGrid();
-
-            txtFilter.Focus();
+            chbActKind.Focus();
         }
 
         #region Event Controls
+        private void chbActKind_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chbActKind.Checked)
+            {
+                DefultForm kindForm = new DefultForm();
+                ChoiceActKind actKind = new ChoiceActKind();
+                kindForm.ShowDialog(actKind, new Size(571, 234));
+                _choiseKind = actKind.choice;
+                txtFilter.Focus();
+                //show user control
+            }
+            else
+            {
+                _choiseKind = new List<int>();
+            }
+
+            search();
+        }
+        private void chbActKind_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+                chbActKind.Checked = !chbActKind.Checked;
+        }
+
         private void txtFilter_TextChanged(object sender, EventArgs e)
         {
             search();
@@ -295,6 +334,14 @@ namespace ReportSarfasl
             if (e.KeyData == Keys.Escape)
             {
                 txtFilter.Text = "";
+            }
+            else if (e.KeyCode == Keys.Left && txtFilter.Text.Trim() == "")
+            {
+                dgvActZirSarfasl.Columns["description"].Width = dgvActZirSarfasl.Columns["description"].Width + 1;
+            }
+            else if (e.KeyCode == Keys.Right && txtFilter.Text.Trim() == "")
+            {
+                dgvActZirSarfasl.Columns["description"].Width = dgvActZirSarfasl.Columns["description"].Width - 1;
             }
             else if (dgvActZirSarfasl.Rows.Count > 0)
             {
@@ -363,27 +410,28 @@ namespace ReportSarfasl
 
             dgvActZirSarfasl.Columns["description"].Visible = true;
             dgvActZirSarfasl.Columns["description"].HeaderText = "توضيحات";
+            dgvActZirSarfasl.Columns["description"].Width = 241;
             //dgvActZirSarfasl.Columns["description"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             dgvActZirSarfasl.Columns["bed"].Visible = true;
             dgvActZirSarfasl.Columns["bed"].HeaderText = "بدهكاري";
             dgvActZirSarfasl.Columns["bed"].DefaultCellStyle.Format = "#,0";
             dgvActZirSarfasl.Columns["bed"].DefaultCellStyle.Font = new Font("IRANSans(FaNum)", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-           // dgvActZirSarfasl.Columns["bed"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            // dgvActZirSarfasl.Columns["bed"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             dgvActZirSarfasl.Columns["bes"].Visible = true;
             dgvActZirSarfasl.Columns["bes"].HeaderText = "بستانكاري";
             dgvActZirSarfasl.Columns["bes"].DefaultCellStyle.Format = "#,0";
             dgvActZirSarfasl.Columns["bes"].DefaultCellStyle.Font = new Font("IRANSans(FaNum)", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-           // dgvActZirSarfasl.Columns["bes"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            // dgvActZirSarfasl.Columns["bes"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             dgvActZirSarfasl.Columns["bed_bes"].Visible = true;
             dgvActZirSarfasl.Columns["bed_bes"].HeaderText = "وضعيت";
-           // dgvActZirSarfasl.Columns["bed_bes"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            // dgvActZirSarfasl.Columns["bed_bes"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             dgvActZirSarfasl.Columns["date"].Visible = true;
             dgvActZirSarfasl.Columns["date"].HeaderText = "تاريخ";
-           // dgvActZirSarfasl.Columns["date"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            // dgvActZirSarfasl.Columns["date"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
 
         }
@@ -393,23 +441,32 @@ namespace ReportSarfasl
             if (dt != null)
             {
                 var filter = txtFilter.Text.Trim();
+                List<ActZirSarfaslService> dt1 = new List<ActZirSarfaslService>();
+                if (_choiseKind.Any())
+                {
+                    dt1 = dt.Where(c => c.description.Contains(filter) && _choiseKind.Contains(c.kind ?? 0)).ToList();
+                }
+                else
+                {
+                    dt1 = dt.Where(c => c.description.Contains(filter)).ToList();
+                }
 
-                var dt1 = dt.Where(c => c.description.Contains(filter)).ToList();
                 dgvActZirSarfasl.DataSource = dt1;
-                var befor = dt1.FirstOrDefault(d => d.ID == 0)??new ActZirSarfaslService();
-                SetTextLabelFooter(dt1.Count, dt1.Sum(d => d.bed - d.bes), dt1.Sum(d => d.bed), dt1.Sum(d => d.bes),befor.bed-befor.bes);
+                var befor = dt1.FirstOrDefault(d => d.ID == 0) ?? new ActZirSarfaslService();
+                SetTextLabelFooter(dt1.Count, dt1.Sum(d => d.bed), dt1.Sum(d => d.bes), dt1.Sum(d => d.bed - d.bes), befor.bed, befor.bes);
             }
         }
 
-        private void SetTextLabelFooter(int number, decimal bed, decimal bes, decimal sum, decimal sumbefor)
+        private void SetTextLabelFooter(int number, decimal bed, decimal bes, decimal sumAll, decimal bedBefor, decimal besBefor)
         {
+            decimal sum = sumAll - (bedBefor - besBefor);
             string status1 = sum > 0 ? "بد" : sum == 0 ? "--" : "بس";
-            decimal sumAll = sum + sumbefor;
             string status2 = sumAll > 0 ? "بد" : sumAll == 0 ? "--" : "بس";
 
             lblFooterNumber.Text = $"تعداد: {number}";
             lblFooter.Text =
-                $"   بدهكاري: {bed.ToMan()}   بستانكاري: {bes.ToMan()}\n      مانده در بازه: {Math.Abs(sum).ToMan()} ({status1})\n   مانده كل : {Math.Abs(sumAll).ToMan()} ({status2})";
+                $"دربازه:               بدهكاري: {(bed - bedBefor).ToMan()}   بستانكاري: {(bes - besBefor).ToMan()}    مانده: {Math.Abs(sum).ToMan()} ({status1})\n" +
+                $"باحساب قبلي:  بدهكاري: {bed.ToMan()}   بستانكاري: {bes.ToMan()}    مانده: {Math.Abs(sumAll).ToMan()} ({status2})";
         }
 
         #endregion

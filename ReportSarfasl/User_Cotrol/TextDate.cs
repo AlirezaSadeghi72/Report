@@ -62,10 +62,9 @@ namespace ReportSarfasl
             this.txtToYear.MaxLength = 4;
             this.txtToYear.Name = "txtToYear";
             this.txtToYear.Size = new System.Drawing.Size(33, 21);
-            this.txtToYear.TabIndex = 13;
+            this.txtToYear.TabIndex = 5;
             this.txtToYear.Text = "1372";
             this.txtToYear.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            //this.txtToYear.TextChanged += new System.EventHandler(this.textBoxYear_TextChanged);
             this.txtToYear.Enter += new System.EventHandler(this.textBox_Enter);
             this.txtToYear.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_Keys);
             this.txtToYear.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
@@ -80,10 +79,9 @@ namespace ReportSarfasl
             this.txtToMonth.MaxLength = 2;
             this.txtToMonth.Name = "txtToMonth";
             this.txtToMonth.Size = new System.Drawing.Size(17, 21);
-            this.txtToMonth.TabIndex = 14;
+            this.txtToMonth.TabIndex = 4;
             this.txtToMonth.Text = "06";
             this.txtToMonth.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            //this.txtToMonth.TextChanged += new System.EventHandler(this.textBoxMonth_TextChanged);
             this.txtToMonth.Enter += new System.EventHandler(this.textBox_Enter);
             this.txtToMonth.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_Keys);
             this.txtToMonth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
@@ -98,10 +96,9 @@ namespace ReportSarfasl
             this.txtFromYear.MaxLength = 4;
             this.txtFromYear.Name = "txtFromYear";
             this.txtFromYear.Size = new System.Drawing.Size(33, 21);
-            this.txtFromYear.TabIndex = 15;
+            this.txtFromYear.TabIndex = 2;
             this.txtFromYear.Text = "1372";
             this.txtFromYear.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            //this.txtFromYear.TextChanged += new System.EventHandler(this.textBoxYear_TextChanged);
             this.txtFromYear.Enter += new System.EventHandler(this.textBox_Enter);
             this.txtFromYear.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_Keys);
             this.txtFromYear.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
@@ -126,10 +123,9 @@ namespace ReportSarfasl
             this.txtFromMonth.MaxLength = 2;
             this.txtFromMonth.Name = "txtFromMonth";
             this.txtFromMonth.Size = new System.Drawing.Size(17, 21);
-            this.txtFromMonth.TabIndex = 16;
+            this.txtFromMonth.TabIndex = 1;
             this.txtFromMonth.Text = "06";
             this.txtFromMonth.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            //this.txtFromMonth.TextChanged += new System.EventHandler(this.textBoxMonth_TextChanged);
             this.txtFromMonth.Enter += new System.EventHandler(this.textBox_Enter);
             this.txtFromMonth.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_Keys);
             this.txtFromMonth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
@@ -144,10 +140,9 @@ namespace ReportSarfasl
             this.txtToDay.MaxLength = 2;
             this.txtToDay.Name = "txtToDay";
             this.txtToDay.Size = new System.Drawing.Size(17, 21);
-            this.txtToDay.TabIndex = 9;
+            this.txtToDay.TabIndex = 3;
             this.txtToDay.Text = "20";
             this.txtToDay.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            //this.txtToDay.TextChanged += new System.EventHandler(this.txtToDay_TextChanged);
             this.txtToDay.Enter += new System.EventHandler(this.textBox_Enter);
             this.txtToDay.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_Keys);
             this.txtToDay.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
@@ -182,10 +177,9 @@ namespace ReportSarfasl
             this.txtFromDay.MaxLength = 2;
             this.txtFromDay.Name = "txtFromDay";
             this.txtFromDay.Size = new System.Drawing.Size(17, 21);
-            this.txtFromDay.TabIndex = 10;
+            this.txtFromDay.TabIndex = 0;
             this.txtFromDay.Text = "20";
             this.txtFromDay.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            //this.txtFromDay.TextChanged += new System.EventHandler(this.txtFromDay_TextChanged);
             this.txtFromDay.Enter += new System.EventHandler(this.textBox_Enter);
             this.txtFromDay.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_Keys);
             this.txtFromDay.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
@@ -393,33 +387,81 @@ namespace ReportSarfasl
                             case "txtFromDay":
                                 {
                                     txtFromMonth.Focus();
+                                    if (int.Parse(txtFromMonth.Text) > 6 && int.Parse(txtFromDay.Text) > 30)
+                                    {
+                                        txtFromDay.Text = "30";
+                                    }
+                                    else if (int.Parse(txtFromMonth.Text) <= 6 && int.Parse(txtFromDay.Text) > 31)
+                                    {
+                                        txtFromDay.Text = "31";
+                                    }
                                     break;
                                 }
                             case "txtToDay":
                                 {
                                     txtToMonth.Focus();
+                                    if (int.Parse(txtToMonth.Text) > 6 && int.Parse(txtToDay.Text) > 30)
+                                    {
+                                        txtToDay.Text = "30";
+                                    }
+                                    else if (int.Parse(txtToMonth.Text) <= 6 && int.Parse(txtToDay.Text) > 31)
+                                    {
+                                        txtToDay.Text = "31";
+                                    }
                                     break;
                                 }
                             case "txtFromMonth":
                                 {
                                     txtFromYear.Focus();
+                                    if (int.Parse(txtFromMonth.Text) > 12)
+                                    {
+                                        txtFromMonth.Text = "12";
+                                    }
+
+                                    if (int.Parse(txtFromMonth.Text) > 6 && int.Parse(txtFromDay.Text) > 30)
+                                    {
+                                        txtFromDay.Text = "30";
+                                    }
+                                    else if (int.Parse(txtFromMonth.Text) <= 6 && int.Parse(txtFromDay.Text) > 31)
+                                    {
+                                        txtFromDay.Text = "31";
+                                    }
+
                                     break;
                                 }
                             case "txtToMonth":
                                 {
                                     txtToYear.Focus();
+                                    if (int.Parse(txtToMonth.Text) > 12)
+                                    {
+                                        txtToMonth.Text = "12";
+                                    }
+
+                                    if (int.Parse(txtToMonth.Text) > 6 && int.Parse(txtToDay.Text) > 30)
+                                    {
+                                        txtFromDay.Text = "30";
+                                    }
+                                    else if (int.Parse(txtToMonth.Text) <= 6 && int.Parse(txtToDay.Text) > 31)
+                                    {
+                                        txtFromDay.Text = "31";
+                                    }
                                     break;
                                 }
                             case "txtFromYear":
                                 {
                                     txtToDay.Focus();
+                                    if (int.Parse(txtFromYear.Text) > 2201)
+                                    {
+                                        txtFromYear.Text = "2200";
+                                    }
                                     break;
                                 }
-                            case "txtToYear":
+                            case "txtToYear" when KeyEnterTextBoxToYear != null:
                                 {
-                                    if (KeyEnterTextBoxToYear != null)
+                                    KeyEnterTextBoxToYear(sender, e);
+                                    if (int.Parse(txtToYear.Text) > 2201)
                                     {
-                                        KeyEnterTextBoxToYear(sender, e);
+                                        txtToYear.Text = "2200";
                                     }
                                     break;
                                 }

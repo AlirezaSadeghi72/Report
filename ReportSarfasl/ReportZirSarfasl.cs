@@ -39,19 +39,19 @@ namespace ReportSarfasl
         }
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgvZirSarfal = new System.Windows.Forms.DataGridView();
             this.txtFilter = new System.Windows.Forms.TextBox();
             this.textDate1 = new ReportSarfasl.TextDate();
             this.pnlFooter = new System.Windows.Forms.Panel();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnPrint = new System.Windows.Forms.Button();
             this.lblFooter = new System.Windows.Forms.Label();
             this.lblFooterNumber = new System.Windows.Forms.Label();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnPrint = new System.Windows.Forms.Button();
             this.pnlMain.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvZirSarfal)).BeginInit();
@@ -86,32 +86,32 @@ namespace ReportSarfasl
             this.dgvZirSarfal.AllowUserToDeleteRows = false;
             this.dgvZirSarfal.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(160)))), ((int)(((byte)(200)))));
             this.dgvZirSarfal.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(26)))), ((int)(((byte)(71)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("IRANSans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvZirSarfal.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(26)))), ((int)(((byte)(71)))));
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("IRANSans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvZirSarfal.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvZirSarfal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("IRANSans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.DeepSkyBlue;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvZirSarfal.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("IRANSans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.DeepSkyBlue;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvZirSarfal.DefaultCellStyle = dataGridViewCellStyle8;
             this.dgvZirSarfal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvZirSarfal.EnableHeadersVisualStyles = false;
             this.dgvZirSarfal.Location = new System.Drawing.Point(3, 76);
             this.dgvZirSarfal.MultiSelect = false;
             this.dgvZirSarfal.Name = "dgvZirSarfal";
             this.dgvZirSarfal.ReadOnly = true;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Blue;
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
-            this.dgvZirSarfal.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.Blue;
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.White;
+            this.dgvZirSarfal.RowsDefaultCellStyle = dataGridViewCellStyle9;
             this.dgvZirSarfal.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvZirSarfal.Size = new System.Drawing.Size(794, 363);
             this.dgvZirSarfal.TabIndex = 2;
@@ -134,14 +134,13 @@ namespace ReportSarfasl
             // textDate1
             // 
             this.textDate1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textDate1.Enabled = false;
             this.textDate1.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.textDate1.FromDate = "1398/07/14";
+            this.textDate1.FromDate = "1398/07/15";
             this.textDate1.Location = new System.Drawing.Point(3, 24);
             this.textDate1.Name = "textDate1";
             this.textDate1.Size = new System.Drawing.Size(794, 24);
-            this.textDate1.TabIndex = 1;
-            this.textDate1.ToDate = "1398/07/14";
+            this.textDate1.TabIndex = 0;
+            this.textDate1.ToDate = "1398/07/15";
             this.textDate1.KeyEnterTextBoxToYear += new System.EventHandler(this.textDate1_KeyEnterTextBoxToYear);
             // 
             // pnlFooter
@@ -155,29 +154,6 @@ namespace ReportSarfasl
             this.pnlFooter.Name = "pnlFooter";
             this.pnlFooter.Size = new System.Drawing.Size(800, 58);
             this.pnlFooter.TabIndex = 2;
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnCancel.Location = new System.Drawing.Point(24, 6);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 30);
-            this.btnCancel.TabIndex = 2;
-            this.btnCancel.Text = "انصراف";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // btnPrint
-            // 
-            this.btnPrint.BackColor = System.Drawing.Color.Indigo;
-            this.btnPrint.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnPrint.ForeColor = System.Drawing.Color.White;
-            this.btnPrint.Location = new System.Drawing.Point(99, 6);
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(75, 30);
-            this.btnPrint.TabIndex = 1;
-            this.btnPrint.Text = "چاپ";
-            this.btnPrint.UseVisualStyleBackColor = true;
             // 
             // lblFooter
             // 
@@ -196,6 +172,29 @@ namespace ReportSarfasl
             this.lblFooterNumber.Size = new System.Drawing.Size(105, 58);
             this.lblFooterNumber.TabIndex = 13;
             this.lblFooterNumber.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnCancel.Location = new System.Drawing.Point(24, 6);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 30);
+            this.btnCancel.TabIndex = 11;
+            this.btnCancel.Text = "انصراف";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.BackColor = System.Drawing.Color.Indigo;
+            this.btnPrint.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnPrint.ForeColor = System.Drawing.Color.White;
+            this.btnPrint.Location = new System.Drawing.Point(99, 6);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(75, 30);
+            this.btnPrint.TabIndex = 10;
+            this.btnPrint.Text = "چاپ";
+            this.btnPrint.UseVisualStyleBackColor = true;
             // 
             // ReportZirSarfasl
             // 
@@ -222,14 +221,16 @@ namespace ReportSarfasl
             SetTextLabelFooter(dt.Count, dt.Sum(d => d.Man),dt.Sum(d=>d.Man+d.Man_Befor));
 
             SetGrid();
-
-            txtFilter.Focus();
         }
 
         #region Event Controls
 
         private void textDate1_KeyEnterTextBoxToYear(object sender, EventArgs e)
         {
+            dgvZirSarfal.DataSource = dt = conection.GetZirSarfaslServices(_listZirSar, _sarfaslID, textDate1.FromDate, textDate1.ToDate);
+
+            SetTextLabelFooter(dt.Count, dt.Sum(d => d.Man), dt.Sum(d => d.Man + d.Man_Befor));
+
             txtFilter.Focus();
         }
 
@@ -247,6 +248,14 @@ namespace ReportSarfasl
             else if (e.KeyCode == Keys.Enter)
             {
                 OpenActZirSarfasl();
+            }
+            else if (e.KeyCode == Keys.Left && txtFilter.Text.Trim() == "")
+            {
+                dgvZirSarfal.Columns["Name"].Width = dgvZirSarfal.Columns["Name"].Width + 1;
+            }
+            else if (e.KeyCode == Keys.Right && txtFilter.Text.Trim() == "")
+            {
+                dgvZirSarfal.Columns["Name"].Width = dgvZirSarfal.Columns["Name"].Width - 1;
             }
             else if (dgvZirSarfal.Rows.Count > 0)
             {
@@ -332,9 +341,11 @@ namespace ReportSarfasl
 
             dgvZirSarfal.Columns["row"].Visible = true;
             dgvZirSarfal.Columns["row"].HeaderText = "رديف";
+            dgvZirSarfal.Columns["row"].Width = 40;
 
             dgvZirSarfal.Columns["Name"].Visible = true;
             dgvZirSarfal.Columns["Name"].HeaderText = "نام";
+            dgvZirSarfal.Columns["Name"].Width = 180;
             // dgvZirSarfal.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             dgvZirSarfal.Columns["bed"].Visible = true;
@@ -353,6 +364,7 @@ namespace ReportSarfasl
 
             dgvZirSarfal.Columns["bed_bes"].Visible = true;
             dgvZirSarfal.Columns["bed_bes"].HeaderText = "تشخيص";
+            dgvZirSarfal.Columns["bed_bes"].Width = 53;
 
             dgvZirSarfal.Columns["Man_Befor"].Visible = true;
             dgvZirSarfal.Columns["Man_Befor"].HeaderText = "مانده قبلي";
@@ -361,6 +373,7 @@ namespace ReportSarfasl
 
             dgvZirSarfal.Columns["bed_bes_Befor"].Visible = true;
             dgvZirSarfal.Columns["bed_bes_Befor"].HeaderText = "تشخيص";
+            dgvZirSarfal.Columns["bed_bes_Befor"].Width = 53;
 
         }
 
@@ -383,7 +396,7 @@ namespace ReportSarfasl
             {
                 _zirSarfaslIdSelected = (int)dgvZirSarfal.SelectedRows[0].Cells["ID"].Value;
                 DefultForm reportZirSarfasl = new DefultForm();
-                reportZirSarfasl.ShowDialog(new ReportActZirSarfasl(textDate1.FromDate,textDate1.ToDate,zirSarfaslID: _zirSarfaslIdSelected), new Size(700, 400));
+                reportZirSarfasl.ShowDialog(new ReportActZirSarfasl(textDate1.FromDate,textDate1.ToDate,zirSarfaslID: _zirSarfaslIdSelected), new Size(800, 540));
                 //باز کردن زیر سرفصل های سرفصل انتخابی داخل گرید
             }
         }

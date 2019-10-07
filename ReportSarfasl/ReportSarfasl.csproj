@@ -57,6 +57,9 @@
     <Compile Include="border.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="ChoiceActKind.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="dataLayer\act_zirsarfasls.cs">
       <DependentUpon>DbAteran2Model.tt</DependentUpon>
     </Compile>
@@ -117,6 +120,9 @@
     </Compile>
     <EmbeddedResource Include="border.resx">
       <DependentUpon>border.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChoiceActKind.resx">
+      <DependentUpon>ChoiceActKind.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
