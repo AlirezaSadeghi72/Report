@@ -22,7 +22,7 @@ namespace ReportSarfasl
         private Panel pnlFooter;
         private Panel pnlHeader;
         private Panel pnlMain;
-        private DataGridViewCheckBoxColumn Select;
+        private DataGridViewCheckBoxColumn Select1;
         private TextBox txtFilter;
 
         public ListSafaslaOrZirSarfasls(bool isSarfasl, List<int> listSelected, string text,
@@ -43,7 +43,7 @@ namespace ReportSarfasl
             this.txtFilter = new System.Windows.Forms.TextBox();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.dgvList = new System.Windows.Forms.DataGridView();
-            this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Select1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.pnlFooter = new System.Windows.Forms.Panel();
             this.pnlHeader.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -109,7 +109,7 @@ namespace ReportSarfasl
             this.dgvList.AllowUserToDeleteRows = false;
             this.dgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Select});
+            this.Select1});
             this.dgvList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvList.Location = new System.Drawing.Point(0, 0);
             this.dgvList.MultiSelect = false;
@@ -124,10 +124,10 @@ namespace ReportSarfasl
             // 
             // Select
             // 
-            this.Select.HeaderText = "انتخاب";
-            this.Select.Name = "Select";
-            this.Select.ReadOnly = true;
-            this.Select.Visible = false;
+            this.Select1.HeaderText = "انتخاب";
+            this.Select1.Name = "Select";
+            this.Select1.ReadOnly = true;
+            this.Select1.Visible = false;
             // 
             // pnlFooter
             // 

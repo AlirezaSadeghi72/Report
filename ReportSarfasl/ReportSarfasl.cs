@@ -11,12 +11,15 @@ using ReportSarfasl.dataLayer;
 using ReportSarfasl.Forms;
 using ReportSarfasl.Services;
 using Stimulsoft.Report;
+using Stimulsoft.Report.Dictionary;
+
 
 namespace ReportSarfasl
 {
     public class reportSarfasl : UserControl
     {
         private List<int> _listSar = new List<int>(), _listZirSar = new List<int>();
+        private PersianCalendar pc = new PersianCalendar();
         private int _sarfaslIdSelected;
         private List<SarfaslService> dt;
         private Button btnPrint;
@@ -355,8 +358,8 @@ namespace ReportSarfasl
         }
         private void chbSarfasls_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyData == Keys.Enter)
-            chbSarfasls.Checked = (!chbSarfasls.Checked);
+            if (e.KeyData == Keys.Enter)
+                chbSarfasls.Checked = (!chbSarfasls.Checked);
         }
         private void txtSarfasl_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
@@ -381,7 +384,7 @@ namespace ReportSarfasl
         }
         private void chbZirSarfasls_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyData == Keys.Enter)
+            if (e.KeyData == Keys.Enter)
                 chbZirSarfasls.Checked = (!chbZirSarfasls.Checked);
         }
         private void txtZirSarfasl_KeyDown(object sender, KeyEventArgs e)
@@ -496,11 +499,18 @@ namespace ReportSarfasl
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            //StiReport report = new StiReport();
+            var DateNow = DateTime.Now;
+            string today = pc.GetYear(DateNow).ToString("0000") + "/" + pc.GetMonth(DateNow).ToString("00") + "/" + pc.GetDayOfMonth(DateNow).ToString("00");
+            StiReport report = new StiReport();
+            report.Load(@"C:\Users\North-PC\Desktop\Report Sarfasl (Stimulsoft)\ReportSarfasl1.mrt");
+            report.Compile();
+            report["User"] = "alirezasadegghi";
+            report["today"] = today;
+            report["FromDate"] = textDate1.FromDate;
+            report["ToDate"] = textDate1.ToDate;
+            report.RegBusinessObject("Sarfasls", dgvSarfasl.DataSource);
 
-            //report.Load("report.mrt");
-
-            //report.Show();
+            report.Show();
 
             //چاپ
         }
@@ -619,7 +629,7 @@ namespace ReportSarfasl
         {
             _sarfaslIdSelected = (int)dgvSarfasl.SelectedRows[0].Cells["ID"].Value;
             DefultForm reportActZirSarfasl = new DefultForm();
-            reportActZirSarfasl.ShowDialog(new ReportActZirSarfasl(textDate1.FromDate, textDate1.ToDate, sarfaslID: _sarfaslIdSelected, listZirsarfasl: _listZirSar), new Size(800, 540));
+            reportActZirSarfasl.ShowDialog(new ReportActZirSarfasl(textDate1.FromDate, textDate1.ToDate, sarfaslID: _sarfaslIdSelected, listZirsarfasl: _listZirSar), new Size(910, 541));
         }
 
         private void SetTextLabelFooter(int number, decimal sum, decimal sumAll)
