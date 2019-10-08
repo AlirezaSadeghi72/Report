@@ -15,6 +15,24 @@ namespace ReportSarfasl.dataLayer
     {
         #region private
 
+        private static List<KeyValuePair<int, string>> KindName = new List<KeyValuePair<int, string>>()
+        {
+            new KeyValuePair<int, string>(51, "از صندوق به سرفصل"),
+            new KeyValuePair<int, string>(52, "از اسناد پرداختي و صندوق-نقد و چك به سرفصل"),
+            new KeyValuePair<int, string>(53, "از اسناد پرداختي-چك به سرفصل"),
+            new KeyValuePair<int, string>(54, "از سرفصل به سرفصل"),
+            new KeyValuePair<int, string>(55, "از سرفصل به حساب جاري"),
+            new KeyValuePair<int, string>(56, "از سرفصل به مشتري"),
+            new KeyValuePair<int, string>(57, "از سرفصل به صندوق"),
+            new KeyValuePair<int, string>(58, "از جاري به سرفصل"),
+            new KeyValuePair<int, string>(59, "از جاري به جاري"),
+            new KeyValuePair<int, string>(60, "از جاري به مشتري"),
+            new KeyValuePair<int, string>(61, "از جاري به صندوق"),
+            new KeyValuePair<int, string>(62, "از اسناد دريافتي(خرج چك) به سرفصل"),
+            new KeyValuePair<int, string>(63, "از صندوق و اسناد دريافتي به سرفصل"),
+            new KeyValuePair<int, string>(64, "از مشتري به سرفصل"),
+            new KeyValuePair<int, string>(65, "از انبار به سرفصل")
+        };
         private static List<SarfaslService> _getSarfaslses(DbAtiran2Entities context,
             Expression<Func<sarfasls, bool>> where = null)
         {
@@ -77,8 +95,10 @@ namespace ReportSarfasl.dataLayer
                 bed_bes = a.bed_bes,
                 description = a.dis,
                 kind = a.kind,
-                sanadno = a.sanadno
-            }).ToList();
+                kindName = KindName.FirstOrDefault(k=>k.Key == a.kind).Value,
+                sanadno = a.sanadno,
+                user = a.user
+            }).OrderBy(r=>r.date).ToList();
 
         }
 
@@ -137,11 +157,10 @@ namespace ReportSarfasl.dataLayer
                     bes = r.Bes ?? 0,
                     Man = r.Man ?? 0,
                     bed_bes = (r.Man > 0) ? "بد" : (r.Man == 0) ? "--" : "بس",
-                    Man_Befor = (r.Man_All??0)- (r.Man ?? 0),
+                    Man_Befor = (r.Man_All ?? 0) - (r.Man ?? 0),
                     bed_bes_Befor = ((r.Man_All ?? 0) - (r.Man ?? 0) > 0) ? "بد" : ((r.Man_All ?? 0) - (r.Man ?? 0) == 0) ? "--" : "بس",
                     who_def = r.who_def,
-                    has_dar = r.has_dar
-
+                    has_dar = (r.has_dar.ToLower() == "m") ? "ماليات" : (r.has_dar.ToLower() == "h") ? "هزينه" : (r.has_dar.ToLower() == "d") ? "دارايي" : (r.has_dar.ToLower() == "b") ? "بدون ماليات" : ""
                 }).ToList();
 
                 #region MyRegion
@@ -249,7 +268,7 @@ namespace ReportSarfasl.dataLayer
                     bed_bes = (r.Man > 0) ? "بد" : (r.Man == 0) ? "--" : "بس",
                     Man_Befor = (r.Man_All ?? 0) - (r.Man ?? 0),
                     bed_bes_Befor = (((r.Man_All ?? 0) - (r.Man ?? 0)) > 0) ? "بد" : (((r.Man_All ?? 0) - (r.Man ?? 0)) == 0) ? "--" : "بس",
-                    has_dar = r.has_dar,
+                    has_dar = (r.has_dar.ToLower() == "m") ? "ماليات" : (r.has_dar.ToLower() == "h") ? "هزينه" : (r.has_dar.ToLower() == "d") ? "دارايي" : (r.has_dar.ToLower() == "b") ? "بدون ماليات" : "",
                     Active = r.Active
                 }).ToList();
 
@@ -335,16 +354,16 @@ namespace ReportSarfasl.dataLayer
                 {
                     row = 1,
                     ID = 0,
-                    description = "حساب قبلي" 
+                    description = "حساب قبلي"
                 }
             };
             using (var context = new DbAtiran2Entities())
             {
                 if (zirSarfaslID != -1)
                 {
-                    result.AddRange( _getActZirSarfasls(context, a => a.rdf_zirsarfasls == zirSarfaslID && a.date.CompareTo(FromDate) >= 0 && a.date.CompareTo(ToDate) <= 0));
+                    result.AddRange(_getActZirSarfasls(context, a => a.rdf_zirsarfasls == zirSarfaslID && a.date.CompareTo(FromDate) >= 0 && a.date.CompareTo(ToDate) <= 0));
                     var Befor = context.act_zirsarfasls.AsNoTracking()
-                        .Where(a => a.rdf_zirsarfasls == zirSarfaslID && a.date.CompareTo(FromDate) < 0).Select(a=>new {a.bed,a.bes}).ToList();
+                        .Where(a => a.rdf_zirsarfasls == zirSarfaslID && a.date.CompareTo(FromDate) < 0).Select(a => new { a.bed, a.bes }).ToList();
 
                     var bed = result.First(r => r.ID == 0).bed = Befor.Sum(b => b.bed);
                     var bes = result.First(r => r.ID == 0).bes = Befor.Sum(b => b.bes);
@@ -376,13 +395,12 @@ namespace ReportSarfasl.dataLayer
                         var Befor = context.act_zirsarfasls.AsNoTracking()
                             .Where(a => ZirsarfaslID.Contains(a.rdf_zirsarfasls) && a.date.CompareTo(FromDate) < 0).Select(a => new { a.bed, a.bes }).ToList();
 
-                       var bed = result.First(r => r.ID == 0).bed = Befor.Sum(b => b.bed);
-                      var bes = result.First(r => r.ID == 0).bes = Befor.Sum(b => b.bes);
+                        var bed = result.First(r => r.ID == 0).bed = Befor.Sum(b => b.bed);
+                        var bes = result.First(r => r.ID == 0).bes = Befor.Sum(b => b.bes);
                         result.First(r => r.ID == 0).bed_bes = (bed - bes > 0) ? "بد" : (bed - bes == 0) ? "--" : "بس";
-                       
+
                     }
                 }
-
                 return result;
 
             }

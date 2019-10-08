@@ -35,7 +35,6 @@ namespace ReportSarfasl
 
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChoiceActKind));
             this.chb51 = new System.Windows.Forms.CheckBox();
             this.chb52 = new System.Windows.Forms.CheckBox();
             this.chb53 = new System.Windows.Forms.CheckBox();
@@ -241,7 +240,7 @@ namespace ReportSarfasl
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
+            this.pictureBox1.Image = global::ReportSarfasl.Properties.Resources.line;
             this.pictureBox1.Location = new System.Drawing.Point(272, 4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(7, 172);
@@ -250,7 +249,7 @@ namespace ReportSarfasl
             // 
             // pictureBox2
             // 
-            this.pictureBox2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.BackgroundImage")));
+            this.pictureBox2.Image = global::ReportSarfasl.Properties.Resources.line;
             this.pictureBox2.Location = new System.Drawing.Point(416, 4);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(7, 172);

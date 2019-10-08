@@ -20,11 +20,13 @@ namespace ReportSarfasl
         private PersianCalendar pc = new PersianCalendar();
         private int _sarfaslID, _zirSarfaslIdSelected;
         private List<ZirSarfaslService> dt;
+
+        private string _nameSarfasl;
         //private bool _isSearch = false;//, _isKeySpase = false;
         private Panel pnlMain;
         private Button btnCancel;
         private Button btnPrint;
-        private GroupBox groupBox1;
+        private GroupBox gbHeader;
         private TextBox txtFilter;
         private DataGridView dgvZirSarfal;
         private TextDate textDate1;
@@ -32,11 +34,12 @@ namespace ReportSarfasl
         private Label lblFooterNumber;
         private Panel pnlFooter;
 
-        public ReportZirSarfasl(List<int> ListZirSar, int sarfaslID,string FromDate,string ToDate)
+        public ReportZirSarfasl(List<int> ListZirSar, int sarfaslID, string NameSarfasl, string FromDate, string ToDate)
         {
             InitializeComponent();
             _listZirSar = ListZirSar;
             _sarfaslID = sarfaslID;
+            gbHeader.Text += _nameSarfasl = NameSarfasl;
             textDate1.FromDate = FromDate;
             textDate1.ToDate = ToDate;
         }
@@ -46,7 +49,7 @@ namespace ReportSarfasl
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlMain = new System.Windows.Forms.Panel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.gbHeader = new System.Windows.Forms.GroupBox();
             this.dgvZirSarfal = new System.Windows.Forms.DataGridView();
             this.txtFilter = new System.Windows.Forms.TextBox();
             this.textDate1 = new ReportSarfasl.TextDate();
@@ -56,37 +59,38 @@ namespace ReportSarfasl
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
             this.pnlMain.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.gbHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvZirSarfal)).BeginInit();
             this.pnlFooter.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlMain
             // 
-            this.pnlMain.Controls.Add(this.groupBox1);
+            this.pnlMain.Controls.Add(this.gbHeader);
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMain.Location = new System.Drawing.Point(0, 0);
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(800, 442);
             this.pnlMain.TabIndex = 1;
             // 
-            // groupBox1
+            // gbHeader
             // 
-            this.groupBox1.Controls.Add(this.dgvZirSarfal);
-            this.groupBox1.Controls.Add(this.txtFilter);
-            this.groupBox1.Controls.Add(this.textDate1);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(800, 442);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "ليست زيرسرفصل هاي      سرفصل :   ";
+            this.gbHeader.Controls.Add(this.dgvZirSarfal);
+            this.gbHeader.Controls.Add(this.txtFilter);
+            this.gbHeader.Controls.Add(this.textDate1);
+            this.gbHeader.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbHeader.Location = new System.Drawing.Point(0, 0);
+            this.gbHeader.Name = "gbHeader";
+            this.gbHeader.Size = new System.Drawing.Size(800, 442);
+            this.gbHeader.TabIndex = 0;
+            this.gbHeader.TabStop = false;
+            this.gbHeader.Text = "ليست زيرسرفصل هاي      سرفصل :   ";
             // 
             // dgvZirSarfal
             // 
             this.dgvZirSarfal.AllowUserToAddRows = false;
             this.dgvZirSarfal.AllowUserToDeleteRows = false;
+            this.dgvZirSarfal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvZirSarfal.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(160)))), ((int)(((byte)(200)))));
             this.dgvZirSarfal.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -112,6 +116,7 @@ namespace ReportSarfasl
             this.dgvZirSarfal.MultiSelect = false;
             this.dgvZirSarfal.Name = "dgvZirSarfal";
             this.dgvZirSarfal.ReadOnly = true;
+            this.dgvZirSarfal.RowHeadersVisible = false;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.Blue;
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
             this.dgvZirSarfal.RowsDefaultCellStyle = dataGridViewCellStyle3;
@@ -138,12 +143,12 @@ namespace ReportSarfasl
             // 
             this.textDate1.Dock = System.Windows.Forms.DockStyle.Top;
             this.textDate1.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.textDate1.FromDate = "1398/07/15";
+            this.textDate1.FromDate = "1398/07/16";
             this.textDate1.Location = new System.Drawing.Point(3, 24);
             this.textDate1.Name = "textDate1";
             this.textDate1.Size = new System.Drawing.Size(794, 24);
             this.textDate1.TabIndex = 0;
-            this.textDate1.ToDate = "1398/07/15";
+            this.textDate1.ToDate = "1398/07/16";
             this.textDate1.KeyEnterTextBoxToYear += new System.EventHandler(this.textDate1_KeyEnterTextBoxToYear);
             // 
             // pnlFooter
@@ -210,8 +215,8 @@ namespace ReportSarfasl
             this.Size = new System.Drawing.Size(800, 500);
             this.Load += new System.EventHandler(this.ReportZirSarfasl_Load);
             this.pnlMain.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.gbHeader.ResumeLayout(false);
+            this.gbHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvZirSarfal)).EndInit();
             this.pnlFooter.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -220,9 +225,9 @@ namespace ReportSarfasl
 
         private void ReportZirSarfasl_Load(object sender, EventArgs e)
         {
-            dgvZirSarfal.DataSource = dt = conection.GetZirSarfaslServices(_listZirSar, _sarfaslID,textDate1.FromDate,textDate1.ToDate);
+            dgvZirSarfal.DataSource = dt = conection.GetZirSarfaslServices(_listZirSar, _sarfaslID, textDate1.FromDate, textDate1.ToDate);
 
-            SetTextLabelFooter(dt.Count, dt.Sum(d => d.Man),dt.Sum(d=>d.Man+d.Man_Befor));
+            SetTextLabelFooter(dt.Count, dt.Sum(d => d.Man), dt.Sum(d => d.Man + d.Man_Befor));
 
             SetGrid();
         }
@@ -249,23 +254,26 @@ namespace ReportSarfasl
                 //_isSearch = false;
                 txtFilter.Text = "";
             }
-            else if (e.KeyCode == Keys.Enter)
-            {
-                OpenActZirSarfasl();
-            }
-            else if (e.KeyCode == Keys.Left && txtFilter.Text.Trim() == "")
-            {
-                dgvZirSarfal.Columns["Name"].Width = dgvZirSarfal.Columns["Name"].Width + 1;
-            }
-            else if (e.KeyCode == Keys.Right && txtFilter.Text.Trim() == "")
-            {
-                dgvZirSarfal.Columns["Name"].Width = dgvZirSarfal.Columns["Name"].Width - 1;
-            }
+            //else if (e.KeyCode == Keys.Left && txtFilter.Text.Trim() == "")
+            //{
+            //    if (dgvZirSarfal.DataSource != null)
+            //    dgvZirSarfal.Columns["Name"].Width = dgvZirSarfal.Columns["Name"].Width + 1;
+            //}
+            //else if (e.KeyCode == Keys.Right && txtFilter.Text.Trim() == "")
+            //{
+            //    if (dgvZirSarfal.DataSource != null)
+            //    dgvZirSarfal.Columns["Name"].Width = dgvZirSarfal.Columns["Name"].Width - 1;
+            //}
             else if (dgvZirSarfal.Rows.Count > 0)
             {
+
                 int countRowGrid = dgvZirSarfal.Rows.Count;
                 int rowIndexSelected = dgvZirSarfal.SelectedRows[0].Index;
-                if (e.KeyCode == Keys.Up)
+                if (e.KeyCode == Keys.Enter)
+                {
+                    OpenActZirSarfasl(dgvZirSarfal.SelectedRows[0].Cells["Name"].Value.ToString());
+                }
+                else if (e.KeyCode == Keys.Up)
                 {
                     if (rowIndexSelected == 0)
                     {
@@ -295,14 +303,20 @@ namespace ReportSarfasl
 
         private void dgvZirSarfal_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (dgvZirSarfal.SelectedRows.Count > 0)
             {
-                OpenActZirSarfasl();
+                if (e.KeyCode == Keys.Enter)
+                {
+                    OpenActZirSarfasl(dgvZirSarfal.SelectedRows[0].Cells["Name"].Value.ToString());
+                }
             }
         }
         private void dgvZirSarfal_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            OpenActZirSarfasl();
+            if (dgvZirSarfal.SelectedRows.Count > 0)
+            {
+                OpenActZirSarfasl(dgvZirSarfal.SelectedRows[0].Cells["Name"].Value.ToString());
+            }
         }
         private void dgvZirSarfal_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
@@ -324,6 +338,7 @@ namespace ReportSarfasl
             report.Compile();
             report["User"] = "alirezasadegghi";
             report["today"] = today;
+            report["NameSarfasl"] = _nameSarfasl;
             report["FromDate"] = textDate1.FromDate;
             report["ToDate"] = textDate1.ToDate;
             report.RegBusinessObject("ZirSarfasls", dgvZirSarfal.DataSource);
@@ -368,6 +383,10 @@ namespace ReportSarfasl
             dgvZirSarfal.Columns["Name"].Width = 180;
             // dgvZirSarfal.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
+            dgvZirSarfal.Columns["has_dar"].Visible = true;
+            dgvZirSarfal.Columns["has_dar"].HeaderText = "ماهيت";
+            dgvZirSarfal.Columns["has_dar"].Width = 70;
+
             dgvZirSarfal.Columns["bed"].Visible = true;
             dgvZirSarfal.Columns["bed"].HeaderText = "بدهكار";
             dgvZirSarfal.Columns["bed"].DefaultCellStyle.Format = "#,0";
@@ -410,13 +429,13 @@ namespace ReportSarfasl
             }
         }
 
-        private void OpenActZirSarfasl()
+        private void OpenActZirSarfasl(string NameZirSarfasl)
         {
             if (dgvZirSarfal.SelectedRows.Count > 0)
             {
                 _zirSarfaslIdSelected = (int)dgvZirSarfal.SelectedRows[0].Cells["ID"].Value;
                 DefultForm reportZirSarfasl = new DefultForm();
-                reportZirSarfasl.ShowDialog(new ReportActZirSarfasl(textDate1.FromDate,textDate1.ToDate,zirSarfaslID: _zirSarfaslIdSelected), new Size(910, 541));
+                reportZirSarfasl.ShowDialog(new ReportActZirSarfasl(textDate1.FromDate, textDate1.ToDate, NameZirSarfasl, zirSarfaslID: _zirSarfaslIdSelected), new Size(1332, 694));
                 //باز کردن زیر سرفصل های سرفصل انتخابی داخل گرید
             }
         }

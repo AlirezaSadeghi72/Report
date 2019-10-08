@@ -19,14 +19,14 @@ namespace ReportSarfasl
         private List<int> _listZirSar = new List<int>(), _choiseKind = new List<int>();
         private bool _isActForSarfasl;
         private List<ActZirSarfaslService> dt;
+        private string _nameSarfaslOrZirSarfasl;
         private PersianCalendar pc = new PersianCalendar();
         private Panel pnlHeader;
         private Panel pnlMain;
         private Button btnCancel;
         private Button btnPrint;
         private TextBox txtFilter;
-        private GroupBox groupBox2;
-        private Label label2;
+        private GroupBox gbHeader;
         private GroupBox groupBox1;
         private DataGridView dgvActZirSarfasl;
         private TextDate textDate1;
@@ -48,7 +48,7 @@ namespace ReportSarfasl
         private Label label11;
         private Panel pnlFooter;
 
-        public ReportActZirSarfasl(string FromDate, string ToDate, int zirSarfaslID = -1, int sarfaslID = -1, List<int> listZirsarfasl = null)
+        public ReportActZirSarfasl(string FromDate, string ToDate,string NameGrupBoxHeader, int zirSarfaslID = -1, int sarfaslID = -1, List<int> listZirsarfasl = null)
         {
             InitializeComponent();
             textDate1.FromDate = FromDate;
@@ -69,6 +69,9 @@ namespace ReportSarfasl
                 throw new NullReferenceException();
             }
 
+            gbHeader.Text = "ريز عملكردهاي" + (_isActForSarfasl ? "سرفصل : " : "زيرسرفصل : ") + NameGrupBoxHeader;
+            _nameSarfaslOrZirSarfasl = NameGrupBoxHeader;
+
         }
 
         private void InitializeComponent()
@@ -77,22 +80,23 @@ namespace ReportSarfasl
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlHeader = new System.Windows.Forms.Panel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.gbHeader = new System.Windows.Forms.GroupBox();
             this.chbActKind = new System.Windows.Forms.CheckBox();
             this.textDate1 = new ReportSarfasl.TextDate();
-            this.label2 = new System.Windows.Forms.Label();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgvActZirSarfasl = new System.Windows.Forms.DataGridView();
             this.txtFilter = new System.Windows.Forms.TextBox();
             this.pnlFooter = new System.Windows.Forms.Panel();
             this.lblBes = new System.Windows.Forms.Label();
+            this.lblMan = new System.Windows.Forms.Label();
             this.lblManDate = new System.Windows.Forms.Label();
             this.lblBesDate = new System.Windows.Forms.Label();
             this.lblBed = new System.Windows.Forms.Label();
             this.lblBedDate = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -101,10 +105,8 @@ namespace ReportSarfasl
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
             this.lblDisAct = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.lblMan = new System.Windows.Forms.Label();
             this.pnlHeader.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.gbHeader.SuspendLayout();
             this.pnlMain.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvActZirSarfasl)).BeginInit();
@@ -114,30 +116,30 @@ namespace ReportSarfasl
             // 
             // pnlHeader
             // 
-            this.pnlHeader.Controls.Add(this.groupBox2);
+            this.pnlHeader.Controls.Add(this.gbHeader);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(905, 54);
             this.pnlHeader.TabIndex = 1;
             // 
-            // groupBox2
+            // gbHeader
             // 
-            this.groupBox2.Controls.Add(this.chbActKind);
-            this.groupBox2.Controls.Add(this.textDate1);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(0, 0);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(905, 54);
-            this.groupBox2.TabIndex = 0;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "جزييات زيرسرفصل";
+            this.gbHeader.Controls.Add(this.chbActKind);
+            this.gbHeader.Controls.Add(this.textDate1);
+            this.gbHeader.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbHeader.Location = new System.Drawing.Point(0, 0);
+            this.gbHeader.Name = "gbHeader";
+            this.gbHeader.Size = new System.Drawing.Size(905, 54);
+            this.gbHeader.TabIndex = 0;
+            this.gbHeader.TabStop = false;
+            this.gbHeader.Text = "جزييات زيرسرفصل";
             // 
             // chbActKind
             // 
+            this.chbActKind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chbActKind.AutoSize = true;
-            this.chbActKind.Location = new System.Drawing.Point(167, 21);
+            this.chbActKind.Location = new System.Drawing.Point(369, 23);
             this.chbActKind.Name = "chbActKind";
             this.chbActKind.Size = new System.Drawing.Size(79, 24);
             this.chbActKind.TabIndex = 0;
@@ -148,23 +150,15 @@ namespace ReportSarfasl
             // 
             // textDate1
             // 
+            this.textDate1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textDate1.Enabled = false;
             this.textDate1.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.textDate1.FromDate = "1398/07/15";
-            this.textDate1.Location = new System.Drawing.Point(302, 21);
+            this.textDate1.FromDate = "1398/07/16";
+            this.textDate1.Location = new System.Drawing.Point(499, 23);
             this.textDate1.Name = "textDate1";
             this.textDate1.Size = new System.Drawing.Size(390, 24);
             this.textDate1.TabIndex = 0;
-            this.textDate1.ToDate = "1398/07/15";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(747, 24);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 20);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "label2";
+            this.textDate1.ToDate = "1398/07/16";
             // 
             // pnlMain
             // 
@@ -191,6 +185,7 @@ namespace ReportSarfasl
             // 
             this.dgvActZirSarfasl.AllowUserToAddRows = false;
             this.dgvActZirSarfasl.AllowUserToDeleteRows = false;
+            this.dgvActZirSarfasl.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvActZirSarfasl.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(160)))), ((int)(((byte)(200)))));
             this.dgvActZirSarfasl.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -216,6 +211,7 @@ namespace ReportSarfasl
             this.dgvActZirSarfasl.MultiSelect = false;
             this.dgvActZirSarfasl.Name = "dgvActZirSarfasl";
             this.dgvActZirSarfasl.ReadOnly = true;
+            this.dgvActZirSarfasl.RowHeadersVisible = false;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.Blue;
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
             this.dgvActZirSarfasl.RowsDefaultCellStyle = dataGridViewCellStyle3;
@@ -269,6 +265,16 @@ namespace ReportSarfasl
             this.lblBes.TabIndex = 12;
             this.lblBes.Text = "0";
             this.lblBes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblMan
+            // 
+            this.lblMan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblMan.Location = new System.Drawing.Point(206, 29);
+            this.lblMan.Name = "lblMan";
+            this.lblMan.Size = new System.Drawing.Size(114, 20);
+            this.lblMan.TabIndex = 12;
+            this.lblMan.Text = "0";
+            this.lblMan.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblManDate
             // 
@@ -331,6 +337,17 @@ namespace ReportSarfasl
             this.label6.TabIndex = 12;
             this.label6.Text = "بستانكاري:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label11
+            // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(326, 29);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(37, 20);
+            this.label11.TabIndex = 12;
+            this.label11.Text = "مانده:";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label9
             // 
@@ -416,27 +433,6 @@ namespace ReportSarfasl
             this.lblDisAct.Size = new System.Drawing.Size(905, 20);
             this.lblDisAct.TabIndex = 14;
             // 
-            // label11
-            // 
-            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(326, 29);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(37, 20);
-            this.label11.TabIndex = 12;
-            this.label11.Text = "مانده:";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblMan
-            // 
-            this.lblMan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblMan.Location = new System.Drawing.Point(206, 29);
-            this.lblMan.Name = "lblMan";
-            this.lblMan.Size = new System.Drawing.Size(114, 20);
-            this.lblMan.TabIndex = 12;
-            this.lblMan.Text = "0";
-            this.lblMan.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // ReportActZirSarfasl
             // 
             this.Controls.Add(this.pnlMain);
@@ -448,8 +444,8 @@ namespace ReportSarfasl
             this.Size = new System.Drawing.Size(905, 531);
             this.Load += new System.EventHandler(this.ReportActZirSarfasl_Load);
             this.pnlHeader.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.gbHeader.ResumeLayout(false);
+            this.gbHeader.PerformLayout();
             this.pnlMain.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -465,13 +461,14 @@ namespace ReportSarfasl
         {
             if (_isActForSarfasl)
             {
-                dgvActZirSarfasl.DataSource = dt = conection.GetActZirSarfaslServices(textDate1.FromDate, textDate1.ToDate, sarfaslID: _sarfaslID, listZirsarfasl: _listZirSar);
+                dt = conection.GetActZirSarfaslServices(textDate1.FromDate, textDate1.ToDate, sarfaslID: _sarfaslID, listZirsarfasl: _listZirSar);
             }
             else
             {
-                dgvActZirSarfasl.DataSource = dt = conection.GetActZirSarfaslServices(textDate1.FromDate, textDate1.ToDate, zirSarfaslID: _zirSarfaslID);
+                dt = conection.GetActZirSarfaslServices(textDate1.FromDate, textDate1.ToDate, zirSarfaslID: _zirSarfaslID);
             }
 
+            dgvActZirSarfasl.DataSource = dt;
             var befor = dt.FirstOrDefault(d => d.ID == 0) ?? new ActZirSarfaslService();
 
             SetTextLabelFooter(dt.Count, dt.Sum(d => d.bed), dt.Sum(d => d.bes), dt.Sum(d => d.bed - d.bes), befor.bed, befor.bes);
@@ -515,14 +512,16 @@ namespace ReportSarfasl
             {
                 txtFilter.Text = "";
             }
-            else if (e.KeyCode == Keys.Left && txtFilter.Text.Trim() == "")
-            {
-                dgvActZirSarfasl.Columns["description"].Width = dgvActZirSarfasl.Columns["description"].Width + 1;
-            }
-            else if (e.KeyCode == Keys.Right && txtFilter.Text.Trim() == "")
-            {
-                dgvActZirSarfasl.Columns["description"].Width = dgvActZirSarfasl.Columns["description"].Width - 1;
-            }
+            //else if (e.KeyCode == Keys.Left && txtFilter.Text.Trim() == "")
+            //{
+            //    if (dgvActZirSarfasl.DataSource != null)
+            //        dgvActZirSarfasl.Columns["description"].Width = dgvActZirSarfasl.Columns["description"].Width + 1;
+            //}
+            //else if (e.KeyCode == Keys.Right && txtFilter.Text.Trim() == "")
+            //{
+            //    if (dgvActZirSarfasl.DataSource != null)
+            //        dgvActZirSarfasl.Columns["description"].Width = dgvActZirSarfasl.Columns["description"].Width - 1;
+            //}
             else if (dgvActZirSarfasl.Rows.Count > 0)
             {
                 int countRowGrid = dgvActZirSarfasl.Rows.Count;
@@ -556,7 +555,7 @@ namespace ReportSarfasl
             report["today"] = today;
             report["FromDate"] = textDate1.FromDate;
             report["ToDate"] = textDate1.ToDate;
-            report["NameReport"] = (_isActForSarfasl) ? "سرفصل " : "زير سرفصل";
+            report["NameReport"] = ((_isActForSarfasl) ? "سرفصل : " : "زير سرفصل : ") + _nameSarfaslOrZirSarfasl;
             List<ActZirSarfaslService> dt1 = (List<ActZirSarfaslService>)dgvActZirSarfasl.DataSource;
             var befor = dt1.FirstOrDefault(d => d.ID == 0) ?? new ActZirSarfaslService();
             report["SumBedDate"] = dt1.Sum(d => d.bed) - befor.bed;
@@ -582,6 +581,42 @@ namespace ReportSarfasl
             txtFilter.BackColor = Color.White;
         }
 
+        private void dgvActZirSarfasl_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvActZirSarfasl.SelectedRows.Count > 0)
+            {
+                lblDisAct.Text = dgvActZirSarfasl.SelectedRows[0].Cells["description"].Value.ToString();
+            }
+            else
+            {
+                lblDisAct.Text = "";
+            }
+        }
+        private void dgvActZirSarfasl_DataSourceChanged(object sender, EventArgs e)
+        {
+            if (dgvActZirSarfasl.SelectedRows.Count > 0)
+            {
+                lblDisAct.Text = dgvActZirSarfasl.SelectedRows[0].Cells["description"].Value.ToString();
+                foreach (DataGridViewRow row in dgvActZirSarfasl.Rows)
+                {
+                    if (row.Index == 0)
+                    {
+                        row.Cells["Man"].Value = (decimal) row.Cells["bed"].Value - (decimal) row.Cells["bes"].Value;
+                    }
+                    else
+                    {
+                        row.Cells["Man"].Value = (decimal) row.Cells["bed"].Value - (decimal) row.Cells["bes"].Value +
+                                                 (decimal) dgvActZirSarfasl.Rows[row.Index - 1].Cells["Man"].Value;
+                    }
+                }
+            }
+            else
+            {
+                lblDisAct.Text = "";
+            }
+        }
+
+
         #endregion
         #region Event override
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -606,8 +641,22 @@ namespace ReportSarfasl
             dgvActZirSarfasl.Columns["row"].HeaderText = "رديف";
             dgvActZirSarfasl.Columns["row"].Width = 40;
 
+            dgvActZirSarfasl.Columns["date"].Visible = true;
+            dgvActZirSarfasl.Columns["date"].HeaderText = "تاريخ";
+            dgvActZirSarfasl.Columns["date"].Width = 70;
+            // dgvActZirSarfasl.Columns["date"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            dgvActZirSarfasl.Columns["user"].Visible = true;
+            dgvActZirSarfasl.Columns["user"].HeaderText = "كاربر";
+            dgvActZirSarfasl.Columns["user"].Width = 50;
+
+            dgvActZirSarfasl.Columns["sanadno"].Visible = true;
+            dgvActZirSarfasl.Columns["sanadno"].HeaderText = "سند";
+            dgvActZirSarfasl.Columns["sanadno"].Width = 70;
+            // dgvActZirSarfasl.Columns["date"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
             dgvActZirSarfasl.Columns["description"].Visible = true;
-            dgvActZirSarfasl.Columns["description"].HeaderText = "توضيحات";
+            dgvActZirSarfasl.Columns["description"].HeaderText = "شــــرح";
             dgvActZirSarfasl.Columns["description"].Width = 241;
             //dgvActZirSarfasl.Columns["description"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
@@ -624,41 +673,17 @@ namespace ReportSarfasl
             // dgvActZirSarfasl.Columns["bes"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             dgvActZirSarfasl.Columns["bed_bes"].Visible = true;
-            dgvActZirSarfasl.Columns["bed_bes"].HeaderText = "وضعيت";
+            dgvActZirSarfasl.Columns["bed_bes"].HeaderText = "تشخيص";
             // dgvActZirSarfasl.Columns["bed_bes"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
-            dgvActZirSarfasl.Columns["date"].Visible = true;
-            dgvActZirSarfasl.Columns["date"].HeaderText = "تاريخ";
-            dgvActZirSarfasl.Columns["date"].Width = 70;
-            // dgvActZirSarfasl.Columns["date"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvActZirSarfasl.Columns["Man"].Visible = true;
+            dgvActZirSarfasl.Columns["Man"].HeaderText = "مانده";
+            dgvActZirSarfasl.Columns["Man"].DefaultCellStyle.Format = "#,0";
+            dgvActZirSarfasl.Columns["Man"].DefaultCellStyle.Font = new Font("IRANSans(FaNum)", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            // dgvActZirSarfasl.Columns["bes"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
-            //dgvActZirSarfasl.Columns["user"].Visible = true;
-            //dgvActZirSarfasl.Columns["user"].HeaderText = "كاربر";
-            //dgvActZirSarfasl.Columns["user"].Width = 50;
-        }
-
-        private void dgvActZirSarfasl_RowEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            if (dgvActZirSarfasl.SelectedRows.Count > 0)
-            {
-                lblDisAct.Text = dgvActZirSarfasl.SelectedRows[0].Cells["description"].Value.ToString();
-            }
-            else
-            {
-                lblDisAct.Text = "";
-            }
-        }
-
-        private void dgvActZirSarfasl_DataSourceChanged(object sender, EventArgs e)
-        {
-            if (dgvActZirSarfasl.SelectedRows.Count > 0)
-            {
-                lblDisAct.Text = dgvActZirSarfasl.SelectedRows[0].Cells["description"].Value.ToString();
-            }
-            else
-            {
-                lblDisAct.Text = "";
-            }
+            dgvActZirSarfasl.Columns["kindName"].Visible = true;
+            dgvActZirSarfasl.Columns["kindName"].HeaderText = "نوع عملكرد";
         }
 
         private void search()
@@ -697,6 +722,7 @@ namespace ReportSarfasl
             lblBes.Text = bes.ToMan();
             lblMan.Text = $"{ Math.Abs(sumAll).ToMan()} ({status2})";
         }
+        
 
         #endregion
     }

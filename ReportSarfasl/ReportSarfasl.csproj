@@ -105,7 +105,7 @@
     <Compile Include="border.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ChoiceActKind.cs">
+    <Compile Include="User_Cotrol\ChoiceActKind.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="dataLayer\act_zirsarfasls.cs">
@@ -169,7 +169,7 @@
     <EmbeddedResource Include="border.resx">
       <DependentUpon>border.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ChoiceActKind.resx">
+    <EmbeddedResource Include="User_Cotrol\ChoiceActKind.resx">
       <DependentUpon>ChoiceActKind.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\BaseForm.resx">
@@ -189,6 +189,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="ReportActZirSarfasl.resx">
       <DependentUpon>ReportActZirSarfasl.cs</DependentUpon>
@@ -235,6 +236,7 @@
       <DependentUpon>DbAteran2Model.edmx</DependentUpon>
       <LastGenOutput>DbAteran2Model.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\line.png" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
