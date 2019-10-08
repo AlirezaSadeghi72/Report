@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Cryptography.Pkcs;
@@ -74,7 +75,7 @@ namespace ReportSarfasl.dataLayer
             }).ToList();
         }
 
-        private static List<ActZirSarfaslService> _getActZirSarfasls(DbAtiran2Entities context,
+        private static List<SZAservice> _getActZirSarfasls(DbAtiran2Entities context,
             Expression<Func<act_zirsarfasls, bool>> where = null)
         {
             IQueryable<act_zirsarfasls> result = context.Set<act_zirsarfasls>().AsNoTracking();
@@ -83,22 +84,27 @@ namespace ReportSarfasl.dataLayer
                 result = result.Where(where);
             }
 
+            //var x = (from read in context.act_zirsarfasls
+            //    select new
+            //    {
+            //        ALi=read.zirsarfasls.sarfasls.rdf,
+            //    }).ToList();
             int Row = 2;
-            return result.ToList().Select(a => new ActZirSarfaslService()
+            return result.ToList().Select(a => new SZAservice()
             {
-                row = Row++,
-                ID = a.rdf,
-                ZirSarfaslID = a.rdf_zirsarfasls,
-                date = a.date,
-                bed = a.bed,
-                bes = a.bes,
-                bed_bes = a.bed_bes,
-                description = a.dis,
-                kind = a.kind,
-                kindName = KindName.FirstOrDefault(k=>k.Key == a.kind).Value,
-                sanadno = a.sanadno,
-                user = a.user
-            }).OrderBy(r=>r.date).ToList();
+                Arow = Row++,
+                AID = a.rdf,
+                AZirSarfaslID = a.rdf_zirsarfasls,
+                Adate = a.date,
+                Abed = a.bed,
+                Abes = a.bes,
+                Abed_bes = a.bed_bes,
+                Adescription = a.dis,
+                Akind = a.kind,
+                AkindName = KindName.FirstOrDefault(k => k.Key == a.kind).Value,
+                Asanadno = a.sanadno,
+                Auser = a.user
+            }).OrderBy(r => r.Adate).ToList();
 
         }
 
@@ -122,7 +128,7 @@ namespace ReportSarfasl.dataLayer
             }
         }
 
-        public static List<ActZirSarfaslService> GetActZirSarfasls(Expression<Func<act_zirsarfasls, bool>> where = null)
+        public static List<SZAservice> GetActZirSarfasls(Expression<Func<act_zirsarfasls, bool>> where = null)
         {
             using (var context = new DbAtiran2Entities())
             {
@@ -130,7 +136,7 @@ namespace ReportSarfasl.dataLayer
             }
         }
 
-        public static List<SarfaslService> GetSarfaslseServis(List<int> listSarfaslID, List<int> listZirsarfaslID, string FromDate, string ToDate)
+        public static List<SZAservice> GetSarfaslseServis(List<int> listSarfaslID, List<int> listZirsarfaslID, string FromDate, string ToDate)
         {//return new List<SarfaslService>();
             using (var context = new DbAtiran2Entities())
             {
@@ -147,20 +153,20 @@ namespace ReportSarfasl.dataLayer
                 //return new List<SarfaslService>();
                 var result = context.USP_GetSarfaslseServis(listS, listZ, FromDate, ToDate);
                 int Row = 1;
-                return result.Select(r => new SarfaslService()
+                return result.Select(r => new SZAservice()
                 {
-                    row = Row++,
-                    ID = r.rdf,
-                    Name = r.name,
-                    GroupSarfaslID = r.GroupSarfaslID,
-                    bed = r.Bed ?? 0,
-                    bes = r.Bes ?? 0,
-                    Man = r.Man ?? 0,
-                    bed_bes = (r.Man > 0) ? "بد" : (r.Man == 0) ? "--" : "بس",
-                    Man_Befor = (r.Man_All ?? 0) - (r.Man ?? 0),
-                    bed_bes_Befor = ((r.Man_All ?? 0) - (r.Man ?? 0) > 0) ? "بد" : ((r.Man_All ?? 0) - (r.Man ?? 0) == 0) ? "--" : "بس",
-                    who_def = r.who_def,
-                    has_dar = (r.has_dar.ToLower() == "m") ? "ماليات" : (r.has_dar.ToLower() == "h") ? "هزينه" : (r.has_dar.ToLower() == "d") ? "دارايي" : (r.has_dar.ToLower() == "b") ? "بدون ماليات" : ""
+                    Srow = Row++,
+                    SID = r.rdf,
+                    SName = r.name,
+                    SGroupSarfaslID = r.GroupSarfaslID,
+                    Sbed = r.Bed ?? 0,
+                    Sbes = r.Bes ?? 0,
+                    SMan = r.Man ?? 0,
+                    Sbed_bes = (r.Man > 0) ? "بد" : (r.Man == 0) ? "--" : "بس",
+                    SMan_Befor = (r.Man_All ?? 0) - (r.Man ?? 0),
+                    Sbed_bes_Befor = ((r.Man_All ?? 0) - (r.Man ?? 0) > 0) ? "بد" : ((r.Man_All ?? 0) - (r.Man ?? 0) == 0) ? "--" : "بس",
+                    Swho_def = r.who_def,
+                    Shas_dar = (r.has_dar.ToLower() == "m") ? "ماليات" : (r.has_dar.ToLower() == "h") ? "هزينه" : (r.has_dar.ToLower() == "d") ? "دارايي" : (r.has_dar.ToLower() == "b") ? "بدون ماليات" : ""
                 }).ToList();
 
                 #region MyRegion
@@ -244,32 +250,42 @@ namespace ReportSarfasl.dataLayer
             //}).ToList();
         }
 
-        public static List<ZirSarfaslService> GetZirSarfaslServices(List<int> listZirsarfaslID, int sarfaslID, string FromDate, string ToDate)
+        public static List<SZAservice> GetZirSarfaslServices(string FromDate, string ToDate, List<int> listZirsarfaslID, int sarfaslID = -1, List<int> listSarfaslID = null)
         {
             using (var context = new DbAtiran2Entities())
             {
                 string listZ = "";
+                string listS = "";
+                ObjectResult<USP_GetZirSarfaslServices_Result> result;
                 foreach (int z in listZirsarfaslID)
                 {
                     listZ += z + ",";
                 }
-
-                var result = context.USP_GetZirSarfaslServices(listZ, sarfaslID, FromDate, ToDate);
-                int Row = 1;
-                return result.Select(r => new ZirSarfaslService()
+                if (listSarfaslID != null)
                 {
-                    row = Row++,
-                    ID = r.rdf,
-                    Name = r.name,
-                    SarfaslID = r.rdf_sarfasl,
-                    bed = r.Bed ?? 0,
-                    bes = r.Bes ?? 0,
-                    Man = r.Man ?? 0,
-                    bed_bes = (r.Man > 0) ? "بد" : (r.Man == 0) ? "--" : "بس",
-                    Man_Befor = (r.Man_All ?? 0) - (r.Man ?? 0),
-                    bed_bes_Befor = (((r.Man_All ?? 0) - (r.Man ?? 0)) > 0) ? "بد" : (((r.Man_All ?? 0) - (r.Man ?? 0)) == 0) ? "--" : "بس",
-                    has_dar = (r.has_dar.ToLower() == "m") ? "ماليات" : (r.has_dar.ToLower() == "h") ? "هزينه" : (r.has_dar.ToLower() == "d") ? "دارايي" : (r.has_dar.ToLower() == "b") ? "بدون ماليات" : "",
-                    Active = r.Active
+                    foreach (int s in listSarfaslID)
+                    {
+                        listS += s + ",";
+                    }
+                }
+
+                result = context.USP_GetZirSarfaslServices(listZ, sarfaslID, listS, FromDate, ToDate);
+
+                int Row = 1;
+                return result.Select(r => new SZAservice()
+                {
+                    Zrow = Row++,
+                    ZID = r.rdf,
+                    ZName = r.name,
+                    ZSarfaslID = r.rdf_sarfasl,
+                    Zbed = r.Bed ?? 0,
+                    Zbes = r.Bes ?? 0,
+                    ZMan = r.Man ?? 0,
+                    Zbed_bes = (r.Man > 0) ? "بد" : (r.Man == 0) ? "--" : "بس",
+                    ZMan_Befor = (r.Man_All ?? 0) - (r.Man ?? 0),
+                    Zbed_bes_Befor = (((r.Man_All ?? 0) - (r.Man ?? 0)) > 0) ? "بد" : (((r.Man_All ?? 0) - (r.Man ?? 0)) == 0) ? "--" : "بس",
+                    Zhas_dar = (r.has_dar.ToLower() == "m") ? "ماليات" : (r.has_dar.ToLower() == "h") ? "هزينه" : (r.has_dar.ToLower() == "d") ? "دارايي" : (r.has_dar.ToLower() == "b") ? "بدون ماليات" : "",
+                    ZActive = r.Active
                 }).ToList();
 
                 #region MyRegion
@@ -346,15 +362,15 @@ namespace ReportSarfasl.dataLayer
                 #endregion
             }
         }
-        public static List<ActZirSarfaslService> GetActZirSarfaslServices(string FromDate, string ToDate, int zirSarfaslID = -1, int sarfaslID = -1, List<int> listZirsarfasl = null)
+        public static List<SZAservice> GetActZirSarfaslServices(string FromDate, string ToDate, int zirSarfaslID = -1, int sarfaslID = -1, List<int> listZirsarfasl = null)
         {
-            List<ActZirSarfaslService> result = new List<ActZirSarfaslService>()
+            List<SZAservice> result = new List<SZAservice>()
             {
-                new ActZirSarfaslService()
+                new SZAservice()
                 {
-                    row = 1,
-                    ID = 0,
-                    description = "حساب قبلي"
+                    Arow = 1,
+                    AID = 0,
+                    Adescription = "حساب قبلي"
                 }
             };
             using (var context = new DbAtiran2Entities())
@@ -365,9 +381,9 @@ namespace ReportSarfasl.dataLayer
                     var Befor = context.act_zirsarfasls.AsNoTracking()
                         .Where(a => a.rdf_zirsarfasls == zirSarfaslID && a.date.CompareTo(FromDate) < 0).Select(a => new { a.bed, a.bes }).ToList();
 
-                    var bed = result.First(r => r.ID == 0).bed = Befor.Sum(b => b.bed);
-                    var bes = result.First(r => r.ID == 0).bes = Befor.Sum(b => b.bes);
-                    result.First(r => r.ID == 0).bed_bes = (bed - bes > 0) ? "بد" : (bed - bes == 0) ? "--" : "بس";
+                    var bed = result.First(r => r.AID == 0).Abed = Befor.Sum(b => b.bed);
+                    var bes = result.First(r => r.AID == 0).Abes = Befor.Sum(b => b.bes);
+                    result.First(r => r.AID == 0).Abed_bes = (bed - bes > 0) ? "بد" : (bed - bes == 0) ? "--" : "بس";
                 }
                 else if (sarfaslID != -1)
                 {
@@ -382,9 +398,9 @@ namespace ReportSarfasl.dataLayer
                             var Befor = context.act_zirsarfasls.AsNoTracking()
                                 .Where(a => listZirsarfasl1.Contains(a.rdf_zirsarfasls) && a.date.CompareTo(FromDate) < 0).Select(a => new { a.bed, a.bes }).ToList();
 
-                            var bed = result.First(r => r.ID == 0).bed = Befor.Sum(b => b.bed);
-                            var bes = result.First(r => r.ID == 0).bes = Befor.Sum(b => b.bes);
-                            result.First(r => r.ID == 0).bed_bes = (bed - bes > 0) ? "بد" : (bed - bes == 0) ? "--" : "بس";
+                            var bed = result.First(r => r.AID == 0).Abed = Befor.Sum(b => b.bed);
+                            var bes = result.First(r => r.AID == 0).Abes = Befor.Sum(b => b.bes);
+                            result.First(r => r.AID == 0).Abed_bes = (bed - bes > 0) ? "بد" : (bed - bes == 0) ? "--" : "بس";
                         }
 
                         //return _getActZirSarfasls(context, a => listZirsarfasl.Contains(a.rdf_zirsarfasls) && a.date.CompareTo(FromDate) >= 0 && a.date.CompareTo(ToDate) <= 0);
@@ -395,15 +411,26 @@ namespace ReportSarfasl.dataLayer
                         var Befor = context.act_zirsarfasls.AsNoTracking()
                             .Where(a => ZirsarfaslID.Contains(a.rdf_zirsarfasls) && a.date.CompareTo(FromDate) < 0).Select(a => new { a.bed, a.bes }).ToList();
 
-                        var bed = result.First(r => r.ID == 0).bed = Befor.Sum(b => b.bed);
-                        var bes = result.First(r => r.ID == 0).bes = Befor.Sum(b => b.bes);
-                        result.First(r => r.ID == 0).bed_bes = (bed - bes > 0) ? "بد" : (bed - bes == 0) ? "--" : "بس";
+                        var bed = result.First(r => r.AID == 0).Abed = Befor.Sum(b => b.bed);
+                        var bes = result.First(r => r.AID == 0).Abes = Befor.Sum(b => b.bes);
+                        result.First(r => r.AID == 0).Abed_bes = (bed - bes > 0) ? "بد" : (bed - bes == 0) ? "--" : "بس";
 
                     }
                 }
                 return result;
 
             }
+        }
+
+        public static List<SZAservice> GetDataForReport(string FromDate, string ToDate, List<int> listZirsarfaslID,
+            List<int> listZirsarfasl)
+        {
+            using (var context = new DbAtiran2Entities())
+            {
+                //var resurl = context.SZ_ReportView.Where(v=>)
+            }
+
+            return new List<SZAservice>();
         }
 
         //public static decimal manSarfasls(int sarfaslID)

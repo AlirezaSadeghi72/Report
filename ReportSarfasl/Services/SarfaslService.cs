@@ -21,5 +21,7 @@ namespace ReportSarfasl.Services
         public decimal Man_Befor { get; set; }
         public string bed_bes_Befor { get; set; }
 
+        public List<ZirSarfaslService> ZirSarfasls { get; set; }
+
     }
 }

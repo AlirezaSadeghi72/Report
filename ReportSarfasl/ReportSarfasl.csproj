@@ -105,6 +105,10 @@
     <Compile Include="border.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="dataLayer\SZ_ReportView.cs">
+      <DependentUpon>DbAteran2Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\SZAservice.cs" />
     <Compile Include="User_Cotrol\ChoiceActKind.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -163,6 +167,9 @@
     <Compile Include="Services\ActZirSarfaslService.cs" />
     <Compile Include="Services\SarfaslService.cs" />
     <Compile Include="Services\ZirSarfaslService.cs" />
+    <Compile Include="User_Cotrol\ChoiceModPrint.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="User_Cotrol\TextDate.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -199,6 +206,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReportZirSarfasl.resx">
       <DependentUpon>ReportZirSarfasl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User_Cotrol\ChoiceModPrint.resx">
+      <DependentUpon>ChoiceModPrint.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="User_Cotrol\TextDate.resx">
       <DependentUpon>TextDate.cs</DependentUpon>

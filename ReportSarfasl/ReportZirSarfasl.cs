@@ -19,7 +19,7 @@ namespace ReportSarfasl
         private List<int> _listZirSar = new List<int>();
         private PersianCalendar pc = new PersianCalendar();
         private int _sarfaslID, _zirSarfaslIdSelected;
-        private List<ZirSarfaslService> dt;
+        private List<SZAservice> dt;
 
         private string _nameSarfasl;
         //private bool _isSearch = false;//, _isKeySpase = false;
@@ -225,9 +225,9 @@ namespace ReportSarfasl
 
         private void ReportZirSarfasl_Load(object sender, EventArgs e)
         {
-            dgvZirSarfal.DataSource = dt = conection.GetZirSarfaslServices(_listZirSar, _sarfaslID, textDate1.FromDate, textDate1.ToDate);
+            dgvZirSarfal.DataSource = dt = conection.GetZirSarfaslServices(textDate1.FromDate, textDate1.ToDate, _listZirSar, _sarfaslID);
 
-            SetTextLabelFooter(dt.Count, dt.Sum(d => d.Man), dt.Sum(d => d.Man + d.Man_Befor));
+            SetTextLabelFooter(dt.Count, dt.Sum(d => d.ZMan), dt.Sum(d => d.ZMan + d.ZMan_Befor));
 
             SetGrid();
         }
@@ -236,9 +236,9 @@ namespace ReportSarfasl
 
         private void textDate1_KeyEnterTextBoxToYear(object sender, EventArgs e)
         {
-            dgvZirSarfal.DataSource = dt = conection.GetZirSarfaslServices(_listZirSar, _sarfaslID, textDate1.FromDate, textDate1.ToDate);
+            dgvZirSarfal.DataSource = dt = conection.GetZirSarfaslServices( textDate1.FromDate, textDate1.ToDate, _listZirSar, _sarfaslID);
 
-            SetTextLabelFooter(dt.Count, dt.Sum(d => d.Man), dt.Sum(d => d.Man + d.Man_Befor));
+            SetTextLabelFooter(dt.Count, dt.Sum(d => d.ZMan), dt.Sum(d => d.ZMan + d.ZMan_Befor));
 
             txtFilter.Focus();
         }
@@ -271,22 +271,31 @@ namespace ReportSarfasl
                 int rowIndexSelected = dgvZirSarfal.SelectedRows[0].Index;
                 if (e.KeyCode == Keys.Enter)
                 {
-                    OpenActZirSarfasl(dgvZirSarfal.SelectedRows[0].Cells["Name"].Value.ToString());
+                    OpenActZirSarfasl(dgvZirSarfal.SelectedRows[0].Cells["ZName"].Value.ToString());
                 }
                 else if (e.KeyCode == Keys.Up)
                 {
                     if (rowIndexSelected == 0)
                     {
-                        dgvZirSarfal.Rows[countRowGrid - 1].Cells[0].Selected = true;
+                        dgvZirSarfal.Rows[countRowGrid - 1].Cells["Zrow"].Selected = true;
                     }
                     else
                     {
-                        dgvZirSarfal.Rows[rowIndexSelected - 1].Cells[0].Selected = true;
+                        dgvZirSarfal.Rows[rowIndexSelected - 1].Cells["Zrow"].Selected = true;
                     }
                 }
                 else if (e.KeyCode == Keys.Down)
                 {
-                    dgvZirSarfal.Rows[(rowIndexSelected + 1) % countRowGrid].Cells[0].Selected = true;
+                    //var ali = (rowIndexSelected + 1) % countRowGrid;
+                    // dgvZirSarfal.Rows[(rowIndexSelected + 1) % countRowGrid].Cells["Zrow"].Selected = true;
+                    if (rowIndexSelected+1 == countRowGrid)
+                    {
+                        dgvZirSarfal.Rows[0].Cells["Zrow"].Selected = true;
+                    }
+                    else
+                    {
+                        dgvZirSarfal.Rows[rowIndexSelected + 1].Cells["Zrow"].Selected = true;
+                    }
                 }
             }
         }
@@ -307,7 +316,7 @@ namespace ReportSarfasl
             {
                 if (e.KeyCode == Keys.Enter)
                 {
-                    OpenActZirSarfasl(dgvZirSarfal.SelectedRows[0].Cells["Name"].Value.ToString());
+                    OpenActZirSarfasl(dgvZirSarfal.SelectedRows[0].Cells["ZName"].Value.ToString());
                 }
             }
         }
@@ -315,15 +324,15 @@ namespace ReportSarfasl
         {
             if (dgvZirSarfal.SelectedRows.Count > 0)
             {
-                OpenActZirSarfasl(dgvZirSarfal.SelectedRows[0].Cells["Name"].Value.ToString());
+                OpenActZirSarfasl(dgvZirSarfal.SelectedRows[0].Cells["ZName"].Value.ToString());
             }
         }
         private void dgvZirSarfal_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             foreach (DataGridViewRow row in dgvZirSarfal.Rows)
             {
-                row.Cells["Man"].Value = Math.Abs((decimal)row.Cells["Man"].Value).ToString();
-                row.Cells["Man_Befor"].Value = Math.Abs((decimal)row.Cells["Man_Befor"].Value).ToString();
+                row.Cells["ZMan"].Value = Math.Abs((decimal)row.Cells["ZMan"].Value).ToString();
+                row.Cells["ZMan_Befor"].Value = Math.Abs((decimal)row.Cells["ZMan_Befor"].Value).ToString();
             }
         }
 
@@ -341,7 +350,7 @@ namespace ReportSarfasl
             report["NameSarfasl"] = _nameSarfasl;
             report["FromDate"] = textDate1.FromDate;
             report["ToDate"] = textDate1.ToDate;
-            report.RegBusinessObject("ZirSarfasls", dgvZirSarfal.DataSource);
+            report.RegBusinessObject("SZA", dgvZirSarfal.DataSource);
 
             report.Show();
         }
@@ -374,45 +383,45 @@ namespace ReportSarfasl
             foreach (DataGridViewColumn col in dgvZirSarfal.Columns) col.Visible = false;
             //foreach (DataGridViewRow row in dgvSarfasl.Rows) row.Cells["row"].Value = row.Index + 1;
 
-            dgvZirSarfal.Columns["row"].Visible = true;
-            dgvZirSarfal.Columns["row"].HeaderText = "رديف";
-            dgvZirSarfal.Columns["row"].Width = 40;
+            dgvZirSarfal.Columns["Zrow"].Visible = true;
+            dgvZirSarfal.Columns["Zrow"].HeaderText = "رديف";
+            dgvZirSarfal.Columns["Zrow"].Width = 40;
 
-            dgvZirSarfal.Columns["Name"].Visible = true;
-            dgvZirSarfal.Columns["Name"].HeaderText = "نام";
-            dgvZirSarfal.Columns["Name"].Width = 180;
+            dgvZirSarfal.Columns["ZName"].Visible = true;
+            dgvZirSarfal.Columns["ZName"].HeaderText = "نام";
+            dgvZirSarfal.Columns["ZName"].Width = 180;
             // dgvZirSarfal.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
-            dgvZirSarfal.Columns["has_dar"].Visible = true;
-            dgvZirSarfal.Columns["has_dar"].HeaderText = "ماهيت";
-            dgvZirSarfal.Columns["has_dar"].Width = 70;
+            dgvZirSarfal.Columns["Zhas_dar"].Visible = true;
+            dgvZirSarfal.Columns["Zhas_dar"].HeaderText = "ماهيت";
+            dgvZirSarfal.Columns["Zhas_dar"].Width = 70;
 
-            dgvZirSarfal.Columns["bed"].Visible = true;
-            dgvZirSarfal.Columns["bed"].HeaderText = "بدهكار";
-            dgvZirSarfal.Columns["bed"].DefaultCellStyle.Format = "#,0";
+            dgvZirSarfal.Columns["Zbed"].Visible = true;
+            dgvZirSarfal.Columns["Zbed"].HeaderText = "بدهكار";
+            dgvZirSarfal.Columns["Zbed"].DefaultCellStyle.Format = "#,0";
 
-            dgvZirSarfal.Columns["bes"].Visible = true;
-            dgvZirSarfal.Columns["bes"].HeaderText = "بستانكار";
-            dgvZirSarfal.Columns["bes"].DefaultCellStyle.Format = "#,0";
+            dgvZirSarfal.Columns["Zbes"].Visible = true;
+            dgvZirSarfal.Columns["Zbes"].HeaderText = "بستانكار";
+            dgvZirSarfal.Columns["Zbes"].DefaultCellStyle.Format = "#,0";
 
-            dgvZirSarfal.Columns["Man"].Visible = true;
-            dgvZirSarfal.Columns["Man"].HeaderText = "مانده اين بازه";
-            dgvZirSarfal.Columns["Man"].DefaultCellStyle.Format = "#,0";
-            dgvZirSarfal.Columns["Man"].DefaultCellStyle.Font = new Font("IRANSans(FaNum)", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            dgvZirSarfal.Columns["ZMan"].Visible = true;
+            dgvZirSarfal.Columns["ZMan"].HeaderText = "مانده اين بازه";
+            dgvZirSarfal.Columns["ZMan"].DefaultCellStyle.Format = "#,0";
+            dgvZirSarfal.Columns["ZMan"].DefaultCellStyle.Font = new Font("IRANSans(FaNum)", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             //dgvZirSarfal.Columns["Man"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
-            dgvZirSarfal.Columns["bed_bes"].Visible = true;
-            dgvZirSarfal.Columns["bed_bes"].HeaderText = "تشخيص";
-            dgvZirSarfal.Columns["bed_bes"].Width = 53;
+            dgvZirSarfal.Columns["Zbed_bes"].Visible = true;
+            dgvZirSarfal.Columns["Zbed_bes"].HeaderText = "تشخيص";
+            dgvZirSarfal.Columns["Zbed_bes"].Width = 53;
 
-            dgvZirSarfal.Columns["Man_Befor"].Visible = true;
-            dgvZirSarfal.Columns["Man_Befor"].HeaderText = "مانده قبلي";
-            dgvZirSarfal.Columns["Man_Befor"].DefaultCellStyle.Format = "#,0";
-            dgvZirSarfal.Columns["Man_Befor"].DefaultCellStyle.Font = new Font("IRANSans(FaNum)", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            dgvZirSarfal.Columns["ZMan_Befor"].Visible = true;
+            dgvZirSarfal.Columns["ZMan_Befor"].HeaderText = "مانده قبلي";
+            dgvZirSarfal.Columns["ZMan_Befor"].DefaultCellStyle.Format = "#,0";
+            dgvZirSarfal.Columns["ZMan_Befor"].DefaultCellStyle.Font = new Font("IRANSans(FaNum)", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
 
-            dgvZirSarfal.Columns["bed_bes_Befor"].Visible = true;
-            dgvZirSarfal.Columns["bed_bes_Befor"].HeaderText = "تشخيص";
-            dgvZirSarfal.Columns["bed_bes_Befor"].Width = 53;
+            dgvZirSarfal.Columns["Zbed_bes_Befor"].Visible = true;
+            dgvZirSarfal.Columns["Zbed_bes_Befor"].HeaderText = "تشخيص";
+            dgvZirSarfal.Columns["Zbed_bes_Befor"].Width = 53;
 
         }
 
@@ -422,10 +431,10 @@ namespace ReportSarfasl
             {
                 var filter = txtFilter.Text.Trim();
 
-                var dt1 = dt.Where(c => c.Name.Contains(filter)).ToList();
+                var dt1 = dt.Where(c => c.ZName.Contains(filter)).ToList();
                 dgvZirSarfal.DataSource = dt1;
 
-                SetTextLabelFooter(dt1.Count, dt1.Sum(d => d.Man), dt1.Sum(d => d.Man + d.Man_Befor));
+                SetTextLabelFooter(dt1.Count, dt1.Sum(d => d.ZMan), dt1.Sum(d => d.ZMan + d.ZMan_Befor));
             }
         }
 
@@ -433,7 +442,7 @@ namespace ReportSarfasl
         {
             if (dgvZirSarfal.SelectedRows.Count > 0)
             {
-                _zirSarfaslIdSelected = (int)dgvZirSarfal.SelectedRows[0].Cells["ID"].Value;
+                _zirSarfaslIdSelected = (int)dgvZirSarfal.SelectedRows[0].Cells["ZID"].Value;
                 DefultForm reportZirSarfasl = new DefultForm();
                 reportZirSarfasl.ShowDialog(new ReportActZirSarfasl(textDate1.FromDate, textDate1.ToDate, NameZirSarfasl, zirSarfaslID: _zirSarfaslIdSelected), new Size(1332, 694));
                 //باز کردن زیر سرفصل های سرفصل انتخابی داخل گرید

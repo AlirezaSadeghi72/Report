@@ -16,7 +16,7 @@ namespace ReportSarfasl
             return i.ToString("#,0");
         }
 
-        public static void ShowDialog(this DefultForm form, UserControl Childe, Size sizeForm)
+        public static DialogResult ShowDialog(this DefultForm form, UserControl Childe, Size sizeForm)
         {
             using (var Temp = new System.Windows.Forms.Form())
             {
@@ -42,8 +42,10 @@ namespace ReportSarfasl
                     form.ShowDialog();
                     Temp.Close();
                 };
-                Temp.ShowDialog();
+                 Temp.ShowDialog();
             }
+
+            return form.DialogResult;
         }
     }
 }

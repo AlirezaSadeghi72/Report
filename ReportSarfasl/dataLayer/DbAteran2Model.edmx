@@ -46,6 +46,33 @@
           <Property Name="man" Type="money" Nullable="false" />
           <Property Name="Active" Type="bit" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ZAnsari.dbo.SZ_ReportView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SZ_ReportView">
+          <Key>
+            <PropertyRef Name="ZSarfaslID" />
+            <PropertyRef Name="ZName" />
+            <PropertyRef Name="Zhas_dar" />
+            <PropertyRef Name="Expr5" />
+            <PropertyRef Name="SID" />
+            <PropertyRef Name="SName" />
+            <PropertyRef Name="Shas_dar" />
+            <PropertyRef Name="SGroupSarfaslID" />
+          </Key>
+          <Property Name="ZID" Type="int" />
+          <Property Name="ZSarfaslID" Type="int" Nullable="false" />
+          <Property Name="ZName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Zhas_dar" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Expr5" Type="money" Nullable="false" />
+          <Property Name="ZActive" Type="bit" />
+          <Property Name="SID" Type="int" Nullable="false" />
+          <Property Name="SName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Shas_dar" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Swho_def" Type="varchar" MaxLength="25" />
+          <Property Name="start_date" Type="char" MaxLength="10" />
+          <Property Name="SActive" Type="bit" />
+          <Property Name="SGroupSarfaslID" Type="int" Nullable="false" />
+        </EntityType>
         <Association Name="FK_act_zirsarfasls_zirsarfasls">
           <End Role="zirsarfasls" Type="Self.zirsarfasls" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -83,6 +110,7 @@
         <Function Name="USP_GetZirSarfaslServices" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="listZirSarfasl" Type="varchar(max)" Mode="In" />
           <Parameter Name="SarfaslID" Type="int" Mode="In" />
+          <Parameter Name="listSarfasl" Type="varchar(max)" Mode="In" />
           <Parameter Name="FromDate" Type="char" Mode="In" />
           <Parameter Name="ToDate" Type="char" Mode="In" />
         </Function>
@@ -90,6 +118,23 @@
           <EntitySet Name="act_zirsarfasls" EntityType="Self.act_zirsarfasls" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sarfasls" EntityType="Self.sarfasls" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="zirsarfasls" EntityType="Self.zirsarfasls" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SZ_ReportView" EntityType="Self.SZ_ReportView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SZ_ReportView].[ZID] AS [ZID], 
+    [SZ_ReportView].[ZSarfaslID] AS [ZSarfaslID], 
+    [SZ_ReportView].[ZName] AS [ZName], 
+    [SZ_ReportView].[Zhas_dar] AS [Zhas_dar], 
+    [SZ_ReportView].[Expr5] AS [Expr5], 
+    [SZ_ReportView].[ZActive] AS [ZActive], 
+    [SZ_ReportView].[SID] AS [SID], 
+    [SZ_ReportView].[SName] AS [SName], 
+    [SZ_ReportView].[Shas_dar] AS [Shas_dar], 
+    [SZ_ReportView].[Swho_def] AS [Swho_def], 
+    [SZ_ReportView].[start_date] AS [start_date], 
+    [SZ_ReportView].[SActive] AS [SActive], 
+    [SZ_ReportView].[SGroupSarfaslID] AS [SGroupSarfaslID]
+    FROM [dbo].[SZ_ReportView] AS [SZ_ReportView]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_act_zirsarfasls_zirsarfasls" Association="Self.FK_act_zirsarfasls_zirsarfasls">
             <End Role="zirsarfasls" EntitySet="zirsarfasls" />
             <End Role="act_zirsarfasls" EntitySet="act_zirsarfasls" />
@@ -203,9 +248,11 @@
           <FunctionImport Name="USP_GetZirSarfaslServices" ReturnType="Collection(Atiran2Model.USP_GetZirSarfaslServices_Result)">
             <Parameter Name="listZirSarfasl" Mode="In" Type="String" />
             <Parameter Name="SarfaslID" Mode="In" Type="Int32" />
+            <Parameter Name="listSarfasl" Mode="In" Type="String" />
             <Parameter Name="FromDate" Mode="In" Type="String" />
             <Parameter Name="ToDate" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="SZ_ReportView" EntityType="Atiran2Model.SZ_ReportView" />
         </EntityContainer>
         <ComplexType Name="USP_GetSarfaslseServis_Result">
           <Property Type="Int32" Name="rdf" Nullable="false" />
@@ -231,6 +278,31 @@
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="Decimal" Name="Man_All" Nullable="true" Precision="19" />
         </ComplexType>
+        <EntityType Name="SZ_ReportView">
+          <Key>
+            <PropertyRef Name="ZSarfaslID" />
+            <PropertyRef Name="ZName" />
+            <PropertyRef Name="Zhas_dar" />
+            <PropertyRef Name="Expr5" />
+            <PropertyRef Name="SID" />
+            <PropertyRef Name="SName" />
+            <PropertyRef Name="Shas_dar" />
+            <PropertyRef Name="SGroupSarfaslID" />
+          </Key>
+          <Property Name="ZID" Type="Int32" />
+          <Property Name="ZSarfaslID" Type="Int32" Nullable="false" />
+          <Property Name="ZName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Zhas_dar" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Expr5" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="ZActive" Type="Boolean" />
+          <Property Name="SID" Type="Int32" Nullable="false" />
+          <Property Name="SName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Shas_dar" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Swho_def" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="start_date" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="SActive" Type="Boolean" />
+          <Property Name="SGroupSarfaslID" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -313,6 +385,25 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="SZ_ReportView">
+            <EntityTypeMapping TypeName="Atiran2Model.SZ_ReportView">
+              <MappingFragment StoreEntitySet="SZ_ReportView">
+                <ScalarProperty Name="SGroupSarfaslID" ColumnName="SGroupSarfaslID" />
+                <ScalarProperty Name="SActive" ColumnName="SActive" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="Swho_def" ColumnName="Swho_def" />
+                <ScalarProperty Name="Shas_dar" ColumnName="Shas_dar" />
+                <ScalarProperty Name="SName" ColumnName="SName" />
+                <ScalarProperty Name="SID" ColumnName="SID" />
+                <ScalarProperty Name="ZActive" ColumnName="ZActive" />
+                <ScalarProperty Name="Expr5" ColumnName="Expr5" />
+                <ScalarProperty Name="Zhas_dar" ColumnName="Zhas_dar" />
+                <ScalarProperty Name="ZName" ColumnName="ZName" />
+                <ScalarProperty Name="ZSarfaslID" ColumnName="ZSarfaslID" />
+                <ScalarProperty Name="ZID" ColumnName="ZID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

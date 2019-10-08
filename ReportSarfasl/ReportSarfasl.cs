@@ -21,7 +21,7 @@ namespace ReportSarfasl
         private List<int> _listSar = new List<int>(), _listZirSar = new List<int>();
         private PersianCalendar pc = new PersianCalendar();
         private int _sarfaslIdSelected;
-        private List<SarfaslService> dt;
+        private List<SZAservice> dt;
         private Button btnPrint;
         private Panel pnlFooter;
         private Panel pnlHeader;
@@ -405,7 +405,7 @@ namespace ReportSarfasl
 
             SetGrid();
 
-            SetTextLabelFooter(dt.Count, dt.Sum(d => d.Man), dt.Sum(d => d.Man + d.Man_Befor));
+            SetTextLabelFooter(dt.Count, dt.Sum(d => d.SMan), dt.Sum(d => d.SMan + d.SMan_Befor));
 
             txtFilter.Focus();
         }
@@ -430,11 +430,11 @@ namespace ReportSarfasl
             {
                 if (e.KeyData == Keys.Enter)
                 {
-                    ShowReportZirSarfasl(dgvSarfasl.SelectedRows[0].Cells["Name"].Value.ToString());
+                    ShowReportZirSarfasl(dgvSarfasl.SelectedRows[0].Cells["SName"].Value.ToString());
                 }
                 else if (e.Alt && e.KeyCode == Keys.F3)
                 {
-                    ShowReportActZirSarfasl(dgvSarfasl.SelectedRows[0].Cells["Name"].Value.ToString());
+                    ShowReportActZirSarfasl(dgvSarfasl.SelectedRows[0].Cells["SName"].Value.ToString());
                 }
                 else
                 {
@@ -471,7 +471,7 @@ namespace ReportSarfasl
         }
         private void textBox_Leave(object sender, EventArgs e)
         {
-            (sender as TextBox).BackColor = ((sender as TextBox).Name == "txtFilter")?Color.White:SystemColors.Control;
+            (sender as TextBox).BackColor = ((sender as TextBox).Name == "txtFilter") ? Color.White : SystemColors.Control;
         }
 
         #region Event Control Data Grid View
@@ -482,11 +482,11 @@ namespace ReportSarfasl
             {
                 if (e.KeyData == Keys.Enter)
                 {
-                    ShowReportZirSarfasl(dgvSarfasl.SelectedRows[0].Cells["Name"].Value.ToString());
+                    ShowReportZirSarfasl(dgvSarfasl.SelectedRows[0].Cells["SName"].Value.ToString());
                 }
                 else if (e.Alt && e.KeyCode == Keys.F3)
                 {
-                    ShowReportActZirSarfasl(dgvSarfasl.SelectedRows[0].Cells["Name"].Value.ToString());
+                    ShowReportActZirSarfasl(dgvSarfasl.SelectedRows[0].Cells["SName"].Value.ToString());
                 }
             }
         }
@@ -495,7 +495,7 @@ namespace ReportSarfasl
         {
             if (dgvSarfasl.SelectedRows.Count > 0)
             {
-                ShowReportZirSarfasl(dgvSarfasl.SelectedRows[0].Cells["Name"].Value.ToString());
+                ShowReportZirSarfasl(dgvSarfasl.SelectedRows[0].Cells["SName"].Value.ToString());
             }
         }
 
@@ -503,8 +503,8 @@ namespace ReportSarfasl
         {
             foreach (DataGridViewRow row in dgvSarfasl.Rows)
             {
-                row.Cells["Man"].Value = Math.Abs((decimal)row.Cells["Man"].Value).ToString();
-                row.Cells["Man_Befor"].Value = Math.Abs((decimal)row.Cells["Man_Befor"].Value).ToString();
+                row.Cells["SMan"].Value = Math.Abs((decimal)row.Cells["SMan"].Value).ToString();
+                row.Cells["SMan_Befor"].Value = Math.Abs((decimal)row.Cells["SMan_Befor"].Value).ToString();
             }
         }
 
@@ -512,22 +512,49 @@ namespace ReportSarfasl
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            DefultForm ChoiceModPrint = new DefultForm();
-            ChoiceModPrint.ShowDialog()
+
 
             var DateNow = DateTime.Now;
             string today = pc.GetYear(DateNow).ToString("0000") + "/" + pc.GetMonth(DateNow).ToString("00") + "/" + pc.GetDayOfMonth(DateNow).ToString("00");
-            StiReport report = new StiReport();
-            report.Load(@"C:\Users\North-PC\Desktop\Report Sarfasl (Stimulsoft)\ReportSarfasl1.mrt");
-            report.Compile();
-            report["User"] = "alirezasadegghi";
-            report["today"] = today;
-            report["FromDate"] = textDate1.FromDate;
-            report["ToDate"] = textDate1.ToDate;
-            report.RegBusinessObject("Sarfasls", dgvSarfasl.DataSource);
+            
 
+            DefultForm ChoiceModPrint = new DefultForm();
 
-            report.Show();
+            if (ChoiceModPrint.ShowDialog(new ChoiceModPrint(), new Size(240, 49)) == DialogResult.Yes)
+            {
+                StiReport report = new StiReport();
+                report.Load(@"C:\Users\North-PC\Desktop\Report Sarfasl (Stimulsoft)\ReportSarfasl1_1.mrt");
+                report.Compile();
+                report["User"] = "alirezasadegghi";
+                report["today"] = today;
+                report["FromDate"] = textDate1.FromDate;
+                report["ToDate"] = textDate1.ToDate;
+                var ali = conection.GetZirSarfaslServices(textDate1.FromDate, textDate1.ToDate, _listZirSar, listSarfaslID: _listSar);
+                var ali1 = dt;
+                //foreach (var r in ali1)
+                //{
+
+                //}
+                report.RegBusinessObject("SZA", ali);
+                report["IsZirSarfasl"] = true;
+                report.Show();
+
+            }
+            else
+            {
+                StiReport report = new StiReport();
+                report.Load(@"C:\Users\North-PC\Desktop\Report Sarfasl (Stimulsoft)\ReportSarfasl1_1.mrt");
+                report.Compile();
+                report["User"] = "alirezasadegghi";
+                report["today"] = today;
+                report["FromDate"] = textDate1.FromDate;
+                report["ToDate"] = textDate1.ToDate;
+                report.RegBusinessObject("SZA", dgvSarfasl.DataSource);
+                //report.da = false;
+                report.Show();
+
+            }
+
 
             //چاپ
         }
@@ -560,49 +587,49 @@ namespace ReportSarfasl
             foreach (DataGridViewColumn col in dgvSarfasl.Columns) col.Visible = false;
             //foreach (DataGridViewRow row in dgvSarfasl.Rows) row.Cells["row"].Value = row.Index + 1;
 
-            dgvSarfasl.Columns["row"].Visible = true;
-            dgvSarfasl.Columns["row"].HeaderText = "رديف";
-            dgvSarfasl.Columns["row"].Width = 40;
+            dgvSarfasl.Columns["Srow"].Visible = true;
+            dgvSarfasl.Columns["Srow"].HeaderText = "رديف";
+            dgvSarfasl.Columns["Srow"].Width = 40;
 
-            dgvSarfasl.Columns["Name"].Visible = true;
-            dgvSarfasl.Columns["Name"].HeaderText = "نام";
-            dgvSarfasl.Columns["Name"].Width = 180;
+            dgvSarfasl.Columns["SName"].Visible = true;
+            dgvSarfasl.Columns["SName"].HeaderText = "نام";
+            dgvSarfasl.Columns["SName"].Width = 180;
             //dgvSarfasl.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
-            dgvSarfasl.Columns["has_dar"].Visible = true;
-            dgvSarfasl.Columns["has_dar"].HeaderText = "ماهيت";
-            dgvSarfasl.Columns["has_dar"].Width = 70;
+            dgvSarfasl.Columns["Shas_dar"].Visible = true;
+            dgvSarfasl.Columns["Shas_dar"].HeaderText = "ماهيت";
+            dgvSarfasl.Columns["Shas_dar"].Width = 70;
 
-            dgvSarfasl.Columns["who_def"].Visible = true;
-            dgvSarfasl.Columns["who_def"].HeaderText = "كاربر";
-            dgvSarfasl.Columns["who_def"].Width = 70;
+            dgvSarfasl.Columns["Swho_def"].Visible = true;
+            dgvSarfasl.Columns["Swho_def"].HeaderText = "كاربر";
+            dgvSarfasl.Columns["Swho_def"].Width = 70;
 
-            dgvSarfasl.Columns["bed"].Visible = true;
-            dgvSarfasl.Columns["bed"].HeaderText = "بدهكار";
-            dgvSarfasl.Columns["bed"].DefaultCellStyle.Format = "#,0";
+            dgvSarfasl.Columns["Sbed"].Visible = true;
+            dgvSarfasl.Columns["Sbed"].HeaderText = "بدهكار";
+            dgvSarfasl.Columns["Sbed"].DefaultCellStyle.Format = "#,0";
 
-            dgvSarfasl.Columns["bes"].Visible = true;
-            dgvSarfasl.Columns["bes"].HeaderText = "بستانكار";
-            dgvSarfasl.Columns["bes"].DefaultCellStyle.Format = "#,0";
+            dgvSarfasl.Columns["Sbes"].Visible = true;
+            dgvSarfasl.Columns["Sbes"].HeaderText = "بستانكار";
+            dgvSarfasl.Columns["Sbes"].DefaultCellStyle.Format = "#,0";
 
-            dgvSarfasl.Columns["Man"].Visible = true;
-            dgvSarfasl.Columns["Man"].HeaderText = "مانده اين بازه";
-            dgvSarfasl.Columns["Man"].DefaultCellStyle.Format = "#,0";
-            dgvSarfasl.Columns["Man"].DefaultCellStyle.Font = new Font("IRANSans(FaNum)", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            dgvSarfasl.Columns["SMan"].Visible = true;
+            dgvSarfasl.Columns["SMan"].HeaderText = "مانده اين بازه";
+            dgvSarfasl.Columns["SMan"].DefaultCellStyle.Format = "#,0";
+            dgvSarfasl.Columns["SMan"].DefaultCellStyle.Font = new Font("IRANSans(FaNum)", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             //dgvSarfasl.Columns["Man"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
-            dgvSarfasl.Columns["bed_bes"].Visible = true;
-            dgvSarfasl.Columns["bed_bes"].HeaderText = "تشخيص";
-            dgvSarfasl.Columns["bed_bes"].Width = 53;
+            dgvSarfasl.Columns["Sbed_bes"].Visible = true;
+            dgvSarfasl.Columns["Sbed_bes"].HeaderText = "تشخيص";
+            dgvSarfasl.Columns["Sbed_bes"].Width = 53;
 
-            dgvSarfasl.Columns["Man_Befor"].Visible = true;
-            dgvSarfasl.Columns["Man_Befor"].HeaderText = "مانده قبلي";
-            dgvSarfasl.Columns["Man_Befor"].DefaultCellStyle.Format = "#,0";
-            dgvSarfasl.Columns["Man_Befor"].DefaultCellStyle.Font = new Font("IRANSans(FaNum)", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            dgvSarfasl.Columns["SMan_Befor"].Visible = true;
+            dgvSarfasl.Columns["SMan_Befor"].HeaderText = "مانده قبلي";
+            dgvSarfasl.Columns["SMan_Befor"].DefaultCellStyle.Format = "#,0";
+            dgvSarfasl.Columns["SMan_Befor"].DefaultCellStyle.Font = new Font("IRANSans(FaNum)", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
 
-            dgvSarfasl.Columns["bed_bes_Befor"].Visible = true;
-            dgvSarfasl.Columns["bed_bes_Befor"].HeaderText = "تشخيص";
-            dgvSarfasl.Columns["bed_bes_Befor"].Width = 53;
+            dgvSarfasl.Columns["Sbed_bes_Befor"].Visible = true;
+            dgvSarfasl.Columns["Sbed_bes_Befor"].HeaderText = "تشخيص";
+            dgvSarfasl.Columns["Sbed_bes_Befor"].Width = 53;
 
         }
 
@@ -612,10 +639,10 @@ namespace ReportSarfasl
             {
                 var filter = txtFilter.Text.Trim();
 
-                var dt1 = dt.Where(c => c.Name.Contains(filter)).ToList();
+                var dt1 = dt.Where(c => c.SName.Contains(filter)).ToList();
                 dgvSarfasl.DataSource = dt1;
 
-                SetTextLabelFooter(dt1.Count, dt1.Sum(d => d.Man), dt1.Sum(d => d.Man + d.Man_Befor));
+                SetTextLabelFooter(dt1.Count, dt1.Sum(d => d.SMan), dt1.Sum(d => d.SMan + d.SMan_Befor));
             }
         }
 
@@ -641,14 +668,14 @@ namespace ReportSarfasl
 
         private void ShowReportZirSarfasl(string NameSarfasl)
         {
-            _sarfaslIdSelected = (int)dgvSarfasl.SelectedRows[0].Cells["ID"].Value;
+            _sarfaslIdSelected = (int)dgvSarfasl.SelectedRows[0].Cells["SID"].Value;
             DefultForm reportZirSarfasl = new DefultForm();
             reportZirSarfasl.ShowDialog(new ReportZirSarfasl(_listZirSar, _sarfaslIdSelected, NameSarfasl, textDate1.FromDate, textDate1.ToDate), new Size(1352, 714));
         }
 
         private void ShowReportActZirSarfasl(string NameSarfasl)
         {
-            _sarfaslIdSelected = (int)dgvSarfasl.SelectedRows[0].Cells["ID"].Value;
+            _sarfaslIdSelected = (int)dgvSarfasl.SelectedRows[0].Cells["SID"].Value;
             DefultForm reportActZirSarfasl = new DefultForm();
             reportActZirSarfasl.ShowDialog(new ReportActZirSarfasl(textDate1.FromDate, textDate1.ToDate, NameSarfasl, sarfaslID: _sarfaslIdSelected, listZirsarfasl: _listZirSar), new Size(1352, 714));
         }
