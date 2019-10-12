@@ -423,12 +423,15 @@ namespace ReportSarfasl
         private void btnShow_Click(object sender, EventArgs e)
         {
             //اتصال و اوردن اطلاعات
+            List<SZAservice> dt1;
             dt = conection.GetZirSarfaslServices1(_listSar, _listZirSar, textDate1.FromDate, textDate1.ToDate);
-            dgvSarfasl.DataSource = dt.GroupBy(g => new
+            dgvSarfasl.DataSource = dt1 = dt.GroupBy(g => new
             {
                 g.SID,
                 g.SGroupSarfaslID,
                 g.SName,
+                g.Sbed,
+                g.Sbes,
                 g.SMan,
                 g.Sbed_bes,
                 g.SMan_Befor,
@@ -442,6 +445,8 @@ namespace ReportSarfasl
                 SID = g.Key.SID,
                 SGroupSarfaslID = g.Key.SGroupSarfaslID,
                 SName = g.Key.SName,
+                Sbed = g.Key.Sbed,
+                Sbes = g.Key.Sbes,
                 SMan = g.Key.SMan,
                 Sbed_bes = g.Key.Sbed_bes,
                 SMan_Befor = g.Key.SMan_Befor,
@@ -453,7 +458,7 @@ namespace ReportSarfasl
             }).ToList();
             SetGrid();
 
-            SetTextLabelFooter(dt.Count, dt.Sum(d => d.SMan), dt.Sum(d => d.SMan + d.SMan_Befor));
+            SetTextLabelFooter(dt1.Count, dt1.Sum(d => d.SMan), dt1.Sum(d =>d.SMan_All));
 
             txtFilter.Focus();
         }
@@ -724,6 +729,8 @@ namespace ReportSarfasl
                     g.SID,
                     g.SGroupSarfaslID,
                     g.SName,
+                    g.Sbed,
+                    g.Sbes,
                     g.SMan,
                     g.Sbed_bes,
                     g.SMan_Befor,
@@ -737,6 +744,8 @@ namespace ReportSarfasl
                     SID = g.Key.SID,
                     SGroupSarfaslID = g.Key.SGroupSarfaslID,
                     SName = g.Key.SName,
+                    Sbed =  g.Key.Sbed,
+                    Sbes = g.Key.Sbes,
                     SMan = g.Key.SMan,
                     Sbed_bes = g.Key.Sbed_bes,
                     SMan_Befor = g.Key.SMan_Befor,
@@ -747,7 +756,7 @@ namespace ReportSarfasl
                     Swho_def = g.Key.Swho_def
                 }).ToList();
 
-                SetTextLabelFooter(dt1.Count, dt1.Sum(d => d.SMan), dt1.Sum(d => d.SMan + d.SMan_Befor));
+                SetTextLabelFooter(dt1.Count, dt1.Sum(d => d.SMan), dt1.Sum(d =>d.SMan_All));
             }
         }
 

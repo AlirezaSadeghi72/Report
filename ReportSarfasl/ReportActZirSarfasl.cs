@@ -153,12 +153,12 @@ namespace ReportSarfasl
             this.textDate1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textDate1.Enabled = false;
             this.textDate1.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.textDate1.FromDate = "1398/07/17";
+            this.textDate1.FromDate = "1398/07/20";
             this.textDate1.Location = new System.Drawing.Point(499, 23);
             this.textDate1.Name = "textDate1";
             this.textDate1.Size = new System.Drawing.Size(390, 24);
             this.textDate1.TabIndex = 0;
-            this.textDate1.ToDate = "1398/07/17";
+            this.textDate1.ToDate = "1398/07/20";
             // 
             // pnlMain
             // 
@@ -320,11 +320,11 @@ namespace ReportSarfasl
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(672, 29);
+            this.label1.Location = new System.Drawing.Point(677, 29);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(126, 20);
+            this.label1.Size = new System.Drawing.Size(118, 20);
             this.label1.TabIndex = 12;
-            this.label1.Text = "باحساب قبلي: بدهكاري: ";
+            this.label1.Text = "كل:                بدهكاري:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label6

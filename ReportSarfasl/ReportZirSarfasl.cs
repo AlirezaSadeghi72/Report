@@ -96,7 +96,7 @@ namespace ReportSarfasl
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             dataGridViewCellStyle1.Font = new System.Drawing.Font("IRANSans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.HotTrack;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
@@ -143,12 +143,12 @@ namespace ReportSarfasl
             // 
             this.textDate1.Dock = System.Windows.Forms.DockStyle.Top;
             this.textDate1.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.textDate1.FromDate = "1398/07/17";
+            this.textDate1.FromDate = "1398/07/20";
             this.textDate1.Location = new System.Drawing.Point(3, 24);
             this.textDate1.Name = "textDate1";
             this.textDate1.Size = new System.Drawing.Size(794, 24);
             this.textDate1.TabIndex = 0;
-            this.textDate1.ToDate = "1398/07/17";
+            this.textDate1.ToDate = "1398/07/20";
             this.textDate1.KeyEnterTextBoxToYear += new System.EventHandler(this.textDate1_KeyEnterTextBoxToYear);
             // 
             // pnlFooter
@@ -227,7 +227,7 @@ namespace ReportSarfasl
         {
             var listsarfasl = new List<int>();
             listsarfasl.Add(_sarfaslID);
-            dt = conection.GetZirSarfaslServices1(_listZirSar, listsarfasl, textDate1.FromDate, textDate1.ToDate);
+            dt = conection.GetZirSarfaslServices1( listsarfasl, _listZirSar, textDate1.FromDate, textDate1.ToDate);
             dgvZirSarfal.DataSource = dt.GroupBy(g => new {
                 g.ZID,
                 g.ZSarfaslID,
@@ -258,7 +258,7 @@ namespace ReportSarfasl
                 Zhas_dar = g.Key.Zhas_dar,
                 ZActive = g.Key.ZActive
             }).ToList();
-            SetTextLabelFooter(dt.Count, dt.Sum(d => d.ZMan), dt.Sum(d => d.ZMan + d.ZMan_Befor));
+            SetTextLabelFooter(dt.Count, dt.Sum(d => d.ZMan), dt.Sum(d => d.ZMan_All));
 
             SetGrid();
         }
@@ -301,7 +301,7 @@ namespace ReportSarfasl
                 ZActive = g.Key.ZActive
             }).ToList();
 
-            SetTextLabelFooter(dt.Count, dt.Sum(d => d.ZMan), dt.Sum(d => d.ZMan + d.ZMan_Befor));
+            SetTextLabelFooter(dt.Count, dt.Sum(d => d.ZMan), dt.Sum(d => d.ZMan_All));
 
             txtFilter.Focus();
         }
@@ -538,7 +538,7 @@ namespace ReportSarfasl
                     Zhas_dar = g.Key.Zhas_dar,
                     ZActive = g.Key.ZActive
                 }).ToList();
-                SetTextLabelFooter(dt1.Count, dt1.Sum(d => d.ZMan), dt1.Sum(d => d.ZMan + d.ZMan_Befor));
+                SetTextLabelFooter(dt1.Count, dt1.Sum(d => d.ZMan), dt1.Sum(d => d.ZMan_All));
             }
         }
 

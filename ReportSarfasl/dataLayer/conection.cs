@@ -250,7 +250,7 @@ namespace ReportSarfasl.dataLayer
             //}).ToList();
         }
 
-        public static List<SZAservice> GetZirSarfaslServices1(List<int> listZirsarfaslID, List<int> ListSarfaslID, string FromDate, string ToDate)
+        public static List<SZAservice> GetZirSarfaslServices1(List<int> ListSarfaslID, List<int> listZirsarfaslID, string FromDate, string ToDate)
         {
             using (var context = new DbAtiran2Entities())
             {
