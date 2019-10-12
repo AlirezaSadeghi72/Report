@@ -153,12 +153,12 @@ namespace ReportSarfasl
             this.textDate1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textDate1.Enabled = false;
             this.textDate1.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.textDate1.FromDate = "1398/07/16";
+            this.textDate1.FromDate = "1398/07/17";
             this.textDate1.Location = new System.Drawing.Point(499, 23);
             this.textDate1.Name = "textDate1";
             this.textDate1.Size = new System.Drawing.Size(390, 24);
             this.textDate1.TabIndex = 0;
-            this.textDate1.ToDate = "1398/07/16";
+            this.textDate1.ToDate = "1398/07/17";
             // 
             // pnlMain
             // 
@@ -186,22 +186,22 @@ namespace ReportSarfasl
             this.dgvActZirSarfasl.AllowUserToAddRows = false;
             this.dgvActZirSarfasl.AllowUserToDeleteRows = false;
             this.dgvActZirSarfasl.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dgvActZirSarfasl.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(160)))), ((int)(((byte)(200)))));
+            this.dgvActZirSarfasl.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.dgvActZirSarfasl.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(26)))), ((int)(((byte)(71)))));
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             dataGridViewCellStyle1.Font = new System.Drawing.Font("IRANSans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.HotTrack;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvActZirSarfasl.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvActZirSarfasl.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("IRANSans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.DeepSkyBlue;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.DodgerBlue;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvActZirSarfasl.DefaultCellStyle = dataGridViewCellStyle2;
@@ -212,8 +212,8 @@ namespace ReportSarfasl
             this.dgvActZirSarfasl.Name = "dgvActZirSarfasl";
             this.dgvActZirSarfasl.ReadOnly = true;
             this.dgvActZirSarfasl.RowHeadersVisible = false;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Blue;
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
             this.dgvActZirSarfasl.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvActZirSarfasl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvActZirSarfasl.Size = new System.Drawing.Size(899, 351);
@@ -643,55 +643,53 @@ namespace ReportSarfasl
         private void SetGrid()
         {
             foreach (DataGridViewColumn col in dgvActZirSarfasl.Columns) col.Visible = false;
-            //foreach (DataGridViewRow row in dgvSarfasl.Rows) row.Cells["row"].Value = row.Index + 1;
 
             dgvActZirSarfasl.Columns["Arow"].Visible = true;
             dgvActZirSarfasl.Columns["Arow"].HeaderText = "رديف";
-            dgvActZirSarfasl.Columns["Arow"].Width = 40;
+            dgvActZirSarfasl.Columns["Arow"].Width = 50;
 
             dgvActZirSarfasl.Columns["Adate"].Visible = true;
             dgvActZirSarfasl.Columns["Adate"].HeaderText = "تاريخ";
-            dgvActZirSarfasl.Columns["Adate"].Width = 70;
-            // dgvActZirSarfasl.Columns["date"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvActZirSarfasl.Columns["Adate"].Width = 80;
 
             dgvActZirSarfasl.Columns["Auser"].Visible = true;
             dgvActZirSarfasl.Columns["Auser"].HeaderText = "كاربر";
-            dgvActZirSarfasl.Columns["Auser"].Width = 50;
+            dgvActZirSarfasl.Columns["Auser"].Width = 60;
 
             dgvActZirSarfasl.Columns["Asanadno"].Visible = true;
             dgvActZirSarfasl.Columns["Asanadno"].HeaderText = "سند";
-            dgvActZirSarfasl.Columns["Asanadno"].Width = 70;
-            // dgvActZirSarfasl.Columns["date"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvActZirSarfasl.Columns["Asanadno"].Width = 80;
 
             dgvActZirSarfasl.Columns["Adescription"].Visible = true;
             dgvActZirSarfasl.Columns["Adescription"].HeaderText = "شــــرح";
-            dgvActZirSarfasl.Columns["Adescription"].Width = 241;
-            //dgvActZirSarfasl.Columns["description"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvActZirSarfasl.Columns["Adescription"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             dgvActZirSarfasl.Columns["Abed"].Visible = true;
             dgvActZirSarfasl.Columns["Abed"].HeaderText = "بدهكاري";
             dgvActZirSarfasl.Columns["Abed"].DefaultCellStyle.Format = "#,0";
             dgvActZirSarfasl.Columns["Abed"].DefaultCellStyle.Font = new Font("IRANSans(FaNum)", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            // dgvActZirSarfasl.Columns["bed"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvActZirSarfasl.Columns["Abed"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             dgvActZirSarfasl.Columns["Abes"].Visible = true;
             dgvActZirSarfasl.Columns["Abes"].HeaderText = "بستانكاري";
             dgvActZirSarfasl.Columns["Abes"].DefaultCellStyle.Format = "#,0";
             dgvActZirSarfasl.Columns["Abes"].DefaultCellStyle.Font = new Font("IRANSans(FaNum)", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            // dgvActZirSarfasl.Columns["bes"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvActZirSarfasl.Columns["Abes"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             dgvActZirSarfasl.Columns["Abed_bes"].Visible = true;
             dgvActZirSarfasl.Columns["Abed_bes"].HeaderText = "تشخيص";
-            // dgvActZirSarfasl.Columns["bed_bes"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvActZirSarfasl.Columns["Abed_bes"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             dgvActZirSarfasl.Columns["AMan"].Visible = true;
             dgvActZirSarfasl.Columns["AMan"].HeaderText = "مانده";
             dgvActZirSarfasl.Columns["AMan"].DefaultCellStyle.Format = "#,0";
             dgvActZirSarfasl.Columns["AMan"].DefaultCellStyle.Font = new Font("IRANSans(FaNum)", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            // dgvActZirSarfasl.Columns["bes"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvActZirSarfasl.Columns["AMan"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             dgvActZirSarfasl.Columns["AkindName"].Visible = true;
             dgvActZirSarfasl.Columns["AkindName"].HeaderText = "نوع عملكرد";
+            dgvActZirSarfasl.Columns["AkindName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
         }
 
         private void search()

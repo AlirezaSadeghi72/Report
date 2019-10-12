@@ -10,7 +10,6 @@
         <EntityTypeShape EntityType="Atiran2Model.zirsarfasls" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
         <AssociationConnector Association="Atiran2Model.FK_act_zirsarfasls_zirsarfasls" ManuallyRouted="false" />
         <AssociationConnector Association="Atiran2Model.FK_zirsarfasls_sarfasls" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="Atiran2Model.SZ_ReportView" Width="1.5" PointX="7.75" PointY="1.25" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

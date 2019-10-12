@@ -20,19 +20,23 @@ namespace ReportSarfasl
         public string Sbed_bes { get; set; }
         public decimal SMan_Befor { get; set; }
         public string Sbed_bes_Befor { get; set; }
+        public decimal SMan_All { get; set; }
+        public string Sbed_bes_All { get; set; }
 
 
         public int Zrow { get; set; }
         public int ZID { get; set; }
         public int ZSarfaslID { get; set; }
-        public string ZName { get; set; }
         public string Zhas_dar { get; set; }
+        public string ZName { get; set; }
         public decimal Zbed { get; set; }
         public decimal Zbes { get; set; }
         public decimal ZMan { get; set; }
         public string Zbed_bes { get; set; }
         public decimal ZMan_Befor { get; set; }
         public string Zbed_bes_Befor { get; set; }
+        public decimal ZMan_All { get; set; }
+        public string Zbed_bes_All { get; set; }
         public Nullable<bool> ZActive { get; set; }
 
         public int Arow { get; set; }

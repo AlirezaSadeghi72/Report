@@ -10,22 +10,30 @@
 namespace ReportSarfasl.dataLayer
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class SZ_ReportView
+    public partial class USP_GetDataForSarfasl_Result
     {
-        public Nullable<int> ZID { get; set; }
+        public int ZID { get; set; }
         public int ZSarfaslID { get; set; }
         public string ZName { get; set; }
         public string Zhas_dar { get; set; }
-        public decimal Expr5 { get; set; }
         public Nullable<bool> ZActive { get; set; }
         public int SID { get; set; }
         public string SName { get; set; }
         public string Shas_dar { get; set; }
         public string Swho_def { get; set; }
-        public string start_date { get; set; }
         public Nullable<bool> SActive { get; set; }
         public int SGroupSarfaslID { get; set; }
+        public Nullable<decimal> ZMan { get; set; }
+        public Nullable<decimal> Zbed { get; set; }
+        public Nullable<decimal> Zbes { get; set; }
+        public Nullable<int> zID1 { get; set; }
+        public Nullable<decimal> ZMan_All { get; set; }
+        public Nullable<int> sID2 { get; set; }
+        public Nullable<decimal> SMan_All { get; set; }
+        public Nullable<int> sID1 { get; set; }
+        public Nullable<decimal> SMan { get; set; }
+        public Nullable<decimal> Sbed { get; set; }
+        public Nullable<decimal> Sbes { get; set; }
     }
 }
