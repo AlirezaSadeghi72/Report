@@ -26,6 +26,7 @@ namespace ReportSarfasl
                 Temp.Opacity = 0.7D;
                 Temp.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
                 Temp.ShowInTaskbar = false;
+                Temp.StartPosition = FormStartPosition.CenterParent;
                 Temp.KeyDown += (sender, e) =>
                 {
                     if (e.KeyCode == System.Windows.Forms.Keys.Escape)

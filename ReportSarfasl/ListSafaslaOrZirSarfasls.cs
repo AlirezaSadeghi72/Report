@@ -193,15 +193,15 @@ namespace ReportSarfasl
             if (e.KeyCode == Keys.Escape)
             {
                 _isSearch = false;
-                txtFilter.Text = "";
+                txtFilter.Text = " ";
             }
             else if (e.KeyCode == Keys.Space)
             {
                 if ((txtFilter.Text.Trim() == "" && _isSearch) || (dgvList.Rows.Count == 1))
                 {
                     _isKeySpase = true;
-                    txtFilter.Text = "";
                     SetCheckBoxColumn();
+                    txtFilter.Text = "";
                 }
             }
             else if (dgvList.Rows.Count > 0)
@@ -210,22 +210,31 @@ namespace ReportSarfasl
                 if (e.KeyCode == Keys.Up)
                 {
                     _isSearch = true;
-                    txtFilter.Text = "";
                     if (rowIndexSelected > 0)
                     {
                         dgvList.Rows[rowIndexSelected - 1].Cells["select"].Selected = true;
                     }
+                    txtFilter.Text = "";
+
                 }
                 else if (e.KeyCode == Keys.Down)
                 {
                     _isSearch = true;
-                    txtFilter.Text = "";
                     if (rowIndexSelected < dgvList.RowCount - 1)
                     {
                         dgvList.Rows[rowIndexSelected + 1].Cells["select"].Selected = true;
                     }
+                    txtFilter.Text = "";
                 }
             }
+        }
+        private void txtFilter_Enter(object sender, EventArgs e)
+        {
+            txtFilter.BackColor = Color.Bisque;
+        }
+        private void txtFilter_Leave(object sender, EventArgs e)
+        {
+            txtFilter.BackColor = Color.White;
         }
 
         private void chboxSelectedAll_CheckedChanged(object sender, EventArgs e)
@@ -278,22 +287,13 @@ namespace ReportSarfasl
         }
         #endregion
 
-        private void txtFilter_Enter(object sender, EventArgs e)
-        {
-            txtFilter.BackColor = Color.Bisque;
-        }
-        private void txtFilter_Leave(object sender, EventArgs e)
-        {
-            txtFilter.BackColor = Color.White;
-        }
-
         #endregion
 
         #region Event override
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (keyData == Keys.Enter|| (keyData == Keys.Escape && !txtFilter.Focused))
+            if (keyData == Keys.Enter || (keyData == Keys.Escape && !txtFilter.Focused))
             {
                 ((Form)this.TopLevelControl).Close();
                 return true;
@@ -323,18 +323,21 @@ namespace ReportSarfasl
 
         private void SetCheckBoxColumn()
         {
-            var rowIndex = dgvList.CurrentCell.RowIndex;
-            if (Convert.ToBoolean(dgvList.SelectedRows[0].Cells["select"].Value) == false)
+            if (dgvList.SelectedRows.Count > 0)
             {
-                dgvList.Rows[rowIndex].Cells["select"].Value = true;
-                dgvList.Rows[rowIndex].DefaultCellStyle.BackColor = Color.PaleTurquoise;
-                AddOrRemoveInListAndTextSelected(rowIndex, true);
-            }
-            else
-            {
-                dgvList.Rows[rowIndex].Cells["select"].Value = false;
-                dgvList.Rows[rowIndex].DefaultCellStyle.BackColor = Color.White;
-                AddOrRemoveInListAndTextSelected(rowIndex, false);
+                var rowIndex = dgvList.CurrentCell.RowIndex;
+                if (Convert.ToBoolean(dgvList.SelectedRows[0].Cells["select"].Value) == false)
+                {
+                    dgvList.Rows[rowIndex].Cells["select"].Value = true;
+                    dgvList.Rows[rowIndex].DefaultCellStyle.BackColor = Color.PaleTurquoise;
+                    AddOrRemoveInListAndTextSelected(rowIndex, true);
+                }
+                else
+                {
+                    dgvList.Rows[rowIndex].Cells["select"].Value = false;
+                    dgvList.Rows[rowIndex].DefaultCellStyle.BackColor = Color.White;
+                    AddOrRemoveInListAndTextSelected(rowIndex, false);
+                }
             }
         }
 

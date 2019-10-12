@@ -266,9 +266,10 @@ namespace ReportSarfasl.dataLayer
                 }
 
                 var result = context.USP_GetDataForSarfasl(FromDate, ToDate, listS, listZ);
-
+                int rowZ = 1;
                 return result.Select(r => new SZAservice()
                 {
+                    Zrow = rowZ++,
                     ZID = r.ZID,
                     ZName = r.ZName,
                     ZSarfaslID = r.ZSarfaslID,

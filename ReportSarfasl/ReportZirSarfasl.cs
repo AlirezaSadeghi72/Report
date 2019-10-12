@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ReportSarfasl.dataLayer;
@@ -16,11 +17,11 @@ namespace ReportSarfasl
     public class ReportZirSarfasl : UserControl
     {
 
-        private List<int> _listZirSar = new List<int>();
+        private List<int> _listZirSar = new List<int>(), ListSelected = new List<int>();
+        private bool _isSearch, _isKeySpase;
         private PersianCalendar pc = new PersianCalendar();
         private int _sarfaslID, _zirSarfaslIdSelected;
         private List<SZAservice> dt;
-
         private string _nameSarfasl;
         //private bool _isSearch = false;//, _isKeySpase = false;
         private Panel pnlMain;
@@ -32,6 +33,9 @@ namespace ReportSarfasl
         private TextDate textDate1;
         private Label lblFooter;
         private Label lblFooterNumber;
+        private Label lblLoding;
+        private CheckBox chbAll;
+        private DataGridViewCheckBoxColumn select;
         private Panel pnlFooter;
 
         public ReportZirSarfasl(List<int> ListZirSar, int sarfaslID, string NameSarfasl, string FromDate, string ToDate)
@@ -50,6 +54,7 @@ namespace ReportSarfasl
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.gbHeader = new System.Windows.Forms.GroupBox();
+            this.lblLoding = new System.Windows.Forms.Label();
             this.dgvZirSarfal = new System.Windows.Forms.DataGridView();
             this.txtFilter = new System.Windows.Forms.TextBox();
             this.textDate1 = new ReportSarfasl.TextDate();
@@ -58,6 +63,8 @@ namespace ReportSarfasl
             this.lblFooterNumber = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
+            this.chbAll = new System.Windows.Forms.CheckBox();
+            this.select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.pnlMain.SuspendLayout();
             this.gbHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvZirSarfal)).BeginInit();
@@ -77,6 +84,8 @@ namespace ReportSarfasl
             // 
             this.gbHeader.Controls.Add(this.dgvZirSarfal);
             this.gbHeader.Controls.Add(this.txtFilter);
+            this.gbHeader.Controls.Add(this.chbAll);
+            this.gbHeader.Controls.Add(this.lblLoding);
             this.gbHeader.Controls.Add(this.textDate1);
             this.gbHeader.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbHeader.Location = new System.Drawing.Point(0, 0);
@@ -86,14 +95,25 @@ namespace ReportSarfasl
             this.gbHeader.TabStop = false;
             this.gbHeader.Text = "ليست زيرسرفصل هاي      سرفصل :   ";
             // 
+            // lblLoding
+            // 
+            this.lblLoding.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblLoding.AutoSize = true;
+            this.lblLoding.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.lblLoding.Location = new System.Drawing.Point(297, 24);
+            this.lblLoding.Name = "lblLoding";
+            this.lblLoding.Size = new System.Drawing.Size(89, 20);
+            this.lblLoding.TabIndex = 3;
+            this.lblLoding.Text = "درحال پردازش ...";
+            this.lblLoding.Visible = false;
+            // 
             // dgvZirSarfal
             // 
             this.dgvZirSarfal.AllowUserToAddRows = false;
             this.dgvZirSarfal.AllowUserToDeleteRows = false;
-            this.dgvZirSarfal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dgvZirSarfal.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.dgvZirSarfal.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             dataGridViewCellStyle1.Font = new System.Drawing.Font("IRANSans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
@@ -102,6 +122,8 @@ namespace ReportSarfasl
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvZirSarfal.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvZirSarfal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvZirSarfal.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.select});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("IRANSans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
@@ -112,17 +134,19 @@ namespace ReportSarfasl
             this.dgvZirSarfal.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvZirSarfal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvZirSarfal.EnableHeadersVisualStyles = false;
-            this.dgvZirSarfal.Location = new System.Drawing.Point(3, 76);
+            this.dgvZirSarfal.Location = new System.Drawing.Point(3, 100);
             this.dgvZirSarfal.MultiSelect = false;
             this.dgvZirSarfal.Name = "dgvZirSarfal";
             this.dgvZirSarfal.ReadOnly = true;
             this.dgvZirSarfal.RowHeadersVisible = false;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
             this.dgvZirSarfal.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvZirSarfal.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvZirSarfal.Size = new System.Drawing.Size(794, 363);
+            this.dgvZirSarfal.Size = new System.Drawing.Size(794, 339);
             this.dgvZirSarfal.TabIndex = 2;
+            this.dgvZirSarfal.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvZirSarfal_CellClick);
             this.dgvZirSarfal.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvZirSarfal_CellDoubleClick);
             this.dgvZirSarfal.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvZirSarfal_DataBindingComplete);
             this.dgvZirSarfal.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvZirSarfal_KeyDown);
@@ -130,7 +154,7 @@ namespace ReportSarfasl
             // txtFilter
             // 
             this.txtFilter.Dock = System.Windows.Forms.DockStyle.Top;
-            this.txtFilter.Location = new System.Drawing.Point(3, 48);
+            this.txtFilter.Location = new System.Drawing.Point(3, 72);
             this.txtFilter.Name = "txtFilter";
             this.txtFilter.Size = new System.Drawing.Size(794, 28);
             this.txtFilter.TabIndex = 2;
@@ -205,6 +229,27 @@ namespace ReportSarfasl
             this.btnPrint.UseVisualStyleBackColor = true;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
+            // chbAll
+            // 
+            this.chbAll.AutoSize = true;
+            this.chbAll.Dock = System.Windows.Forms.DockStyle.Top;
+            this.chbAll.Location = new System.Drawing.Point(3, 48);
+            this.chbAll.Name = "chbAll";
+            this.chbAll.Size = new System.Drawing.Size(794, 24);
+            this.chbAll.TabIndex = 15;
+            this.chbAll.Text = "انتخاب همه";
+            this.chbAll.UseVisualStyleBackColor = true;
+            this.chbAll.CheckedChanged += new System.EventHandler(this.chbAll_CheckedChanged);
+            // 
+            // select
+            // 
+            this.select.FillWeight = 40F;
+            this.select.HeaderText = "انتخاب";
+            this.select.Name = "select";
+            this.select.ReadOnly = true;
+            this.select.Visible = false;
+            this.select.Width = 49;
+            // 
             // ReportZirSarfasl
             // 
             this.Controls.Add(this.pnlMain);
@@ -225,10 +270,13 @@ namespace ReportSarfasl
 
         private void ReportZirSarfasl_Load(object sender, EventArgs e)
         {
+
             var listsarfasl = new List<int>();
             listsarfasl.Add(_sarfaslID);
-            dt = conection.GetZirSarfaslServices1( listsarfasl, _listZirSar, textDate1.FromDate, textDate1.ToDate);
-            dgvZirSarfal.DataSource = dt.GroupBy(g => new {
+            dt = conection.GetZirSarfaslServices1(listsarfasl, _listZirSar, textDate1.FromDate, textDate1.ToDate);
+            int row = 1;
+            dgvZirSarfal.DataSource = dt.GroupBy(g => new
+            {
                 g.ZID,
                 g.ZSarfaslID,
                 g.ZName,
@@ -244,6 +292,7 @@ namespace ReportSarfasl
                 g.ZActive
             }).Select(g => new SZAservice()
             {
+                Zrow = row++,
                 ZID = g.Key.ZID,
                 ZSarfaslID = g.Key.ZSarfaslID,
                 ZName = g.Key.ZName,
@@ -267,10 +316,19 @@ namespace ReportSarfasl
 
         private void textDate1_KeyEnterTextBoxToYear(object sender, EventArgs e)
         {
+            lblLoding.Visible = true;
             var listsarfasl = new List<int>();
             listsarfasl.Add(_sarfaslID);
-            dt = conection.GetZirSarfaslServices1(_listZirSar, listsarfasl, textDate1.FromDate, textDate1.ToDate);
-            dgvZirSarfal.DataSource = dt.GroupBy(g => new {
+            Thread tGetdata = new Thread(() =>
+            {
+                dt = conection.GetZirSarfaslServices1(listsarfasl, _listZirSar, textDate1.FromDate, textDate1.ToDate);
+            });
+            tGetdata.Start();
+            tGetdata.Join();
+            //dt = conection.GetZirSarfaslServices1(listsarfasl, _listZirSar, textDate1.FromDate, textDate1.ToDate);
+            int row = 1;
+            dgvZirSarfal.DataSource = dt.GroupBy(g => new
+            {
                 g.ZID,
                 g.ZSarfaslID,
                 g.ZName,
@@ -286,6 +344,7 @@ namespace ReportSarfasl
                 g.ZActive
             }).Select(g => new SZAservice()
             {
+                Zrow = row++,
                 ZID = g.Key.ZID,
                 ZSarfaslID = g.Key.ZSarfaslID,
                 ZName = g.Key.ZName,
@@ -304,6 +363,33 @@ namespace ReportSarfasl
             SetTextLabelFooter(dt.Count, dt.Sum(d => d.ZMan), dt.Sum(d => d.ZMan_All));
 
             txtFilter.Focus();
+            lblLoding.Visible = false;
+        }
+
+        private void chbAll_CheckedChanged(object sender, EventArgs e)
+        {
+            List<int> list1 = ((List<SZAservice>)dgvZirSarfal.DataSource).Select(a => a.ZID).ToList();
+            ListSelected.RemoveAll(x => list1.Contains(x));
+            if (chbAll.Checked)
+            {
+                ListSelected.AddRange(list1);
+                foreach (DataGridViewRow row in dgvZirSarfal.Rows)
+                {
+                    row.Cells["select"].Value = true;
+                    row.DefaultCellStyle.BackColor = Color.PaleTurquoise;
+                }
+            }
+            else
+            {
+                foreach (DataGridViewRow row in dgvZirSarfal.Rows)
+                {
+                    row.Cells["select"].Value = false;
+                    row.DefaultCellStyle.BackColor = Color.White;
+                }
+            }
+
+            lblFooterNumber.Text = $"تعداد: {dgvZirSarfal.RowCount}\nتعداد انتخابي: {ListSelected.Count}";
+
         }
 
         private void txtFilter_TextChanged(object sender, EventArgs e)
@@ -314,8 +400,17 @@ namespace ReportSarfasl
         {
             if (e.KeyCode == Keys.Escape)
             {
-                //_isSearch = false;
-                txtFilter.Text = "";
+                _isSearch = false;
+                txtFilter.Text = " ";
+            }
+            else if (e.KeyCode == Keys.Space)
+            {
+                if ((txtFilter.Text.Trim() == "") || (dgvZirSarfal.Rows.Count == 1))
+                {
+                    _isKeySpase = true;
+                    SetCheckBoxColumn();
+                    txtFilter.Text = "";
+                }
             }
             //else if (e.KeyCode == Keys.Left && txtFilter.Text.Trim() == "")
             //{
@@ -338,6 +433,8 @@ namespace ReportSarfasl
                 }
                 else if (e.KeyCode == Keys.Up)
                 {
+                    _isSearch = true;
+                    txtFilter.Text = "";
                     if (rowIndexSelected == 0)
                     {
                         dgvZirSarfal.Rows[countRowGrid - 1].Cells["Zrow"].Selected = true;
@@ -351,6 +448,8 @@ namespace ReportSarfasl
                 {
                     //var ali = (rowIndexSelected + 1) % countRowGrid;
                     // dgvZirSarfal.Rows[(rowIndexSelected + 1) % countRowGrid].Cells["Zrow"].Selected = true;
+                    _isSearch = true;
+                    txtFilter.Text = "";
                     if (rowIndexSelected + 1 == countRowGrid)
                     {
                         dgvZirSarfal.Rows[0].Cells["Zrow"].Selected = true;
@@ -359,6 +458,10 @@ namespace ReportSarfasl
                     {
                         dgvZirSarfal.Rows[rowIndexSelected + 1].Cells["Zrow"].Selected = true;
                     }
+                }
+                else
+                {
+                    _isSearch = false;
                 }
             }
         }
@@ -375,13 +478,25 @@ namespace ReportSarfasl
 
         private void dgvZirSarfal_KeyDown(object sender, KeyEventArgs e)
         {
-            if (dgvZirSarfal.SelectedRows.Count > 0)
+            if (e.KeyCode == Keys.Space)
+            {
+                _isKeySpase = true;
+                SetCheckBoxColumn();
+            }
+            else if (dgvZirSarfal.SelectedRows.Count > 0)
             {
                 if (e.KeyCode == Keys.Enter)
                 {
                     OpenActZirSarfasl(dgvZirSarfal.SelectedRows[0].Cells["ZName"].Value.ToString());
                 }
             }
+        }
+        private void dgvZirSarfal_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (!_isKeySpase && e.RowIndex >= 0 && e.ColumnIndex == 0)
+                SetCheckBoxColumn();
+
+            _isKeySpase = false;
         }
         private void dgvZirSarfal_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -396,6 +511,16 @@ namespace ReportSarfasl
             {
                 row.Cells["ZMan"].Value = Math.Abs((decimal)row.Cells["ZMan"].Value).ToString();
                 row.Cells["ZMan_Befor"].Value = Math.Abs((decimal)row.Cells["ZMan_Befor"].Value).ToString();
+                if (ListSelected.Any(i => i == (int)row.Cells["ZID"].Value))
+                {
+                    row.Cells["select"].Value = true;
+                    row.DefaultCellStyle.BackColor = Color.PaleTurquoise;
+                }
+                else
+                {
+                    row.Cells["select"].Value = false;
+                    row.DefaultCellStyle.BackColor = Color.White;
+                }
             }
         }
 
@@ -403,6 +528,21 @@ namespace ReportSarfasl
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
+            List<SZAservice> dt1 = dt;
+
+            if (ListSelected.Count > 0)
+            {
+                dt1 = dt1.Where(d => ListSelected.Contains(d.ZID)).ToList();
+            }
+            else
+            {
+                if (MessageBox.Show("در صورت انتخاب نكردن موردي همه موارد در گزارش ذكر ميشود.\nآيا مايل به ادامه هستيد؟",
+                        "سوال", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    goto END1;
+                }
+            }
+
             var DateNow = DateTime.Now;
             string today = pc.GetYear(DateNow).ToString("0000") + "/" + pc.GetMonth(DateNow).ToString("00") + "/" + pc.GetDayOfMonth(DateNow).ToString("00");
             StiReport report = new StiReport();
@@ -413,9 +553,10 @@ namespace ReportSarfasl
             report["NameSarfasl"] = _nameSarfasl;
             report["FromDate"] = textDate1.FromDate;
             report["ToDate"] = textDate1.ToDate;
-            report.RegBusinessObject("SZA", dgvZirSarfal.DataSource);
+            report.RegBusinessObject("SZA", dt1);
 
             report.Show();
+            END1:;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -445,6 +586,8 @@ namespace ReportSarfasl
         {
             foreach (DataGridViewColumn col in dgvZirSarfal.Columns) col.Visible = false;
             //foreach (DataGridViewRow row in dgvSarfasl.Rows) row.Cells["row"].Value = row.Index + 1;
+
+            dgvZirSarfal.Columns["select"].Visible = true;
 
             dgvZirSarfal.Columns["Zrow"].Visible = true;
             dgvZirSarfal.Columns["Zrow"].HeaderText = "رديف";
@@ -503,12 +646,14 @@ namespace ReportSarfasl
 
         private void search()
         {
-            if (dt != null)
+            if (dt != null && !_isSearch)
             {
                 var filter = txtFilter.Text.Trim();
+                int row = 1;
 
                 var dt1 = dt.Where(c => c.ZName.Contains(filter)).ToList();
-                dgvZirSarfal.DataSource = dt1.GroupBy(g => new {
+                dgvZirSarfal.DataSource = dt1.GroupBy(g => new
+                {
                     g.ZID,
                     g.ZSarfaslID,
                     g.ZName,
@@ -524,6 +669,7 @@ namespace ReportSarfasl
                     g.ZActive
                 }).Select(g => new SZAservice()
                 {
+                    Zrow = row++,
                     ZID = g.Key.ZID,
                     ZSarfaslID = g.Key.ZSarfaslID,
                     ZName = g.Key.ZName,
@@ -542,13 +688,45 @@ namespace ReportSarfasl
             }
         }
 
+        private void SetCheckBoxColumn()
+        {
+            if (dgvZirSarfal.SelectedRows.Count > 0)
+            {
+                var rowIndex = dgvZirSarfal.SelectedRows[0].Index;
+                if (Convert.ToBoolean(dgvZirSarfal.SelectedRows[0].Cells["select"].Value) == false)
+                {
+                    dgvZirSarfal.Rows[rowIndex].Cells["select"].Value = true;
+                    dgvZirSarfal.Rows[rowIndex].DefaultCellStyle.BackColor = Color.PaleTurquoise;
+                    AddOrRemoveInListAndTextSelected(rowIndex, true);
+                }
+                else
+                {
+                    dgvZirSarfal.Rows[rowIndex].Cells["select"].Value = false;
+                    dgvZirSarfal.Rows[rowIndex].DefaultCellStyle.BackColor = Color.White;
+                    AddOrRemoveInListAndTextSelected(rowIndex, false);
+                }
+            }
+        }
+
+        private void AddOrRemoveInListAndTextSelected(int rowData, bool isAdded)
+        {
+            ListSelected.RemoveAll(i => i == (int)dgvZirSarfal.Rows[rowData].Cells["ZID"].Value);
+
+            if (isAdded)
+            {
+                ListSelected.Add((int)dgvZirSarfal.Rows[rowData].Cells["ZID"].Value);
+            }
+            lblFooterNumber.Text = $"تعداد: {dgvZirSarfal.RowCount}\nتعداد انتخابي: {ListSelected.Count}";
+
+        }
+
         private void OpenActZirSarfasl(string NameZirSarfasl)
         {
             if (dgvZirSarfal.SelectedRows.Count > 0)
             {
                 _zirSarfaslIdSelected = (int)dgvZirSarfal.SelectedRows[0].Cells["ZID"].Value;
                 DefultForm reportZirSarfasl = new DefultForm();
-                reportZirSarfasl.ShowDialog(new ReportActZirSarfasl(textDate1.FromDate, textDate1.ToDate, NameZirSarfasl, zirSarfaslID: _zirSarfaslIdSelected), new Size(1332, 694));
+                reportZirSarfasl.ShowDialog(new ReportActZirSarfasl(textDate1.FromDate, textDate1.ToDate, NameZirSarfasl, zirSarfaslID: _zirSarfaslIdSelected), new Size(1312, 694));
                 //باز کردن زیر سرفصل های سرفصل انتخابی داخل گرید
             }
         }
@@ -558,7 +736,7 @@ namespace ReportSarfasl
             string status1 = sum > 0 ? "بد" : sum == 0 ? "--" : "بس";
             string status2 = sumAll > 0 ? "بد" : sumAll == 0 ? "--" : "بس";
 
-            lblFooterNumber.Text = $"تعداد: {number}";
+            lblFooterNumber.Text = $"تعداد: {number}\nتعداد انتخابي: {ListSelected.Count}";
             lblFooter.Text = $"   مانده در بازه: {Math.Abs(sum).ToMan()} ({status1})\n   مانده كل : {Math.Abs(sumAll).ToMan()} ({status2})";
         }
 
