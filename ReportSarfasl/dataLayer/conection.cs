@@ -9,6 +9,7 @@ using System.Security.Cryptography.Pkcs;
 using System.Text;
 using System.Threading.Tasks;
 using ReportSarfasl.Services;
+using Stimulsoft.Report;
 
 namespace ReportSarfasl.dataLayer
 {
@@ -275,22 +276,28 @@ namespace ReportSarfasl.dataLayer
             //}).ToList();
         }
 
-        public static List<SZAservice> GetZirSarfaslServices1(List<int> ListSarfaslID, List<int> listZirsarfaslID, string FromDate, string ToDate)
+        public static List<SZAservice> GetSZAServices( string FromDate, string ToDate, List<int> listZirsarfaslID, List<int> ListSarfaslID,  List<int> ListGroupSarfaslID)
         {
             using (var context = new DbAtiran2Entities())
             {
-                string listZ = "";
+                string listG = "";
                 string listS = "";
-                foreach (int z in listZirsarfaslID)
+                string listZ = "";
+
+                foreach (int g in ListGroupSarfaslID)
                 {
-                    listZ += z + ",";
+                    listG += g + ",";
                 }
                 foreach (int s in ListSarfaslID)
                 {
                     listS += s + ",";
                 }
+                foreach (int z in listZirsarfaslID)
+                {
+                    listZ += z + ",";
+                }
 
-                var result = context.USP_GetDataForSarfasl(FromDate, ToDate, listS, listZ);
+                var result = context.USP_GetDataForSarfasl(FromDate, ToDate,listG, listS, listZ);
                 int rowZ = 1;
                 return result.Select(r => new SZAservice()
                 {
