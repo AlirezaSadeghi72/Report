@@ -59,7 +59,7 @@ namespace ReportSarfasl
             this.txtToYear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtToYear.BackColor = System.Drawing.SystemColors.Control;
             this.txtToYear.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtToYear.Location = new System.Drawing.Point(3, 2);
+            this.txtToYear.Location = new System.Drawing.Point(1, 2);
             this.txtToYear.MaxLength = 4;
             this.txtToYear.Name = "txtToYear";
             this.txtToYear.Size = new System.Drawing.Size(33, 21);
@@ -76,7 +76,7 @@ namespace ReportSarfasl
             this.txtToMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtToMonth.BackColor = System.Drawing.SystemColors.Control;
             this.txtToMonth.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtToMonth.Location = new System.Drawing.Point(62, 2);
+            this.txtToMonth.Location = new System.Drawing.Point(48, 2);
             this.txtToMonth.MaxLength = 2;
             this.txtToMonth.Name = "txtToMonth";
             this.txtToMonth.Size = new System.Drawing.Size(17, 21);
@@ -93,7 +93,7 @@ namespace ReportSarfasl
             this.txtFromYear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFromYear.BackColor = System.Drawing.SystemColors.Control;
             this.txtFromYear.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtFromYear.Location = new System.Drawing.Point(209, 2);
+            this.txtFromYear.Location = new System.Drawing.Point(155, 2);
             this.txtFromYear.MaxLength = 4;
             this.txtFromYear.Name = "txtFromYear";
             this.txtFromYear.Size = new System.Drawing.Size(33, 21);
@@ -109,7 +109,7 @@ namespace ReportSarfasl
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(42, 2);
+            this.label6.Location = new System.Drawing.Point(34, 2);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(14, 20);
             this.label6.TabIndex = 11;
@@ -120,7 +120,7 @@ namespace ReportSarfasl
             this.txtFromMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFromMonth.BackColor = System.Drawing.SystemColors.Control;
             this.txtFromMonth.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtFromMonth.Location = new System.Drawing.Point(268, 2);
+            this.txtFromMonth.Location = new System.Drawing.Point(201, 2);
             this.txtFromMonth.MaxLength = 2;
             this.txtFromMonth.Name = "txtFromMonth";
             this.txtFromMonth.Size = new System.Drawing.Size(17, 21);
@@ -137,7 +137,7 @@ namespace ReportSarfasl
             this.txtToDay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtToDay.BackColor = System.Drawing.SystemColors.Control;
             this.txtToDay.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtToDay.Location = new System.Drawing.Point(105, 2);
+            this.txtToDay.Location = new System.Drawing.Point(77, 2);
             this.txtToDay.MaxLength = 2;
             this.txtToDay.Name = "txtToDay";
             this.txtToDay.Size = new System.Drawing.Size(17, 21);
@@ -153,7 +153,7 @@ namespace ReportSarfasl
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(248, 2);
+            this.label3.Location = new System.Drawing.Point(188, 2);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(14, 20);
             this.label3.TabIndex = 12;
@@ -163,7 +163,7 @@ namespace ReportSarfasl
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(85, 2);
+            this.label5.Location = new System.Drawing.Point(65, 2);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(14, 20);
             this.label5.TabIndex = 7;
@@ -174,7 +174,7 @@ namespace ReportSarfasl
             this.txtFromDay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFromDay.BackColor = System.Drawing.SystemColors.Control;
             this.txtFromDay.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtFromDay.Location = new System.Drawing.Point(311, 2);
+            this.txtFromDay.Location = new System.Drawing.Point(227, 2);
             this.txtFromDay.MaxLength = 2;
             this.txtFromDay.Name = "txtFromDay";
             this.txtFromDay.Size = new System.Drawing.Size(17, 21);
@@ -190,7 +190,7 @@ namespace ReportSarfasl
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(128, 2);
+            this.label4.Location = new System.Drawing.Point(96, 2);
             this.label4.Name = "label4";
             this.label4.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label4.Size = new System.Drawing.Size(53, 20);
@@ -201,7 +201,7 @@ namespace ReportSarfasl
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(291, 3);
+            this.label2.Location = new System.Drawing.Point(216, 3);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(14, 20);
             this.label2.TabIndex = 8;
@@ -211,7 +211,7 @@ namespace ReportSarfasl
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(334, 2);
+            this.label1.Location = new System.Drawing.Point(240, 2);
             this.label1.Name = "label1";
             this.label1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label1.Size = new System.Drawing.Size(53, 20);
@@ -234,7 +234,7 @@ namespace ReportSarfasl
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.Name = "TextDate";
-            this.Size = new System.Drawing.Size(390, 24);
+            this.Size = new System.Drawing.Size(296, 24);
             this.ResumeLayout(false);
             this.PerformLayout();
 
