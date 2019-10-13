@@ -482,7 +482,7 @@ namespace ReportSarfasl
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (keyData == Keys.Enter)
+            if (keyData == Keys.Enter || keyData == Keys.Escape)
             {
                 ((Form)this.TopLevelControl).Close();
                 return true;

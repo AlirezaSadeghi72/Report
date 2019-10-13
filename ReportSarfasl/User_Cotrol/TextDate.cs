@@ -24,6 +24,7 @@ namespace ReportSarfasl
         private Label label3;
         private Label label2;
         private Label label1;
+        public bool focuseDate = false;
         private PersianCalendar pc = new PersianCalendar();
 
 
@@ -475,11 +476,12 @@ namespace ReportSarfasl
         {
             (sender as TextBox).BackColor = Color.Bisque;
             (sender as TextBox).SelectAll();
-
+            focuseDate = true;
         }
 
         private void textBox_Leave(object sender, EventArgs e)
         {
+            focuseDate = false;
             (sender as TextBox).BackColor = SystemColors.Control;
             if ((sender as TextBox).Name != "txtToYear" || (sender as TextBox).Name != "txtFromYear")
             {
@@ -489,6 +491,7 @@ namespace ReportSarfasl
             {
                 (sender as TextBox).Text = int.Parse((sender as TextBox).Text).ToString("0000");
             }
+
         }
 
         //private void txtFromDay_TextChanged(object sender, EventArgs e)

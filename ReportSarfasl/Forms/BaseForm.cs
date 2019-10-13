@@ -74,7 +74,7 @@ namespace ReportSarfasl.Forms
         private void menuSarfasl_Click(object sender, EventArgs e)
         {
             DefultForm reportSarfaForm = new DefultForm();
-            reportSarfaForm.ShowDialog(new reportSarfasl(), new Size(1352, 734));
+            reportSarfaForm.ShowDialog(new reportSarfasl(), new Size(1360, 735));
         }
     }
 }

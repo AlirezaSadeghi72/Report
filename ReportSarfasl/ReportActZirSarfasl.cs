@@ -84,7 +84,9 @@ namespace ReportSarfasl
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.gbHeader = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.chbActKind = new System.Windows.Forms.CheckBox();
+            this.textDate1 = new ReportSarfasl.TextDate();
             this.chbAll = new System.Windows.Forms.CheckBox();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -109,8 +111,6 @@ namespace ReportSarfasl
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
             this.lblDisAct = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textDate1 = new ReportSarfasl.TextDate();
             this.pnlHeader.SuspendLayout();
             this.gbHeader.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -143,6 +143,16 @@ namespace ReportSarfasl
             this.gbHeader.TabStop = false;
             this.gbHeader.Text = "جزييات زيرسرفصل";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label2.Location = new System.Drawing.Point(23, 43);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(212, 20);
+            this.label2.TabIndex = 17;
+            this.label2.Text = "چاپ قيض سند سرفصل براي عملكرد: Enter";
+            // 
             // chbActKind
             // 
             this.chbActKind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -155,6 +165,18 @@ namespace ReportSarfasl
             this.chbActKind.UseVisualStyleBackColor = true;
             this.chbActKind.CheckedChanged += new System.EventHandler(this.chbActKind_CheckedChanged);
             this.chbActKind.KeyDown += new System.Windows.Forms.KeyEventHandler(this.chbActKind_KeyDown);
+            // 
+            // textDate1
+            // 
+            this.textDate1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textDate1.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.textDate1.FromDate = "1398/07/21";
+            this.textDate1.Location = new System.Drawing.Point(499, 23);
+            this.textDate1.Name = "textDate1";
+            this.textDate1.Size = new System.Drawing.Size(390, 24);
+            this.textDate1.TabIndex = 0;
+            this.textDate1.ToDate = "1398/07/21";
+            this.textDate1.KeyEnterTextBoxToYear += new System.EventHandler(this.textDate1_KeyEnterTextBoxToYear);
             // 
             // chbAll
             // 
@@ -236,7 +258,7 @@ namespace ReportSarfasl
             // select
             // 
             this.select.FillWeight = 40F;
-            this.select.HeaderText = "انتخاب";
+            this.select.HeaderText = "";
             this.select.Name = "select";
             this.select.ReadOnly = true;
             this.select.Visible = false;
@@ -454,28 +476,6 @@ namespace ReportSarfasl
             this.lblDisAct.Size = new System.Drawing.Size(905, 20);
             this.lblDisAct.TabIndex = 14;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label2.Location = new System.Drawing.Point(23, 43);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(212, 20);
-            this.label2.TabIndex = 17;
-            this.label2.Text = "چاپ قيض سند سرفصل براي عملكرد: Enter";
-            // 
-            // textDate1
-            // 
-            this.textDate1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textDate1.Enabled = false;
-            this.textDate1.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.textDate1.FromDate = "1398/07/21";
-            this.textDate1.Location = new System.Drawing.Point(499, 23);
-            this.textDate1.Name = "textDate1";
-            this.textDate1.Size = new System.Drawing.Size(390, 24);
-            this.textDate1.TabIndex = 0;
-            this.textDate1.ToDate = "1398/07/21";
-            // 
             // ReportActZirSarfasl
             // 
             this.Controls.Add(this.pnlMain);
@@ -502,25 +502,16 @@ namespace ReportSarfasl
 
         private void ReportActZirSarfasl_Load(object sender, EventArgs e)
         {
-            if (_isActForSarfasl)
-            {
-                dt = conection.GetActZirSarfaslServices(textDate1.FromDate, textDate1.ToDate, sarfaslID: _sarfaslID, listZirsarfasl: _listZirSar);
-            }
-            else
-            {
-                dt = conection.GetActZirSarfaslServices(textDate1.FromDate, textDate1.ToDate, zirSarfaslID: _zirSarfaslID);
-            }
-
-            dgvActZirSarfasl.DataSource = dt;
-            var befor = dt.FirstOrDefault(d => d.AID == 0) ?? new SZAservice();
-
-            SetTextLabelFooter(dt.Count, dt.Sum(d => d.Abed), dt.Sum(d => d.Abes), dt.Sum(d => d.Abed - d.Abes), befor.Abed, befor.Abes);
-
-            SetGrid();
-            txtFilter.Focus();
+            GetData();
         }
 
         #region Event Controls
+        private void textDate1_KeyEnterTextBoxToYear(object sender, EventArgs e)
+        {
+            GetData();
+            txtFilter.Focus();
+        }
+
         private void chbActKind_CheckedChanged(object sender, EventArgs e)
         {
             if (chbActKind.Checked)
@@ -577,12 +568,13 @@ namespace ReportSarfasl
         }
         private void txtFilter_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape)
-            {
-                _isSearch = false;
-                txtFilter.Text = " ";
-            }
-            else if (e.KeyCode == Keys.Space)
+            //if (e.KeyCode == Keys.Escape)
+            //{
+            //    _isSearch = false;
+            //    txtFilter.Text = " ";
+            //}
+            //else 
+            if (e.KeyCode == Keys.Space)
             {
                 if ((txtFilter.Text.Trim() == "") || (dgvActZirSarfasl.Rows.Count == 1))
                 {
@@ -661,14 +653,14 @@ namespace ReportSarfasl
             {
                 dt1 = dt1.Where(d => ListSelected.Contains(d.AID)).ToList();
             }
-            else
-            {
-                if (MessageBox.Show("در صورت انتخاب نكردن موردي همه موارد در گزارش ذكر ميشود.\nآيا مايل به ادامه هستيد؟",
-                        "سوال", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-                {
-                    goto END1;
-                }
-            }
+            //else
+            //{
+            //    if (MessageBox.Show("در صورت انتخاب نكردن موردي همه موارد در گزارش ذكر ميشود.\nآيا مايل به ادامه هستيد؟",
+            //            "سوال", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            //    {
+            //        goto END1;
+            //    }
+            //}
 
             var DateNow = DateTime.Now;
             string today = pc.GetYear(DateNow).ToString("0000") + "/" + pc.GetMonth(DateNow).ToString("00") + "/" + pc.GetDayOfMonth(DateNow).ToString("00");
@@ -687,7 +679,7 @@ namespace ReportSarfasl
 
             report.Show();
 
-            END1:;
+            //END1:;
             //چاپ
         }
 
@@ -763,12 +755,12 @@ namespace ReportSarfasl
         #region Event override
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (keyData == Keys.Escape && !txtFilter.Focused)
+            if (keyData == Keys.Escape)
             {
                 ((Form)this.TopLevelControl).Close();
                 return false;
             }
-            else if (keyData == Keys.Enter  && dgvActZirSarfasl.SelectedRows.Count > 0)
+            else if (keyData == Keys.Enter  && dgvActZirSarfasl.SelectedRows.Count > 0 && !textDate1.focuseDate)
             {
                 ShowReportSanadAct();
                 return true;
@@ -780,59 +772,75 @@ namespace ReportSarfasl
         #endregion
 
         #region Method
+
+        private void GetData()
+        {
+            if (_isActForSarfasl)
+            {
+                dt = conection.GetActZirSarfaslServices(textDate1.FromDate, textDate1.ToDate, sarfaslID: _sarfaslID, listZirsarfasl: _listZirSar);
+            }
+            else
+            {
+                dt = conection.GetActZirSarfaslServices(textDate1.FromDate, textDate1.ToDate, zirSarfaslID: _zirSarfaslID);
+            }
+
+            dgvActZirSarfasl.DataSource = dt;
+            var befor = dt.FirstOrDefault(d => d.AID == 0) ?? new SZAservice();
+
+            SetTextLabelFooter(dt.Count, dt.Sum(d => d.Abed), dt.Sum(d => d.Abes), dt.Sum(d => d.Abed - d.Abes), befor.Abed, befor.Abes);
+
+            SetGrid();
+        }
+
         private void SetGrid()
         {
             foreach (DataGridViewColumn col in dgvActZirSarfasl.Columns) col.Visible = false;
 
             dgvActZirSarfasl.Columns["select"].Visible = true;
+            dgvActZirSarfasl.Columns["select"].Width = 25;
 
             dgvActZirSarfasl.Columns["Arow"].Visible = true;
             dgvActZirSarfasl.Columns["Arow"].HeaderText = "رديف";
-            dgvActZirSarfasl.Columns["Arow"].Width = 50;
+            dgvActZirSarfasl.Columns["Arow"].Width = 40;
 
             dgvActZirSarfasl.Columns["Adate"].Visible = true;
             dgvActZirSarfasl.Columns["Adate"].HeaderText = "تاريخ";
-            dgvActZirSarfasl.Columns["Adate"].Width = 80;
+            dgvActZirSarfasl.Columns["Adate"].Width = 70;
 
             dgvActZirSarfasl.Columns["Auser"].Visible = true;
             dgvActZirSarfasl.Columns["Auser"].HeaderText = "كاربر";
-            dgvActZirSarfasl.Columns["Auser"].Width = 60;
+            dgvActZirSarfasl.Columns["Auser"].Width = 90;
 
             dgvActZirSarfasl.Columns["Asanadno"].Visible = true;
             dgvActZirSarfasl.Columns["Asanadno"].HeaderText = "سند";
-            dgvActZirSarfasl.Columns["Asanadno"].Width = 80;
+            dgvActZirSarfasl.Columns["Asanadno"].Width = 40;
 
             dgvActZirSarfasl.Columns["Adescription"].Visible = true;
             dgvActZirSarfasl.Columns["Adescription"].HeaderText = "شــــرح";
-            dgvActZirSarfasl.Columns["Adescription"].Width = 493;
+            dgvActZirSarfasl.Columns["Adescription"].Width = 503;
 
 
             dgvActZirSarfasl.Columns["Abed"].Visible = true;
             dgvActZirSarfasl.Columns["Abed"].HeaderText = "بدهكاري";
             dgvActZirSarfasl.Columns["Abed"].DefaultCellStyle.Format = "#,0";
             dgvActZirSarfasl.Columns["Abed"].DefaultCellStyle.Font = new Font("IRANSans(FaNum)", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            dgvActZirSarfasl.Columns["Abed"].Width = 100;
+            dgvActZirSarfasl.Columns["Abed"].Width = 125;
 
             dgvActZirSarfasl.Columns["Abes"].Visible = true;
             dgvActZirSarfasl.Columns["Abes"].HeaderText = "بستانكاري";
             dgvActZirSarfasl.Columns["Abes"].DefaultCellStyle.Format = "#,0";
             dgvActZirSarfasl.Columns["Abes"].DefaultCellStyle.Font = new Font("IRANSans(FaNum)", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            dgvActZirSarfasl.Columns["Abes"].Width = 100;
-
-            dgvActZirSarfasl.Columns["Abed_bes"].Visible = true;
-            dgvActZirSarfasl.Columns["Abed_bes"].HeaderText = "تشخيص";
-            dgvActZirSarfasl.Columns["Abed_bes"].Width = 50;
-
+            dgvActZirSarfasl.Columns["Abes"].Width = 125;
 
             dgvActZirSarfasl.Columns["AMan"].Visible = true;
             dgvActZirSarfasl.Columns["AMan"].HeaderText = "مانده";
             dgvActZirSarfasl.Columns["AMan"].DefaultCellStyle.Format = "#,0";
             dgvActZirSarfasl.Columns["AMan"].DefaultCellStyle.Font = new Font("IRANSans(FaNum)", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            dgvActZirSarfasl.Columns["AMan"].Width = 100;
+            dgvActZirSarfasl.Columns["AMan"].Width = 125;
 
             dgvActZirSarfasl.Columns["AManbed_bes"].Visible = true;
-            dgvActZirSarfasl.Columns["AManbed_bes"].HeaderText = "تشخيص";
-            dgvActZirSarfasl.Columns["AManbed_bes"].Width = 50;
+            dgvActZirSarfasl.Columns["AManbed_bes"].HeaderText = "تش";
+            dgvActZirSarfasl.Columns["AManbed_bes"].Width = 30;
 
             dgvActZirSarfasl.Columns["AkindName"].Visible = true;
             dgvActZirSarfasl.Columns["AkindName"].HeaderText = "نوع عملكرد";
