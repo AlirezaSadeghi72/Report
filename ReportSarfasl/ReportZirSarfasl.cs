@@ -23,7 +23,6 @@ namespace ReportSarfasl
         private int _sarfaslID, _zirSarfaslIdSelected;
         private List<SZAservice> dt;
         private string _nameSarfasl;
-        //private bool _isSearch = false;//, _isKeySpase = false;
         private Panel pnlMain;
         private Button btnCancel;
         private Button btnPrint;
@@ -511,6 +510,7 @@ namespace ReportSarfasl
             {
                 row.Cells["ZMan"].Value = Math.Abs((decimal)row.Cells["ZMan"].Value).ToString();
                 row.Cells["ZMan_Befor"].Value = Math.Abs((decimal)row.Cells["ZMan_Befor"].Value).ToString();
+                row.Cells["ZMan_All"].Value = Math.Abs((decimal)row.Cells["ZMan_All"].Value).ToString();
                 if (ListSelected.Any(i => i == (int)row.Cells["ZID"].Value))
                 {
                     row.Cells["select"].Value = true;
@@ -573,8 +573,14 @@ namespace ReportSarfasl
             if (keyData == Keys.Escape && !txtFilter.Focused)
             {
                 ((Form)this.TopLevelControl).Close();
-                return false;
+                return true;
             }
+            else if (keyData == Keys.Enter && dgvZirSarfal.Focus() && dgvZirSarfal.SelectedRows.Count > 0)
+            {
+                OpenActZirSarfasl(dgvZirSarfal.SelectedRows[0].Cells["ZName"].Value.ToString());
+                return true;
+            }
+
 
             return base.ProcessCmdKey(ref msg, keyData);
         }

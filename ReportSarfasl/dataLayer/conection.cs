@@ -98,7 +98,7 @@ namespace ReportSarfasl.dataLayer
                 Adate = a.date,
                 Abed = a.bed,
                 Abes = a.bes,
-                Abed_bes = a.bed_bes,
+                Abed_bes = (a.bed-a.bes)>0?"بد": (a.bed - a.bes)==0?"--":"بس",
                 Adescription = a.dis,
                 Akind = a.kind,
                 AkindName = KindName.FirstOrDefault(k => k.Key == a.kind).Value,

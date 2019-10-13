@@ -85,9 +85,11 @@ namespace ReportSarfasl
             this.gbHeader = new System.Windows.Forms.GroupBox();
             this.chbActKind = new System.Windows.Forms.CheckBox();
             this.textDate1 = new ReportSarfasl.TextDate();
+            this.chbAll = new System.Windows.Forms.CheckBox();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgvActZirSarfasl = new System.Windows.Forms.DataGridView();
+            this.select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.txtFilter = new System.Windows.Forms.TextBox();
             this.pnlFooter = new System.Windows.Forms.Panel();
             this.lblBes = new System.Windows.Forms.Label();
@@ -107,8 +109,6 @@ namespace ReportSarfasl
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
             this.lblDisAct = new System.Windows.Forms.Label();
-            this.chbAll = new System.Windows.Forms.CheckBox();
-            this.select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.pnlHeader.SuspendLayout();
             this.gbHeader.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -164,6 +164,18 @@ namespace ReportSarfasl
             this.textDate1.Size = new System.Drawing.Size(390, 24);
             this.textDate1.TabIndex = 0;
             this.textDate1.ToDate = "1398/07/20";
+            // 
+            // chbAll
+            // 
+            this.chbAll.AutoSize = true;
+            this.chbAll.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.chbAll.Location = new System.Drawing.Point(3, 53);
+            this.chbAll.Name = "chbAll";
+            this.chbAll.Size = new System.Drawing.Size(899, 24);
+            this.chbAll.TabIndex = 16;
+            this.chbAll.Text = "انتخاب همه";
+            this.chbAll.UseVisualStyleBackColor = true;
+            this.chbAll.CheckedChanged += new System.EventHandler(this.chbAll_CheckedChanged);
             // 
             // pnlMain
             // 
@@ -229,6 +241,15 @@ namespace ReportSarfasl
             this.dgvActZirSarfasl.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvActZirSarfasl_CellClick);
             this.dgvActZirSarfasl.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvActZirSarfasl_RowEnter);
             this.dgvActZirSarfasl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvActZirSarfasl_KeyDown);
+            // 
+            // select
+            // 
+            this.select.FillWeight = 40F;
+            this.select.HeaderText = "انتخاب";
+            this.select.Name = "select";
+            this.select.ReadOnly = true;
+            this.select.Visible = false;
+            this.select.Width = 49;
             // 
             // txtFilter
             // 
@@ -442,27 +463,6 @@ namespace ReportSarfasl
             this.lblDisAct.Size = new System.Drawing.Size(905, 20);
             this.lblDisAct.TabIndex = 14;
             // 
-            // chbAll
-            // 
-            this.chbAll.AutoSize = true;
-            this.chbAll.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.chbAll.Location = new System.Drawing.Point(3, 53);
-            this.chbAll.Name = "chbAll";
-            this.chbAll.Size = new System.Drawing.Size(899, 24);
-            this.chbAll.TabIndex = 16;
-            this.chbAll.Text = "انتخاب همه";
-            this.chbAll.UseVisualStyleBackColor = true;
-            this.chbAll.CheckedChanged += new System.EventHandler(this.chbAll_CheckedChanged);
-            // 
-            // select
-            // 
-            this.select.FillWeight = 40F;
-            this.select.HeaderText = "انتخاب";
-            this.select.Name = "select";
-            this.select.ReadOnly = true;
-            this.select.Visible = false;
-            this.select.Width = 49;
-            // 
             // ReportActZirSarfasl
             // 
             this.Controls.Add(this.pnlMain);
@@ -529,12 +529,12 @@ namespace ReportSarfasl
         private void chbActKind_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyData == Keys.Enter)
-                chbActKind.Checked = !chbActKind.Checked;
+                txtFilter.Focus();
         }
 
         private void chbAll_CheckedChanged(object sender, EventArgs e)
         {
-            List<int> list1 = ((List<SZAservice>) dgvActZirSarfasl.DataSource).Select(a => a.AID).ToList();
+            List<int> list1 = ((List<SZAservice>)dgvActZirSarfasl.DataSource).Select(a => a.AID).ToList();
             ListSelected.RemoveAll(x => list1.Contains(x));
             if (chbAll.Checked)
             {
@@ -592,7 +592,12 @@ namespace ReportSarfasl
             {
                 int countRowGrid = dgvActZirSarfasl.Rows.Count;
                 int rowIndexSelected = dgvActZirSarfasl.SelectedRows[0].Index;
-                if (e.KeyCode == Keys.Up)
+                if (e.KeyCode == Keys.Enter)
+                {
+                    ShowReportSanadAct();
+                    //OpenActZirSarfasl(dgvActZirSarfasl.SelectedRows[0].Cells["ZName"].Value.ToString());
+                }
+                else if (e.KeyCode == Keys.Up)
                 {
                     _isSearch = true;
                     txtFilter.Text = "";
@@ -668,7 +673,7 @@ namespace ReportSarfasl
 
             report.Show();
 
-            END1: ;
+            END1:;
             //چاپ
         }
 
@@ -709,17 +714,17 @@ namespace ReportSarfasl
             if (dgvActZirSarfasl.SelectedRows.Count > 0)
             {
                 lblDisAct.Text = dgvActZirSarfasl.SelectedRows[0].Cells["Adescription"].Value.ToString();
+                decimal man1 = 0;
                 foreach (DataGridViewRow row in dgvActZirSarfasl.Rows)
                 {
-                    if (row.Index == 0)
-                    {
-                        row.Cells["AMan"].Value = (decimal)row.Cells["Abed"].Value - (decimal)row.Cells["Abes"].Value;
-                    }
-                    else
-                    {
-                        row.Cells["AMan"].Value = (decimal)row.Cells["Abed"].Value - (decimal)row.Cells["Abes"].Value +
-                                                 (decimal)dgvActZirSarfasl.Rows[row.Index - 1].Cells["AMan"].Value;
-                    }
+                    var result = dt.First(d => d.AID == (int)row.Cells["AID"].Value);
+                    result.AMan = man1 += (decimal)row.Cells["Abed"].Value - (decimal)row.Cells["Abes"].Value;
+
+                    result.AManbed_bes = result.AMan > 0 ? "بد" :
+                        result.AMan == 0 ? "--" : "بس";
+
+                    row.Cells["AMan"].Value = Math.Abs(result.AMan);
+                    row.Cells["AManbed_bes"].Value = result.AManbed_bes;
 
                     if (ListSelected.Any(i => i == (int)row.Cells["AID"].Value))
                     {
@@ -749,9 +754,15 @@ namespace ReportSarfasl
                 ((Form)this.TopLevelControl).Close();
                 return false;
             }
-
+            else if (keyData == Keys.Enter && dgvActZirSarfasl.Focus() && dgvActZirSarfasl.SelectedRows.Count > 0)
+            {
+                ShowReportSanadAct();
+                //OpenActZirSarfasl(dgvActZirSarfasl.SelectedRows[0].Cells["ZName"].Value.ToString());
+                return true;
+            }
             return base.ProcessCmdKey(ref msg, keyData);
         }
+
 
         #endregion
 
@@ -780,33 +791,39 @@ namespace ReportSarfasl
 
             dgvActZirSarfasl.Columns["Adescription"].Visible = true;
             dgvActZirSarfasl.Columns["Adescription"].HeaderText = "شــــرح";
-            dgvActZirSarfasl.Columns["Adescription"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvActZirSarfasl.Columns["Adescription"].Width = 493;
+
 
             dgvActZirSarfasl.Columns["Abed"].Visible = true;
             dgvActZirSarfasl.Columns["Abed"].HeaderText = "بدهكاري";
             dgvActZirSarfasl.Columns["Abed"].DefaultCellStyle.Format = "#,0";
             dgvActZirSarfasl.Columns["Abed"].DefaultCellStyle.Font = new Font("IRANSans(FaNum)", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            dgvActZirSarfasl.Columns["Abed"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvActZirSarfasl.Columns["Abed"].Width = 100;
 
             dgvActZirSarfasl.Columns["Abes"].Visible = true;
             dgvActZirSarfasl.Columns["Abes"].HeaderText = "بستانكاري";
             dgvActZirSarfasl.Columns["Abes"].DefaultCellStyle.Format = "#,0";
             dgvActZirSarfasl.Columns["Abes"].DefaultCellStyle.Font = new Font("IRANSans(FaNum)", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            dgvActZirSarfasl.Columns["Abes"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvActZirSarfasl.Columns["Abes"].Width = 100;
 
             dgvActZirSarfasl.Columns["Abed_bes"].Visible = true;
             dgvActZirSarfasl.Columns["Abed_bes"].HeaderText = "تشخيص";
-            dgvActZirSarfasl.Columns["Abed_bes"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvActZirSarfasl.Columns["Abed_bes"].Width = 50;
+
 
             dgvActZirSarfasl.Columns["AMan"].Visible = true;
             dgvActZirSarfasl.Columns["AMan"].HeaderText = "مانده";
             dgvActZirSarfasl.Columns["AMan"].DefaultCellStyle.Format = "#,0";
             dgvActZirSarfasl.Columns["AMan"].DefaultCellStyle.Font = new Font("IRANSans(FaNum)", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            dgvActZirSarfasl.Columns["AMan"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvActZirSarfasl.Columns["AMan"].Width = 100;
+
+            dgvActZirSarfasl.Columns["AManbed_bes"].Visible = true;
+            dgvActZirSarfasl.Columns["AManbed_bes"].HeaderText = "تشخيص";
+            dgvActZirSarfasl.Columns["AManbed_bes"].Width = 50;
 
             dgvActZirSarfasl.Columns["AkindName"].Visible = true;
             dgvActZirSarfasl.Columns["AkindName"].HeaderText = "نوع عملكرد";
-            dgvActZirSarfasl.Columns["AkindName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvActZirSarfasl.Columns["AkindName"].Width = 150;
 
         }
 
@@ -862,6 +879,44 @@ namespace ReportSarfasl
 
             lblFooterNumber.Text = $"تعداد: {dgvActZirSarfasl.RowCount}\nتعداد انتخابي: {ListSelected.Count}";
 
+        }
+
+        private void ShowReportSanadAct()
+        {
+            if (dgvActZirSarfasl.SelectedRows.Count > 0)
+            {
+                SZAservice result = ((List<SZAservice>)dgvActZirSarfasl.DataSource).First(x =>
+                   x.AID == (int)dgvActZirSarfasl.SelectedRows[0].Cells["AID"].Value);
+
+                var str1 = result.Adescription.Replace(" به ", ";");
+                 str1 = str1.Replace("از ", "");
+                var str = str1.Split(';');
+
+                string firstText = str[0];
+                str[1] = str[1].Replace(" بابت ", ";");
+                str = str[1].Split(';');
+                string secenText = str[0];
+                string TreeText = str[1];
+                decimal Man = result.Abed - result.Abes;
+
+                var DateNow = DateTime.Now;
+                string today = pc.GetYear(DateNow).ToString("0000") + "/" + pc.GetMonth(DateNow).ToString("00") + "/" + pc.GetDayOfMonth(DateNow).ToString("00");
+                StiReport report = new StiReport();
+                report.Load(@"C:\Users\North-PC\Desktop\Report Sarfasl (Stimulsoft)\ReportSanadActZirSarfasl1.mrt");
+                report.Compile();
+                report["User"] = "alirezasadegghi";
+                report["today"] = today;
+                report["DateAct"] = result.Adate;
+                report["ASanad"] = result.Asanadno.ToString();
+                report["AUser"] = result.Auser;
+                report["Abes"] = Man >= 0 ? firstText : secenText;
+                report["Abed"] = Man < 0 ? firstText : secenText;
+                report["AMan"] = Math.Abs(Man);
+                report["AManPersian"] = ((int)Math.Abs(Man)).num2str()+" ريال";
+                report["ADis"] = TreeText;
+
+                report.Show();
+            }
         }
 
         private void SetTextLabelFooter(int number, decimal bed, decimal bes, decimal sumAll, decimal bedBefor,

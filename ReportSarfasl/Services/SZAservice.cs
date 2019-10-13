@@ -49,8 +49,9 @@ namespace ReportSarfasl
         public decimal Abed { get; set; }
         public decimal Abes { get; set; }
         public string Abed_bes { get; set; }
-        public Nullable<int> Akind { get; set; }
         public decimal AMan { get; set; }
+        public string AManbed_bes { get; set; }
+        public Nullable<int> Akind { get; set; }
         public string AkindName { get; set; }
     }
 }
