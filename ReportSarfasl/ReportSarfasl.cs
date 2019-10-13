@@ -532,6 +532,9 @@ namespace ReportSarfasl
             //اتصال و اوردن اطلاعات
 
             lblLoding.Visible = true;
+
+            ListSelected.Clear();
+
             List<SZAservice> dt1;
             Thread tGetdata = new Thread(() =>
             {
@@ -574,10 +577,9 @@ namespace ReportSarfasl
                 Shas_dar = g.Key.Shas_dar,
                 Swho_def = g.Key.Swho_def
             }).ToList();
-            SetGrid();
-
+            chbAll.Checked = false;
             SetTextLabelFooter(dt1.Count, dt1.Sum(d => d.SMan), dt1.Sum(d => d.SMan_All));
-
+            SetGrid();
             txtFilter.Focus();
             lblLoding.Visible = false;
         }

@@ -176,7 +176,7 @@ namespace ReportSarfasl
             this.lblLoding.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblLoding.AutoSize = true;
             this.lblLoding.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.lblLoding.Location = new System.Drawing.Point(297, 24);
+            this.lblLoding.Location = new System.Drawing.Point(390, 25);
             this.lblLoding.Name = "lblLoding";
             this.lblLoding.Size = new System.Drawing.Size(89, 20);
             this.lblLoding.TabIndex = 3;
@@ -594,6 +594,8 @@ namespace ReportSarfasl
         {
             lblLoding.Visible = true;
 
+            ListSelected.Clear();
+
             var listsarfasl = new List<int>();
             listsarfasl.Add(_sarfaslID);
             Thread tGetdata = new Thread(() =>
@@ -637,15 +639,15 @@ namespace ReportSarfasl
                 ZActive = g.Key.ZActive
             }).ToList();
 
+            chbAll.Checked = false;
             SetTextLabelFooter(dt.Count, dt.Sum(d => d.ZMan), dt.Sum(d => d.ZMan_All));
-
             SetGrid();
-
             txtFilter.Focus();
 
             lblLoding.Visible = false;
 
         }
+
         private void SetGrid()
         {
             foreach (DataGridViewColumn col in dgvZirSarfal.Columns) col.Visible = false;
@@ -680,7 +682,7 @@ namespace ReportSarfasl
             dgvZirSarfal.Columns["ZMan"].HeaderText = "مانده اين بازه";
             dgvZirSarfal.Columns["ZMan"].DefaultCellStyle.Format = "#,0";
             dgvZirSarfal.Columns["ZMan"].DefaultCellStyle.Font = new Font("IRANSans(FaNum)", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            dgvZirSarfal.Columns["Zbes"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvZirSarfal.Columns["ZMan"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
 
             dgvZirSarfal.Columns["Zbed_bes"].Visible = true;
