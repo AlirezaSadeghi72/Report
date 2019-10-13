@@ -20,7 +20,7 @@ namespace ReportSarfasl
 {
     public class reportSarfasl : UserControl
     {
-        private List<int> _listSar = new List<int>(), _listZirSar = new List<int>(), ListSelected = new List<int>();
+        private List<int> _listGroupSar = new List<int>(), _listSar = new List<int>(), _listZirSar = new List<int>(), ListSelected = new List<int>();
         private bool _isSearch, _isKeySpase;
         private PersianCalendar pc = new PersianCalendar();
         private int _sarfaslIdSelected;
@@ -46,6 +46,8 @@ namespace ReportSarfasl
         private Label lblLoding;
         private CheckBox chbAll;
         private DataGridViewCheckBoxColumn select;
+        private CheckBox chbGroupSarfasl;
+        private TextBox txtGroupSarfasl;
         private TextBox txtFilter;
 
 
@@ -56,10 +58,10 @@ namespace ReportSarfasl
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.chbAll = new System.Windows.Forms.CheckBox();
@@ -75,13 +77,15 @@ namespace ReportSarfasl
             this.txtSarfasl = new System.Windows.Forms.TextBox();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.dgvSarfasl = new System.Windows.Forms.DataGridView();
+            this.select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.txtFilter = new System.Windows.Forms.TextBox();
             this.pnlFooter = new System.Windows.Forms.Panel();
             this.lblFooter = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
             this.lblFooterNumber = new System.Windows.Forms.Label();
-            this.select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.txtGroupSarfasl = new System.Windows.Forms.TextBox();
+            this.chbGroupSarfasl = new System.Windows.Forms.CheckBox();
             this.pnlHeader.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -95,26 +99,27 @@ namespace ReportSarfasl
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(1084, 116);
+            this.pnlHeader.Size = new System.Drawing.Size(1266, 116);
             this.pnlHeader.TabIndex = 0;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.chbAll);
             this.groupBox1.Controls.Add(this.lblLoding);
-            this.groupBox1.Controls.Add(this.chbChoiceModPrint);
             this.groupBox1.Controls.Add(this.chbZirSarfasls);
+            this.groupBox1.Controls.Add(this.chbGroupSarfasl);
             this.groupBox1.Controls.Add(this.chbSarfasls);
             this.groupBox1.Controls.Add(this.textDate1);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.lblSarfasls);
             this.groupBox1.Controls.Add(this.btnShow);
             this.groupBox1.Controls.Add(this.txtZirSarfasl);
+            this.groupBox1.Controls.Add(this.txtGroupSarfasl);
             this.groupBox1.Controls.Add(this.txtSarfasl);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1084, 116);
+            this.groupBox1.Size = new System.Drawing.Size(1266, 116);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             // 
@@ -122,7 +127,7 @@ namespace ReportSarfasl
             // 
             this.chbAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chbAll.AutoSize = true;
-            this.chbAll.Location = new System.Drawing.Point(979, 89);
+            this.chbAll.Location = new System.Drawing.Point(1161, 92);
             this.chbAll.Name = "chbAll";
             this.chbAll.Size = new System.Drawing.Size(86, 24);
             this.chbAll.TabIndex = 14;
@@ -134,7 +139,7 @@ namespace ReportSarfasl
             // 
             this.lblLoding.AutoSize = true;
             this.lblLoding.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.lblLoding.Location = new System.Drawing.Point(92, 64);
+            this.lblLoding.Location = new System.Drawing.Point(98, 75);
             this.lblLoding.Name = "lblLoding";
             this.lblLoding.Size = new System.Drawing.Size(89, 20);
             this.lblLoding.TabIndex = 13;
@@ -144,7 +149,7 @@ namespace ReportSarfasl
             // chbChoiceModPrint
             // 
             this.chbChoiceModPrint.AutoSize = true;
-            this.chbChoiceModPrint.Location = new System.Drawing.Point(206, 60);
+            this.chbChoiceModPrint.Location = new System.Drawing.Point(188, 10);
             this.chbChoiceModPrint.Name = "chbChoiceModPrint";
             this.chbChoiceModPrint.Size = new System.Drawing.Size(145, 24);
             this.chbChoiceModPrint.TabIndex = 12;
@@ -155,7 +160,7 @@ namespace ReportSarfasl
             // 
             this.chbZirSarfasls.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chbZirSarfasls.AutoSize = true;
-            this.chbZirSarfasls.Location = new System.Drawing.Point(655, 60);
+            this.chbZirSarfasls.Location = new System.Drawing.Point(482, 63);
             this.chbZirSarfasls.Name = "chbZirSarfasls";
             this.chbZirSarfasls.Size = new System.Drawing.Size(94, 24);
             this.chbZirSarfasls.TabIndex = 8;
@@ -168,7 +173,7 @@ namespace ReportSarfasl
             // 
             this.chbSarfasls.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chbSarfasls.AutoSize = true;
-            this.chbSarfasls.Location = new System.Drawing.Point(1000, 60);
+            this.chbSarfasls.Location = new System.Drawing.Point(827, 63);
             this.chbSarfasls.Name = "chbSarfasls";
             this.chbSarfasls.Size = new System.Drawing.Size(78, 24);
             this.chbSarfasls.TabIndex = 6;
@@ -182,7 +187,7 @@ namespace ReportSarfasl
             this.textDate1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textDate1.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.textDate1.FromDate = "1398/07/21";
-            this.textDate1.Location = new System.Drawing.Point(687, 24);
+            this.textDate1.Location = new System.Drawing.Point(861, 23);
             this.textDate1.Name = "textDate1";
             this.textDate1.Size = new System.Drawing.Size(394, 24);
             this.textDate1.TabIndex = 0;
@@ -214,7 +219,7 @@ namespace ReportSarfasl
             this.btnShow.BackColor = System.Drawing.Color.Indigo;
             this.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnShow.ForeColor = System.Drawing.Color.White;
-            this.btnShow.Location = new System.Drawing.Point(6, 57);
+            this.btnShow.Location = new System.Drawing.Point(12, 68);
             this.btnShow.Name = "btnShow";
             this.btnShow.Size = new System.Drawing.Size(80, 34);
             this.btnShow.TabIndex = 10;
@@ -226,7 +231,7 @@ namespace ReportSarfasl
             // txtZirSarfasl
             // 
             this.txtZirSarfasl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtZirSarfasl.Location = new System.Drawing.Point(382, 58);
+            this.txtZirSarfasl.Location = new System.Drawing.Point(209, 61);
             this.txtZirSarfasl.Name = "txtZirSarfasl";
             this.txtZirSarfasl.ReadOnly = true;
             this.txtZirSarfasl.Size = new System.Drawing.Size(267, 28);
@@ -239,7 +244,7 @@ namespace ReportSarfasl
             // txtSarfasl
             // 
             this.txtSarfasl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSarfasl.Location = new System.Drawing.Point(754, 58);
+            this.txtSarfasl.Location = new System.Drawing.Point(581, 61);
             this.txtSarfasl.Name = "txtSarfasl";
             this.txtSarfasl.ReadOnly = true;
             this.txtSarfasl.Size = new System.Drawing.Size(240, 28);
@@ -256,7 +261,7 @@ namespace ReportSarfasl
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMain.Location = new System.Drawing.Point(0, 116);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(1084, 425);
+            this.pnlMain.Size = new System.Drawing.Size(1266, 425);
             this.pnlMain.TabIndex = 1;
             // 
             // dgvSarfasl
@@ -265,57 +270,66 @@ namespace ReportSarfasl
             this.dgvSarfasl.AllowUserToDeleteRows = false;
             this.dgvSarfasl.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.dgvSarfasl.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.HotTrack;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvSarfasl.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.HotTrack;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvSarfasl.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
             this.dgvSarfasl.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSarfasl.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.select});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.DodgerBlue;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvSarfasl.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.DodgerBlue;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvSarfasl.DefaultCellStyle = dataGridViewCellStyle14;
             this.dgvSarfasl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvSarfasl.EnableHeadersVisualStyles = false;
             this.dgvSarfasl.Location = new System.Drawing.Point(0, 28);
             this.dgvSarfasl.MultiSelect = false;
             this.dgvSarfasl.Name = "dgvSarfasl";
             this.dgvSarfasl.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.HotTrack;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvSarfasl.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.HotTrack;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvSarfasl.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
             this.dgvSarfasl.RowHeadersVisible = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
-            this.dgvSarfasl.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle16.ForeColor = System.Drawing.Color.Black;
+            this.dgvSarfasl.RowsDefaultCellStyle = dataGridViewCellStyle16;
             this.dgvSarfasl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSarfasl.Size = new System.Drawing.Size(1084, 397);
+            this.dgvSarfasl.Size = new System.Drawing.Size(1266, 397);
             this.dgvSarfasl.TabIndex = 1;
             this.dgvSarfasl.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSarfasl_CellClick);
             this.dgvSarfasl.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSarfasl_CellDoubleClick);
             this.dgvSarfasl.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvSarfasl_DataBindingComplete);
             this.dgvSarfasl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvSarfasl_KeyDown);
             // 
+            // select
+            // 
+            this.select.FillWeight = 10F;
+            this.select.HeaderText = "";
+            this.select.Name = "select";
+            this.select.ReadOnly = true;
+            this.select.Visible = false;
+            this.select.Width = 49;
+            // 
             // txtFilter
             // 
             this.txtFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.txtFilter.Location = new System.Drawing.Point(0, 0);
             this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(1084, 28);
+            this.txtFilter.Size = new System.Drawing.Size(1266, 28);
             this.txtFilter.TabIndex = 11;
             this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
             this.txtFilter.Enter += new System.EventHandler(this.textBox_Enter);
@@ -326,18 +340,19 @@ namespace ReportSarfasl
             // 
             this.pnlFooter.Controls.Add(this.lblFooter);
             this.pnlFooter.Controls.Add(this.btnCancel);
+            this.pnlFooter.Controls.Add(this.chbChoiceModPrint);
             this.pnlFooter.Controls.Add(this.btnPrint);
             this.pnlFooter.Controls.Add(this.lblFooterNumber);
             this.pnlFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlFooter.Location = new System.Drawing.Point(0, 541);
             this.pnlFooter.Name = "pnlFooter";
-            this.pnlFooter.Size = new System.Drawing.Size(1084, 59);
+            this.pnlFooter.Size = new System.Drawing.Size(1266, 59);
             this.pnlFooter.TabIndex = 2;
             // 
             // lblFooter
             // 
             this.lblFooter.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblFooter.Location = new System.Drawing.Point(454, 0);
+            this.lblFooter.Location = new System.Drawing.Point(636, 0);
             this.lblFooter.Name = "lblFooter";
             this.lblFooter.Size = new System.Drawing.Size(525, 59);
             this.lblFooter.TabIndex = 10;
@@ -370,20 +385,37 @@ namespace ReportSarfasl
             // lblFooterNumber
             // 
             this.lblFooterNumber.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblFooterNumber.Location = new System.Drawing.Point(979, 0);
+            this.lblFooterNumber.Location = new System.Drawing.Point(1161, 0);
             this.lblFooterNumber.Name = "lblFooterNumber";
             this.lblFooterNumber.Size = new System.Drawing.Size(105, 59);
             this.lblFooterNumber.TabIndex = 11;
             this.lblFooterNumber.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // select
+            // txtGroupSarfasl
             // 
-            this.select.FillWeight = 10F;
-            this.select.HeaderText = "";
-            this.select.Name = "select";
-            this.select.ReadOnly = true;
-            this.select.Visible = false;
-            this.select.Width = 49;
+            this.txtGroupSarfasl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtGroupSarfasl.Location = new System.Drawing.Point(911, 61);
+            this.txtGroupSarfasl.Name = "txtGroupSarfasl";
+            this.txtGroupSarfasl.ReadOnly = true;
+            this.txtGroupSarfasl.Size = new System.Drawing.Size(240, 28);
+            this.txtGroupSarfasl.TabIndex = 7;
+            this.txtGroupSarfasl.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtGroupSarfasl.Enter += new System.EventHandler(this.textBox_Enter);
+            this.txtGroupSarfasl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtGroupSarfasl_KeyDown);
+            this.txtGroupSarfasl.Leave += new System.EventHandler(this.textBox_Leave);
+            // 
+            // chbGroupSarfasl
+            // 
+            this.chbGroupSarfasl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chbGroupSarfasl.AutoSize = true;
+            this.chbGroupSarfasl.Location = new System.Drawing.Point(1157, 63);
+            this.chbGroupSarfasl.Name = "chbGroupSarfasl";
+            this.chbGroupSarfasl.Size = new System.Drawing.Size(101, 24);
+            this.chbGroupSarfasl.TabIndex = 6;
+            this.chbGroupSarfasl.Text = "گروه سرفصل ها";
+            this.chbGroupSarfasl.UseVisualStyleBackColor = true;
+            this.chbGroupSarfasl.CheckedChanged += new System.EventHandler(this.chbGroupSarfasl_CheckedChanged);
+            this.chbGroupSarfasl.KeyDown += new System.Windows.Forms.KeyEventHandler(this.chbGroupSarfasl_KeyDown);
             // 
             // reportSarfasl
             // 
@@ -393,7 +425,7 @@ namespace ReportSarfasl
             this.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.Name = "reportSarfasl";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.Size = new System.Drawing.Size(1084, 600);
+            this.Size = new System.Drawing.Size(1266, 600);
             this.pnlHeader.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -401,6 +433,7 @@ namespace ReportSarfasl
             this.pnlMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSarfasl)).EndInit();
             this.pnlFooter.ResumeLayout(false);
+            this.pnlFooter.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -409,21 +442,49 @@ namespace ReportSarfasl
 
         private void textDate1_KeyEnterTextBoxToYear(object sender, EventArgs e)
         {
-            chbSarfasls.Focus();
+            chbGroupSarfasl.Focus();
+        }
+
+        private void chbGroupSarfasl_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chbGroupSarfasl.Checked)
+            {
+                ShowList(1);
+                txtGroupSarfasl.Focus();
+                chbSarfasls.Checked = false;
+                chbZirSarfasls.Checked = false;
+            }
+            else
+            {
+                txtGroupSarfasl.Text = "";
+                _listGroupSar.Clear();
+            }
+        }
+        private void chbGroupSarfasl_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+                txtGroupSarfasl.Focus();
+        }
+        private void txtGroupSarfasl_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                chbSarfasls.Focus();
+            }
         }
 
         private void chbSarfasls_CheckedChanged(object sender, EventArgs e)
         {
             if (chbSarfasls.Checked)
             {
-                ShowList(true);
+                ShowList(2);
                 txtSarfasl.Focus();
+                chbZirSarfasls.Checked = false;
             }
             else
             {
                 txtSarfasl.Text = "";
                 _listSar.Clear();
-                chbZirSarfasls.Checked = false;
             }
 
         }
@@ -444,7 +505,7 @@ namespace ReportSarfasl
         {
             if (chbZirSarfasls.Checked)
             {
-                ShowList(false);
+                ShowList(3);
                 txtZirSarfasl.Focus();
             }
             else
@@ -469,13 +530,13 @@ namespace ReportSarfasl
         private void btnShow_Click(object sender, EventArgs e)
         {
             //اتصال و اوردن اطلاعات
-           
+
             lblLoding.Visible = true;
             List<SZAservice> dt1;
             Thread tGetdata = new Thread(() =>
             {
-                dt = conection.GetZirSarfaslServices1(_listSar, _listZirSar, textDate1.FromDate,
-                            textDate1.ToDate);
+                dt = conection.GetSZAServices( textDate1.FromDate,
+                            textDate1.ToDate, _listZirSar, _listSar, _listGroupSar);
             });
             tGetdata.Start();
             tGetdata.Join();
@@ -910,23 +971,38 @@ namespace ReportSarfasl
             }
         }
 
-        private void ShowList(bool isSarfasl)
+        private void ShowList(int choice)
         {
             DefultForm listForm = new DefultForm();
-            ListSafaslaOrZirSarfasls _list = isSarfasl ?
-                new ListSafaslaOrZirSarfasls(true, _listSar, txtSarfasl.Text) :
-                new ListSafaslaOrZirSarfasls(false, _listZirSar, txtZirSarfasl.Text, _listSar);
+            ListSafaslaOrZirSarfasls _list = choice == 1
+                ?
+                new ListSafaslaOrZirSarfasls(1, _listGroupSar, txtGroupSarfasl.Text)
+                : choice == 2
+                    ? new ListSafaslaOrZirSarfasls(2, _listSar, txtSarfasl.Text,listGroupSarfasl:_listGroupSar)
+                    :
+                    new ListSafaslaOrZirSarfasls(3, _listZirSar, txtZirSarfasl.Text, _listGroupSar,_listSar);
             listForm.ShowDialog(_list, new Size(800, 500));
 
-            if (isSarfasl)
+            switch (choice)
             {
-                txtSarfasl.Text = _list.lblTextSelected.Text;
-                _listSar = _list.ListSelected;
-            }
-            else
-            {
-                txtZirSarfasl.Text = _list.lblTextSelected.Text;
-                _listZirSar = _list.ListSelected;
+                case 1:
+                    {
+                        txtGroupSarfasl.Text = _list.lblTextSelected.Text;
+                        _listGroupSar= _list.ListSelected;
+                        break;
+                    }
+                case 2:
+                    {
+                        txtSarfasl.Text = _list.lblTextSelected.Text;
+                        _listSar = _list.ListSelected;
+                        break;
+                    }
+                case 3:
+                    {
+                        txtZirSarfasl.Text = _list.lblTextSelected.Text;
+                        _listZirSar = _list.ListSelected;
+                        break;
+                    }
             }
         }
 

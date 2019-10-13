@@ -598,7 +598,7 @@ namespace ReportSarfasl
             listsarfasl.Add(_sarfaslID);
             Thread tGetdata = new Thread(() =>
             {
-                dt = conection.GetZirSarfaslServices1(listsarfasl, _listZirSar, textDate1.FromDate, textDate1.ToDate);
+                dt = conection.GetSZAServices(textDate1.FromDate, textDate1.ToDate, _listZirSar,listsarfasl,new List<int>());
             });
             tGetdata.Start();
             tGetdata.Join();

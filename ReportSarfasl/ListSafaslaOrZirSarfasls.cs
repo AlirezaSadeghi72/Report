@@ -14,6 +14,7 @@ namespace ReportSarfasl
         private int _choise;
         public List<int> ListSelected = new List<int>();
         private List<int> _listSarfsl = new List<int>();
+        private List<int> _listGroupSarfsl = new List<int>();
         private bool _isSearch, _isKeySpase;
         private CheckBox chboxSelectedAll;
         private DataGridView dgvList;
@@ -25,13 +26,14 @@ namespace ReportSarfasl
         private DataGridViewCheckBoxColumn Select1;
         private TextBox txtFilter;
 
-        public ListSafaslaOrZirSarfasls(bool isSarfasl, List<int> listSelected, string text,
-            List<int> listSarfasl = null)
+        public ListSafaslaOrZirSarfasls(int choise, List<int> listSelected, string text,
+            List<int> listGroupSarfasl = null, List<int> listSarfasl = null)
         {
             InitializeComponent();
-            _choise = isSarfasl ? 1 : 2;
+            _choise = choise;
             ListSelected = listSelected;
             _listSarfsl = listSarfasl;
+            _listGroupSarfsl = listGroupSarfasl;
             lblTextSelected.Text = text;
         }
 
@@ -157,23 +159,50 @@ namespace ReportSarfasl
 
         private void ListSafaslaOrZirSarfasls_Load(object sender, EventArgs e)
         {
-            // _choise == 1  -->  Sarfasl
-            // _choise == 2  -->  Zir Sarfasl
+            // _choise == 1  -->  GroupSarfasl
+            // _choise == 2  -->  Sarfasl
+            // _choise == 3  -->  Zir Sarfasl
 
             if (_choise == 1)
             {
                 //اتصال
-                dgvList.DataSource = dt = conection.GetSarfaslses();
+                dgvList.DataSource = dt = conection.GetGroupSarfaslses();
             }
             else if (_choise == 2)
             {
                 //اتصال
-                if (!_listSarfsl.Any())
+                if (!_listGroupSarfsl.Any())
                 {
-                    dgvList.DataSource = dt = conection.GetZirSarfasls();
+                    dgvList.DataSource = dt = conection.GetSarfaslses();
                 }
                 else
                 {
+                    dgvList.DataSource = dt = conection.GetSarfaslses(s => _listGroupSarfsl.Contains(s.GroupSarfaslID));
+                }
+            }
+            else if (_choise == 3)
+            {
+                //اتصال
+                if (!_listGroupSarfsl.Any())
+                {
+                    if (!_listSarfsl.Any())
+                    {
+                        dgvList.DataSource = dt = conection.GetZirSarfasls();
+                    }
+                    else
+                    {
+                        dgvList.DataSource = dt = conection.GetZirSarfasls(z => _listSarfsl.Contains(z.rdf_sarfasl));
+                    }
+                }
+                else
+                {
+
+                    if (!_listSarfsl.Any())
+                    {
+                        _listSarfsl = conection.GetSarfaslses(s => _listGroupSarfsl.Contains(s.GroupSarfaslID))
+                            .Select(s => s.ID).ToList();
+                    }
+
                     dgvList.DataSource = dt = conection.GetZirSarfasls(z => _listSarfsl.Contains(z.rdf_sarfasl));
                 }
             }
