@@ -30,6 +30,7 @@ namespace ReportSarfasl.dataLayer
         public virtual DbSet<act_zirsarfasls> act_zirsarfasls { get; set; }
         public virtual DbSet<sarfasls> sarfasls { get; set; }
         public virtual DbSet<zirsarfasls> zirsarfasls { get; set; }
+        public virtual DbSet<GroupSarfasl> GroupSarfasl { get; set; }
     
         public virtual ObjectResult<USP_GetSarfaslseServis_Result> USP_GetSarfaslseServis(string listSarfasl, string listZirSarfasl, string fromDate, string toDate)
         {

@@ -30,5 +30,6 @@ namespace ReportSarfasl.dataLayer
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<zirsarfasls> zirsarfasls { get; set; }
+        public virtual GroupSarfasl GroupSarfasl { get; set; }
     }
 }

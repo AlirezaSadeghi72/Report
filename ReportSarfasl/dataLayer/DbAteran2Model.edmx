@@ -22,6 +22,14 @@
           <Property Name="kind" Type="int" />
           <Property Name="sanadno" Type="int" />
         </EntityType>
+        <EntityType Name="GroupSarfasl">
+          <Key>
+            <PropertyRef Name="GroupSarfaslID" />
+          </Key>
+          <Property Name="GroupSarfaslID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupSarfaslName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="sarfasls">
           <Key>
             <PropertyRef Name="rdf" />
@@ -60,6 +68,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_sarfasls_GroupSarfasl">
+          <End Role="GroupSarfasl" Type="Self.GroupSarfasl" Multiplicity="1" />
+          <End Role="sarfasls" Type="Self.sarfasls" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupSarfasl">
+              <PropertyRef Name="GroupSarfaslID" />
+            </Principal>
+            <Dependent Role="sarfasls">
+              <PropertyRef Name="GroupSarfaslID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_zirsarfasls_sarfasls">
           <End Role="sarfasls" Type="Self.sarfasls" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -94,11 +114,16 @@
         </Function>
         <EntityContainer Name="Atiran2ModelStoreContainer">
           <EntitySet Name="act_zirsarfasls" EntityType="Self.act_zirsarfasls" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GroupSarfasl" EntityType="Self.GroupSarfasl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sarfasls" EntityType="Self.sarfasls" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="zirsarfasls" EntityType="Self.zirsarfasls" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_act_zirsarfasls_zirsarfasls" Association="Self.FK_act_zirsarfasls_zirsarfasls">
             <End Role="zirsarfasls" EntitySet="zirsarfasls" />
             <End Role="act_zirsarfasls" EntitySet="act_zirsarfasls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sarfasls_GroupSarfasl" Association="Self.FK_sarfasls_GroupSarfasl">
+            <End Role="GroupSarfasl" EntitySet="GroupSarfasl" />
+            <End Role="sarfasls" EntitySet="sarfasls" />
           </AssociationSet>
           <AssociationSet Name="FK_zirsarfasls_sarfasls" Association="Self.FK_zirsarfasls_sarfasls">
             <End Role="sarfasls" EntitySet="sarfasls" />
@@ -143,6 +168,7 @@
           <Property Name="GroupSarfaslID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="zirsarfasls" Relationship="Self.FK_zirsarfasls_sarfasls" FromRole="sarfasls"
                               ToRole="zirsarfasls" />
+          <NavigationProperty Name="GroupSarfasl" Relationship="Atiran2Model.FK_sarfasls_GroupSarfasl" FromRole="sarfasls" ToRole="GroupSarfasl" />
         </EntityType>
         <EntityType Name="zirsarfasls">
           <Key>
@@ -218,6 +244,11 @@
             <Parameter Name="listSarfasl" Mode="In" Type="String" />
             <Parameter Name="listZirSarfasl" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="GroupSarfasl" EntityType="Atiran2Model.GroupSarfasl" />
+          <AssociationSet Name="FK_sarfasls_GroupSarfasl" Association="Atiran2Model.FK_sarfasls_GroupSarfasl">
+            <End Role="GroupSarfasl" EntitySet="GroupSarfasl" />
+            <End Role="sarfasls" EntitySet="sarfasls" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="USP_GetSarfaslseServis_Result">
           <Property Type="Int32" Name="rdf" Nullable="false" />
@@ -267,6 +298,27 @@
           <Property Type="Decimal" Name="Sbed" Nullable="true" Precision="18" Scale="0" />
           <Property Type="Decimal" Name="Sbes" Nullable="true" Precision="18" Scale="0" />
         </ComplexType>
+        <EntityType Name="GroupSarfasl">
+          <Key>
+            <PropertyRef Name="GroupSarfaslID" />
+          </Key>
+          <Property Name="GroupSarfaslID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupSarfaslName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="sarfasls" Relationship="Atiran2Model.FK_sarfasls_GroupSarfasl" FromRole="GroupSarfasl" ToRole="sarfasls" />
+        </EntityType>
+        <Association Name="FK_sarfasls_GroupSarfasl">
+          <End Type="Atiran2Model.GroupSarfasl" Role="GroupSarfasl" Multiplicity="1" />
+          <End Type="Atiran2Model.sarfasls" Role="sarfasls" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupSarfasl">
+              <PropertyRef Name="GroupSarfaslID" />
+            </Principal>
+            <Dependent Role="sarfasls">
+              <PropertyRef Name="GroupSarfaslID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -377,6 +429,15 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="GroupSarfasl">
+            <EntityTypeMapping TypeName="Atiran2Model.GroupSarfasl">
+              <MappingFragment StoreEntitySet="GroupSarfasl">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="GroupSarfaslName" ColumnName="GroupSarfaslName" />
+                <ScalarProperty Name="GroupSarfaslID" ColumnName="GroupSarfaslID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
