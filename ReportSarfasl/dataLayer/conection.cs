@@ -34,6 +34,25 @@ namespace ReportSarfasl.dataLayer
             new KeyValuePair<int, string>(64, "از مشتري به سرفصل"),
             new KeyValuePair<int, string>(65, "از انبار به سرفصل")
         };
+        private static List<GroupSarfaslServes> _getGroupSarfaslses(DbAtiran2Entities context,
+            Expression<Func<GroupSarfasl, bool>> where = null)
+        {
+            IQueryable<GroupSarfasl> result = context.Set<GroupSarfasl>().AsNoTracking();
+            if (where != null)
+            {
+                result = result.Where(where);
+            }
+
+            int Row = 1;
+            return result.ToList().Select(g => new GroupSarfaslServes()
+            {
+                row = Row++,
+                ID = g.GroupSarfaslID,
+                Name = g.GroupSarfaslName,
+                Active = g.Active
+            }).ToList();
+
+        }
         private static List<SarfaslService> _getSarfaslses(DbAtiran2Entities context,
             Expression<Func<sarfasls, bool>> where = null)
         {
@@ -111,7 +130,13 @@ namespace ReportSarfasl.dataLayer
         #endregion
 
         #region public
-
+        public static List<GroupSarfaslServes> GetGroupSarfaslses(Expression<Func<GroupSarfasl, bool>> where = null)
+        {
+            using (var context = new DbAtiran2Entities())
+            {
+                return _getGroupSarfaslses(context, where);
+            }
+        }
         public static List<SarfaslService> GetSarfaslses(Expression<Func<sarfasls, bool>> where = null)
         {
             using (var context = new DbAtiran2Entities())
