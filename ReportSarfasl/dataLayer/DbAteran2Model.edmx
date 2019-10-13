@@ -97,6 +97,7 @@
         <Function Name="USP_GetDataForSarfasl" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="FromDate" Type="char" Mode="In" />
           <Parameter Name="ToDate" Type="char" Mode="In" />
+          <Parameter Name="listGroupSarfasl" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="listSarfasl" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="listZirSarfasl" Type="nvarchar(max)" Mode="In" />
         </Function>
@@ -238,17 +239,18 @@
             <Parameter Name="FromDate" Mode="In" Type="String" />
             <Parameter Name="ToDate" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="USP_GetDataForSarfasl" ReturnType="Collection(Atiran2Model.USP_GetDataForSarfasl_Result)">
-            <Parameter Name="FromDate" Mode="In" Type="String" />
-            <Parameter Name="ToDate" Mode="In" Type="String" />
-            <Parameter Name="listSarfasl" Mode="In" Type="String" />
-            <Parameter Name="listZirSarfasl" Mode="In" Type="String" />
-          </FunctionImport>
           <EntitySet Name="GroupSarfasl" EntityType="Atiran2Model.GroupSarfasl" />
           <AssociationSet Name="FK_sarfasls_GroupSarfasl" Association="Atiran2Model.FK_sarfasls_GroupSarfasl">
             <End Role="GroupSarfasl" EntitySet="GroupSarfasl" />
             <End Role="sarfasls" EntitySet="sarfasls" />
           </AssociationSet>
+          <FunctionImport Name="USP_GetDataForSarfasl" ReturnType="Collection(Atiran2Model.USP_GetDataForSarfasl_Result)">
+            <Parameter Name="FromDate" Mode="In" Type="String" />
+            <Parameter Name="ToDate" Mode="In" Type="String" />
+            <Parameter Name="listGroupSarfasl" Mode="In" Type="String" />
+            <Parameter Name="listSarfasl" Mode="In" Type="String" />
+            <Parameter Name="listZirSarfasl" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="USP_GetSarfaslseServis_Result">
           <Property Type="Int32" Name="rdf" Nullable="false" />
@@ -274,6 +276,27 @@
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="Decimal" Name="Man_All" Nullable="true" Precision="19" />
         </ComplexType>
+        <EntityType Name="GroupSarfasl">
+          <Key>
+            <PropertyRef Name="GroupSarfaslID" />
+          </Key>
+          <Property Name="GroupSarfaslID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupSarfaslName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="sarfasls" Relationship="Atiran2Model.FK_sarfasls_GroupSarfasl" FromRole="GroupSarfasl" ToRole="sarfasls" />
+        </EntityType>
+        <Association Name="FK_sarfasls_GroupSarfasl">
+          <End Type="Atiran2Model.GroupSarfasl" Role="GroupSarfasl" Multiplicity="1" />
+          <End Type="Atiran2Model.sarfasls" Role="sarfasls" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GroupSarfasl">
+              <PropertyRef Name="GroupSarfaslID" />
+            </Principal>
+            <Dependent Role="sarfasls">
+              <PropertyRef Name="GroupSarfaslID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <ComplexType Name="USP_GetDataForSarfasl_Result">
           <Property Type="Int32" Name="ZID" Nullable="false" />
           <Property Type="Int32" Name="ZSarfaslID" Nullable="false" />
@@ -298,27 +321,6 @@
           <Property Type="Decimal" Name="Sbed" Nullable="true" Precision="18" Scale="0" />
           <Property Type="Decimal" Name="Sbes" Nullable="true" Precision="18" Scale="0" />
         </ComplexType>
-        <EntityType Name="GroupSarfasl">
-          <Key>
-            <PropertyRef Name="GroupSarfaslID" />
-          </Key>
-          <Property Name="GroupSarfaslID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GroupSarfaslName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="sarfasls" Relationship="Atiran2Model.FK_sarfasls_GroupSarfasl" FromRole="GroupSarfasl" ToRole="sarfasls" />
-        </EntityType>
-        <Association Name="FK_sarfasls_GroupSarfasl">
-          <End Type="Atiran2Model.GroupSarfasl" Role="GroupSarfasl" Multiplicity="1" />
-          <End Type="Atiran2Model.sarfasls" Role="sarfasls" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GroupSarfasl">
-              <PropertyRef Name="GroupSarfaslID" />
-            </Principal>
-            <Dependent Role="sarfasls">
-              <PropertyRef Name="GroupSarfaslID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -401,6 +403,15 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="GroupSarfasl">
+            <EntityTypeMapping TypeName="Atiran2Model.GroupSarfasl">
+              <MappingFragment StoreEntitySet="GroupSarfasl">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="GroupSarfaslName" ColumnName="GroupSarfaslName" />
+                <ScalarProperty Name="GroupSarfaslID" ColumnName="GroupSarfaslID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="USP_GetDataForSarfasl" FunctionName="Atiran2Model.Store.USP_GetDataForSarfasl">
             <ResultMapping>
               <ComplexTypeMapping TypeName="Atiran2Model.USP_GetDataForSarfasl_Result">
@@ -429,15 +440,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="GroupSarfasl">
-            <EntityTypeMapping TypeName="Atiran2Model.GroupSarfasl">
-              <MappingFragment StoreEntitySet="GroupSarfasl">
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="GroupSarfaslName" ColumnName="GroupSarfaslName" />
-                <ScalarProperty Name="GroupSarfaslID" ColumnName="GroupSarfaslID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

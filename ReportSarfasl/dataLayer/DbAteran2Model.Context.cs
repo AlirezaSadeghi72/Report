@@ -74,7 +74,7 @@ namespace ReportSarfasl.dataLayer
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_GetZirSarfaslServices_Result>("USP_GetZirSarfaslServices", listZirSarfaslParameter, sarfaslIDParameter, fromDateParameter, toDateParameter);
         }
     
-        public virtual ObjectResult<USP_GetDataForSarfasl_Result> USP_GetDataForSarfasl(string fromDate, string toDate, string listSarfasl, string listZirSarfasl)
+        public virtual ObjectResult<USP_GetDataForSarfasl_Result> USP_GetDataForSarfasl(string fromDate, string toDate, string listGroupSarfasl, string listSarfasl, string listZirSarfasl)
         {
             var fromDateParameter = fromDate != null ?
                 new ObjectParameter("FromDate", fromDate) :
@@ -84,6 +84,10 @@ namespace ReportSarfasl.dataLayer
                 new ObjectParameter("ToDate", toDate) :
                 new ObjectParameter("ToDate", typeof(string));
     
+            var listGroupSarfaslParameter = listGroupSarfasl != null ?
+                new ObjectParameter("listGroupSarfasl", listGroupSarfasl) :
+                new ObjectParameter("listGroupSarfasl", typeof(string));
+    
             var listSarfaslParameter = listSarfasl != null ?
                 new ObjectParameter("listSarfasl", listSarfasl) :
                 new ObjectParameter("listSarfasl", typeof(string));
@@ -92,7 +96,7 @@ namespace ReportSarfasl.dataLayer
                 new ObjectParameter("listZirSarfasl", listZirSarfasl) :
                 new ObjectParameter("listZirSarfasl", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_GetDataForSarfasl_Result>("USP_GetDataForSarfasl", fromDateParameter, toDateParameter, listSarfaslParameter, listZirSarfaslParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_GetDataForSarfasl_Result>("USP_GetDataForSarfasl", fromDateParameter, toDateParameter, listGroupSarfaslParameter, listSarfaslParameter, listZirSarfaslParameter);
         }
     }
 }
