@@ -101,6 +101,12 @@
           <Parameter Name="listSarfasl" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="listZirSarfasl" Type="nvarchar(max)" Mode="In" />
         </Function>
+        <Function Name="USP_GetDataStimulSoft_Sarfasl_ZirSarfasl" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Fromdate" Type="char" Mode="In" />
+          <Parameter Name="Todate" Type="char" Mode="In" />
+          <Parameter Name="SarfaslID" Type="int" Mode="In" />
+          <Parameter Name="ListZirSarfasl" Type="nvarchar(max)" Mode="In" />
+        </Function>
         <Function Name="USP_GetSarfaslseServis" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="listSarfasl" Type="varchar(max)" Mode="In" />
           <Parameter Name="listZirSarfasl" Type="varchar(max)" Mode="In" />
@@ -251,6 +257,12 @@
             <Parameter Name="listSarfasl" Mode="In" Type="String" />
             <Parameter Name="listZirSarfasl" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="USP_GetDataStimulSoft_Sarfasl_ZirSarfasl" ReturnType="Collection(Atiran2Model.USP_GetDataStimulSoft_Sarfasl_ZirSarfasl_Result)">
+            <Parameter Name="Fromdate" Mode="In" Type="String" />
+            <Parameter Name="Todate" Mode="In" Type="String" />
+            <Parameter Name="SarfaslID" Mode="In" Type="Int32" />
+            <Parameter Name="ListZirSarfasl" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="USP_GetSarfaslseServis_Result">
           <Property Type="Int32" Name="rdf" Nullable="false" />
@@ -320,6 +332,21 @@
           <Property Type="Decimal" Name="SMan" Nullable="true" Precision="18" Scale="0" />
           <Property Type="Decimal" Name="Sbed" Nullable="true" Precision="18" Scale="0" />
           <Property Type="Decimal" Name="Sbes" Nullable="true" Precision="18" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="USP_GetDataStimulSoft_Sarfasl_ZirSarfasl_Result">
+          <Property Type="String" Name="date" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="rdfsarfasl" Nullable="false" />
+          <Property Type="Int32" Name="rdfzirsarfasl" Nullable="false" />
+          <Property Type="String" Name="dis" Nullable="false" />
+          <Property Type="Decimal" Name="bed" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="bes" Nullable="false" Precision="19" />
+          <Property Type="String" Name="bed_bes" Nullable="false" MaxLength="2" />
+          <Property Type="Decimal" Name="ManAfter" Nullable="true" Precision="19" />
+          <Property Type="String" Name="NameSarfasl" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="NameZirsarfasl" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="user" Nullable="false" MaxLength="30" />
+          <Property Type="Decimal" Name="bed_gh" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="bes_gh" Nullable="false" Precision="19" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -437,6 +464,25 @@
                 <ScalarProperty Name="SMan" ColumnName="SMan" />
                 <ScalarProperty Name="Sbed" ColumnName="Sbed" />
                 <ScalarProperty Name="Sbes" ColumnName="Sbes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="USP_GetDataStimulSoft_Sarfasl_ZirSarfasl" FunctionName="Atiran2Model.Store.USP_GetDataStimulSoft_Sarfasl_ZirSarfasl">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Atiran2Model.USP_GetDataStimulSoft_Sarfasl_ZirSarfasl_Result">
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="rdfsarfasl" ColumnName="rdfsarfasl" />
+                <ScalarProperty Name="rdfzirsarfasl" ColumnName="rdfzirsarfasl" />
+                <ScalarProperty Name="dis" ColumnName="dis" />
+                <ScalarProperty Name="bed" ColumnName="bed" />
+                <ScalarProperty Name="bes" ColumnName="bes" />
+                <ScalarProperty Name="bed_bes" ColumnName="bed_bes" />
+                <ScalarProperty Name="ManAfter" ColumnName="ManAfter" />
+                <ScalarProperty Name="NameSarfasl" ColumnName="NameSarfasl" />
+                <ScalarProperty Name="NameZirsarfasl" ColumnName="NameZirsarfasl" />
+                <ScalarProperty Name="user" ColumnName="user" />
+                <ScalarProperty Name="bed_gh" ColumnName="bed_gh" />
+                <ScalarProperty Name="bes_gh" ColumnName="bes_gh" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

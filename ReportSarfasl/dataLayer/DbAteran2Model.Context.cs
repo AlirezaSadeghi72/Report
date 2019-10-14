@@ -98,5 +98,26 @@ namespace ReportSarfasl.dataLayer
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_GetDataForSarfasl_Result>("USP_GetDataForSarfasl", fromDateParameter, toDateParameter, listGroupSarfaslParameter, listSarfaslParameter, listZirSarfaslParameter);
         }
+    
+        public virtual ObjectResult<USP_GetDataStimulSoft_Sarfasl_ZirSarfasl_Result> USP_GetDataStimulSoft_Sarfasl_ZirSarfasl(string fromdate, string todate, Nullable<int> sarfaslID, string listZirSarfasl)
+        {
+            var fromdateParameter = fromdate != null ?
+                new ObjectParameter("Fromdate", fromdate) :
+                new ObjectParameter("Fromdate", typeof(string));
+    
+            var todateParameter = todate != null ?
+                new ObjectParameter("Todate", todate) :
+                new ObjectParameter("Todate", typeof(string));
+    
+            var sarfaslIDParameter = sarfaslID.HasValue ?
+                new ObjectParameter("SarfaslID", sarfaslID) :
+                new ObjectParameter("SarfaslID", typeof(int));
+    
+            var listZirSarfaslParameter = listZirSarfasl != null ?
+                new ObjectParameter("ListZirSarfasl", listZirSarfasl) :
+                new ObjectParameter("ListZirSarfasl", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_GetDataStimulSoft_Sarfasl_ZirSarfasl_Result>("USP_GetDataStimulSoft_Sarfasl_ZirSarfasl", fromdateParameter, todateParameter, sarfaslIDParameter, listZirSarfaslParameter);
+        }
     }
 }

@@ -111,6 +111,9 @@
     <Compile Include="dataLayer\USP_GetDataForSarfasl_Result.cs">
       <DependentUpon>DbAteran2Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="dataLayer\USP_GetDataStimulSoft_Sarfasl_ZirSarfasl_Result.cs">
+      <DependentUpon>DbAteran2Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Services\GroupSarfaslServes.cs" />
     <Compile Include="Services\SZAservice.cs" />
     <Compile Include="User_Cotrol\ChoiceActKind.cs">
