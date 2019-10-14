@@ -54,19 +54,20 @@ namespace ReportSarfasl
         private Label lblLoding;
         private Panel pnlFooter;
 
-        public ReportActZirSarfasl(string FromDate, string ToDate, string NameGrupBoxHeader, int zirSarfaslID = -1, int sarfaslID = -1, List<int> listZirsarfasl = null)
+        public ReportActZirSarfasl(string FromDate, string ToDate, string NameGrupBoxHeader, int sarfaslID , int zirSarfaslID = -1, List<int> listZirsarfasl = null)
         {
             InitializeComponent();
             textDate1.FromDate = FromDate;
             textDate1.ToDate = ToDate;
+            _sarfaslID = sarfaslID;
+
             if (zirSarfaslID != -1)
             {
                 _zirSarfaslID = zirSarfaslID;
                 _isActForSarfasl = false;
             }
-            else if (sarfaslID != -1)
+            else if (listZirsarfasl != null)
             {
-                _sarfaslID = sarfaslID;
                 _listZirSar = listZirsarfasl;
                 _isActForSarfasl = true;
             }
@@ -684,7 +685,7 @@ namespace ReportSarfasl
             var DateNow = DateTime.Now;
             string today = pc.GetYear(DateNow).ToString("0000") + "/" + pc.GetMonth(DateNow).ToString("00") + "/" + pc.GetDayOfMonth(DateNow).ToString("00");
             StiReport report = new StiReport();
-            report.Load(@"C:\Users\North-PC\Desktop\Report Sarfasl (Stimulsoft)\Atiran\ReportActZirSarfasl1.mrt");
+            report.Load(@"C:\Users\North-PC\Desktop\Report Sarfasl (Stimulsoft)\Atiran\ReportActZirSarfasl1_1.mrt");
             //report.Compile();
             //report.Dictionary.Databases.Add(new StiSqlDatabase("Connection", "Integrated Security=True;Data Source=.;Initial Catalog=ZAnsari;Password=;User ID="));//Connections.ConnectionInfo.BuildStimulConnectionString()));
             report.Dictionary.Variables["User"].Value = "alirezasadegghi";
@@ -692,9 +693,9 @@ namespace ReportSarfasl
             report.Dictionary.Variables["FromDate"].Value = textDate1.FromDate;
             report.Dictionary.Variables["ToDate"].Value = textDate1.ToDate;
             report.Dictionary.Variables["NameReport"].Value = ((_isActForSarfasl) ? "سرفصل : " : "زير سرفصل : ") + _nameSarfaslOrZirSarfasl;
-            var befor = dt1.FirstOrDefault(d => d.AID == 0) ?? new SZAservice();
-            report.Dictionary.Variables["SumBedDate"].Value = (dt1.Sum(d => d.Abed) - befor.Abed).ToString();
-            report.Dictionary.Variables["SumBesDate"].Value = (dt1.Sum(d => d.Abes) - befor.Abes).ToString();
+            //var befor = dt1.FirstOrDefault(d => d.AID == 0) ?? new SZAservice();
+            //report.Dictionary.Variables["SumBedDate"].Value = (dt1.Sum(d => d.Abed) - befor.Abed).ToString();
+            //report.Dictionary.Variables["SumBesDate"].Value = (dt1.Sum(d => d.Abes) - befor.Abes).ToString();
             report.RegBusinessObject("SZA", dt1);
             report.Render();
             report.Show();
@@ -811,16 +812,16 @@ namespace ReportSarfasl
                 }
                 else
                 {
-                    dt = conection.GetActZirSarfaslServices(textDate1.FromDate, textDate1.ToDate, zirSarfaslID: _zirSarfaslID);
+                    dt = conection.GetActZirSarfaslServices(textDate1.FromDate, textDate1.ToDate, _sarfaslID,new List<int>(){ _zirSarfaslID });
                 }
             });
             tGetdata.Start();
             tGetdata.Join();
 
             dgvActZirSarfasl.DataSource = dt;
-            var befor = dt.FirstOrDefault(d => d.AID == 0) ?? new SZAservice();
+            
             chbAll.Checked = false;
-            SetTextLabelFooter(dt.Count, dt.Sum(d => d.Abed), dt.Sum(d => d.Abes), dt.Sum(d => d.Abed - d.Abes), befor.Abed, befor.Abes);
+            SetTextLabelFooter(dt.Count, dt.Sum(d => d.Abed), dt.Sum(d => d.Abes), dt.Sum(d => d.Abed - d.Abes));
             SetGrid();
             txtFilter.Focus();
             lblLoding.Visible = false;
@@ -900,7 +901,7 @@ namespace ReportSarfasl
 
                 dgvActZirSarfasl.DataSource = dt1;
                 var befor = dt1.FirstOrDefault(d => d.AID == 0) ?? new SZAservice();
-                SetTextLabelFooter(dt1.Count, dt1.Sum(d => d.Abed), dt1.Sum(d => d.Abes), dt1.Sum(d => d.Abed - d.Abes), befor.Abed, befor.Abes);
+                SetTextLabelFooter(dt1.Count, dt1.Sum(d => d.Abed), dt1.Sum(d => d.Abes), dt1.Sum(d => d.Abed - d.Abes));
             }
         }
 
@@ -1015,16 +1016,20 @@ namespace ReportSarfasl
             }
         }
 
-        private void SetTextLabelFooter(int number, decimal bed, decimal bes, decimal sumAll, decimal bedBefor,
-            decimal besBefor)
+        private void SetTextLabelFooter(int number, decimal bed, decimal bes, decimal sumAll)
         {
-            decimal sum = sumAll - (bedBefor - besBefor);
+            var befor = new SZAservice()
+            {
+                Abed = dt.Where(d => d.AID < 0).Sum(b => b.Abed),
+                Abes = dt.Where(d => d.AID < 0).Sum(b => b.Abes)
+            };
+            decimal sum = sumAll - (befor.Abed - befor.Abes);
             string status1 = sum > 0 ? "بد" : sum == 0 ? "--" : "بس";
             string status2 = sumAll > 0 ? "بد" : sumAll == 0 ? "--" : "بس";
 
             lblFooterNumber.Text = $"تعداد: {number}\nتعداد انتخابي: {ListSelected.Count}";
-            lblBedDate.Text = (bed - bedBefor).ToMan();
-            lblBesDate.Text = (bes - besBefor).ToMan();
+            lblBedDate.Text = (bed - befor.Abed).ToMan();
+            lblBesDate.Text = (bes - befor.Abes).ToMan();
             lblManDate.Text = $"{Math.Abs(sum).ToMan()} ({status1})";
             lblBed.Text = bed.ToMan();
             lblBes.Text = bes.ToMan();

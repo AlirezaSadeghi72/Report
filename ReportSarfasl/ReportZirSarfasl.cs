@@ -796,7 +796,7 @@ namespace ReportSarfasl
             {
                 _zirSarfaslIdSelected = (int)dgvZirSarfal.SelectedRows[0].Cells["ZID"].Value;
                 DefultForm reportZirSarfasl = new DefultForm();
-                reportZirSarfasl.ShowDialog(new ReportActZirSarfasl(textDate1.FromDate, textDate1.ToDate, NameZirSarfasl, zirSarfaslID: _zirSarfaslIdSelected), new Size(1360, 694));
+                reportZirSarfasl.ShowDialog(new ReportActZirSarfasl(textDate1.FromDate, textDate1.ToDate, NameZirSarfasl,_sarfaslID, zirSarfaslID: _zirSarfaslIdSelected), new Size(1360, 694));
                 //باز کردن زیر سرفصل های سرفصل انتخابی داخل گرید
             }
         }

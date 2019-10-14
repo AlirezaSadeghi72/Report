@@ -14,6 +14,8 @@ namespace ReportSarfasl.dataLayer
     public partial class USP_GetDataStimulSoft_Sarfasl_ZirSarfasl_Result
     {
         public int rdf { get; set; }
+        public Nullable<int> sanadno { get; set; }
+        public Nullable<int> kind { get; set; }
         public string date { get; set; }
         public int rdfsarfasl { get; set; }
         public int rdfzirsarfasl { get; set; }

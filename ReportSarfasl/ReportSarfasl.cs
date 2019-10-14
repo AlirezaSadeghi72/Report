@@ -1061,7 +1061,7 @@ namespace ReportSarfasl
         {
             _sarfaslIdSelected = (int)dgvSarfasl.SelectedRows[0].Cells["SID"].Value;
             DefultForm reportActZirSarfasl = new DefultForm();
-            reportActZirSarfasl.ShowDialog(new ReportActZirSarfasl(textDate1.FromDate, textDate1.ToDate, NameSarfasl, sarfaslID: _sarfaslIdSelected, listZirsarfasl: _listZirSar), new Size(1360, 714));
+            reportActZirSarfasl.ShowDialog(new ReportActZirSarfasl(textDate1.FromDate, textDate1.ToDate, NameSarfasl, _sarfaslIdSelected, listZirsarfasl: _listZirSar), new Size(1360, 714));
         }
 
         private void SetTextLabelFooter(int number, decimal sum, decimal sumAll)

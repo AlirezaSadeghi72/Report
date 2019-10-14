@@ -335,6 +335,8 @@
         </ComplexType>
         <ComplexType Name="USP_GetDataStimulSoft_Sarfasl_ZirSarfasl_Result">
           <Property Type="Int32" Name="rdf" Nullable="false" />
+          <Property Type="Int32" Name="sanadno" Nullable="true" />
+          <Property Type="Int32" Name="kind" Nullable="true" />
           <Property Type="String" Name="date" Nullable="false" MaxLength="10" />
           <Property Type="Int32" Name="rdfsarfasl" Nullable="false" />
           <Property Type="Int32" Name="rdfzirsarfasl" Nullable="false" />
@@ -471,6 +473,8 @@
             <ResultMapping>
               <ComplexTypeMapping TypeName="Atiran2Model.USP_GetDataStimulSoft_Sarfasl_ZirSarfasl_Result">
                 <ScalarProperty Name="rdf" ColumnName="rdf" />
+                <ScalarProperty Name="sanadno" ColumnName="sanadno" />
+                <ScalarProperty Name="kind" ColumnName="kind" />
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="rdfsarfasl" ColumnName="rdfsarfasl" />
                 <ScalarProperty Name="rdfzirsarfasl" ColumnName="rdfzirsarfasl" />

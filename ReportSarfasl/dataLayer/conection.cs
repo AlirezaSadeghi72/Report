@@ -435,64 +435,115 @@ namespace ReportSarfasl.dataLayer
         //        #endregion
         //    }
         //}
-        public static List<SZAservice> GetActZirSarfaslServices(string FromDate, string ToDate, int zirSarfaslID = -1, int sarfaslID = -1, List<int> listZirsarfasl = null)
+        public static List<SZAservice> GetActZirSarfaslServices(string FromDate, string ToDate, int sarfaslID, List<int> listZirsarfasl)
         {
-            List<SZAservice> result = new List<SZAservice>()
+            string listZ = "";
+            foreach (int z in listZirsarfasl)
             {
-                new SZAservice()
-                {
-                    Arow = 1,
-                    AID = 0,
-                    Adescription = "مانده از قبل"
-                }
-            };
+                listZ += z + ",";
+            }
             using (var context = new DbAtiran2Entities())
             {
-                if (zirSarfaslID != -1)
-                {
-                    result.AddRange(_getActZirSarfasls(context, a => a.rdf_zirsarfasls == zirSarfaslID && a.date.CompareTo(FromDate) >= 0 && a.date.CompareTo(ToDate) <= 0));
-                    var Befor = context.act_zirsarfasls.AsNoTracking()
-                        .Where(a => a.rdf_zirsarfasls == zirSarfaslID && a.date.CompareTo(FromDate) < 0).Select(a => new { a.bed, a.bes }).ToList();
-
-                    var bed = result.First(r => r.AID == 0).Abed = Befor.Sum(b => b.bed);
-                    var bes = result.First(r => r.AID == 0).Abes = Befor.Sum(b => b.bes);
-                    result.First(r => r.AID == 0).Abed_bes = (bed - bes > 0) ? "بد" : (bed - bes == 0) ? "--" : "بس";
-                }
-                else if (sarfaslID != -1)
-                {
-                    var ZirsarfaslID = context.zirsarfasls.AsNoTracking().Where(z => z.rdf_sarfasl == sarfaslID).Select(z => z.rdf).ToList();
-
-                    if (listZirsarfasl.Any())
+                var result = context.USP_GetDataStimulSoft_Sarfasl_ZirSarfasl(FromDate, ToDate, sarfaslID, listZ).OrderBy(r=>r.rdfzirsarfasl).ToList();
+                int Row = 0;
+                int backZirsarfaslID = 0;
+                int aid = 0;
+                List<SZAservice> Man_Befor = result.GroupBy(g => new { g.bed_gh, g.bes_gh,g.NameZirsarfasl, g.rdfzirsarfasl, g.NameSarfasl,g.rdfsarfasl})
+                    .Select(r => new SZAservice()
                     {
-                        var listZirsarfasl1 = listZirsarfasl.Where(z => ZirsarfaslID.Contains(z)).ToList();
-                        if (listZirsarfasl1.Any())
-                        {
-                            result.AddRange(_getActZirSarfasls(context, a => listZirsarfasl1.Contains(a.rdf_zirsarfasls) && a.date.CompareTo(FromDate) >= 0 && a.date.CompareTo(ToDate) <= 0));
-                            var Befor = context.act_zirsarfasls.AsNoTracking()
-                                .Where(a => listZirsarfasl1.Contains(a.rdf_zirsarfasls) && a.date.CompareTo(FromDate) < 0).Select(a => new { a.bed, a.bes }).ToList();
-
-                            var bed = result.First(r => r.AID == 0).Abed = Befor.Sum(b => b.bed);
-                            var bes = result.First(r => r.AID == 0).Abes = Befor.Sum(b => b.bes);
-                            result.First(r => r.AID == 0).Abed_bes = (bed - bes > 0) ? "بد" : (bed - bes == 0) ? "--" : "بس";
-                        }
-
-                        //return _getActZirSarfasls(context, a => listZirsarfasl.Contains(a.rdf_zirsarfasls) && a.date.CompareTo(FromDate) >= 0 && a.date.CompareTo(ToDate) <= 0);
-                    }
-                    else
-                    {
-                        result.AddRange(_getActZirSarfasls(context, a => ZirsarfaslID.Contains(a.rdf_zirsarfasls) && a.date.CompareTo(FromDate) >= 0 && a.date.CompareTo(ToDate) <= 0));
-                        var Befor = context.act_zirsarfasls.AsNoTracking()
-                            .Where(a => ZirsarfaslID.Contains(a.rdf_zirsarfasls) && a.date.CompareTo(FromDate) < 0).Select(a => new { a.bed, a.bes }).ToList();
-
-                        var bed = result.First(r => r.AID == 0).Abed = Befor.Sum(b => b.bed);
-                        var bes = result.First(r => r.AID == 0).Abes = Befor.Sum(b => b.bes);
-                        result.First(r => r.AID == 0).Abed_bes = (bed - bes > 0) ? "بد" : (bed - bes == 0) ? "--" : "بس";
-
-                    }
-                }
-                return result;
+                        Arow = 0,
+                        AID = --aid,
+                        Adescription = "حساب قبلي زيرسرفصل " +r.Key.NameZirsarfasl,
+                        Abed = r.Key.bed_gh,
+                        Abes = r.Key.bes_gh,
+                        ZID = r.Key.rdfzirsarfasl,
+                        ZName = r.Key.NameZirsarfasl,
+                        Zbed = r.Key.bed_gh,
+                        Zbes = r.Key.bes_gh,
+                        SID = r.Key.rdfsarfasl,
+                        SName = r.Key.NameSarfasl
+                    }).ToList();
+                List<SZAservice> result1 = result.Select(r => new SZAservice()
+                {
+                    Arow = (backZirsarfaslID == r.rdfzirsarfasl) ? ++Row : Row = 1,
+                    AID = r.rdf,
+                    Asanadno = r.sanadno,
+                    Adate = r.date,
+                    Adescription = r.dis,
+                    Abed = r.bed,
+                    Abes = r.bes,
+                    AZirSarfaslID = backZirsarfaslID = r.rdfzirsarfasl,
+                    Akind = r.kind,
+                    AkindName = KindName.FirstOrDefault(k => k.Key == r.kind).Value,
+                    Auser = r.user,
+                    ZID = r.rdfzirsarfasl,
+                    ZName = r.NameZirsarfasl,
+                    Zbed = r.bed_gh,
+                    Zbes = r.bes_gh,
+                    SID = r.rdfsarfasl,
+                    SName = r.NameSarfasl
+                }).ToList();
+                result1.AddRange(Man_Befor);
+                return result1.OrderBy(o=>o.Arow).OrderBy(o => o.ZID).ToList();
 
             }
+
+            //List<SZAservice> result = new List<SZAservice>()
+            //{
+            //    new SZAservice()
+            //    {
+            //        Arow = 1,
+            //        AID = 0,
+            //        Adescription = "مانده از قبل"
+            //    }
+            //};
+            //using (var context = new DbAtiran2Entities())
+            //{
+            //    if (zirSarfaslID != -1)
+            //    {
+            //        result.AddRange(_getActZirSarfasls(context, a => a.rdf_zirsarfasls == zirSarfaslID && a.date.CompareTo(FromDate) >= 0 && a.date.CompareTo(ToDate) <= 0));
+            //        var Befor = context.act_zirsarfasls.AsNoTracking()
+            //            .Where(a => a.rdf_zirsarfasls == zirSarfaslID && a.date.CompareTo(FromDate) < 0).Select(a => new { a.bed, a.bes }).ToList();
+
+            //        var bed = result.First(r => r.AID == 0).Abed = Befor.Sum(b => b.bed);
+            //        var bes = result.First(r => r.AID == 0).Abes = Befor.Sum(b => b.bes);
+            //        result.First(r => r.AID == 0).Abed_bes = (bed - bes > 0) ? "بد" : (bed - bes == 0) ? "--" : "بس";
+            //    }
+            //    else if (sarfaslID != -1)
+            //    {
+            //        var ZirsarfaslID = context.zirsarfasls.AsNoTracking().Where(z => z.rdf_sarfasl == sarfaslID).Select(z => z.rdf).ToList();
+
+            //        if (listZirsarfasl.Any())
+            //        {
+            //            var listZirsarfasl1 = listZirsarfasl.Where(z => ZirsarfaslID.Contains(z)).ToList();
+            //            if (listZirsarfasl1.Any())
+            //            {
+            //                result.AddRange(_getActZirSarfasls(context, a => listZirsarfasl1.Contains(a.rdf_zirsarfasls) && a.date.CompareTo(FromDate) >= 0 && a.date.CompareTo(ToDate) <= 0));
+            //                var Befor = context.act_zirsarfasls.AsNoTracking()
+            //                    .Where(a => listZirsarfasl1.Contains(a.rdf_zirsarfasls) && a.date.CompareTo(FromDate) < 0).Select(a => new { a.bed, a.bes }).ToList();
+
+            //                var bed = result.First(r => r.AID == 0).Abed = Befor.Sum(b => b.bed);
+            //                var bes = result.First(r => r.AID == 0).Abes = Befor.Sum(b => b.bes);
+            //                result.First(r => r.AID == 0).Abed_bes = (bed - bes > 0) ? "بد" : (bed - bes == 0) ? "--" : "بس";
+            //            }
+
+            //            //return _getActZirSarfasls(context, a => listZirsarfasl.Contains(a.rdf_zirsarfasls) && a.date.CompareTo(FromDate) >= 0 && a.date.CompareTo(ToDate) <= 0);
+            //        }
+            //        else
+            //        {
+            //            result.AddRange(_getActZirSarfasls(context, a => ZirsarfaslID.Contains(a.rdf_zirsarfasls) && a.date.CompareTo(FromDate) >= 0 && a.date.CompareTo(ToDate) <= 0));
+            //            var Befor = context.act_zirsarfasls.AsNoTracking()
+            //                .Where(a => ZirsarfaslID.Contains(a.rdf_zirsarfasls) && a.date.CompareTo(FromDate) < 0).Select(a => new { a.bed, a.bes }).ToList();
+
+            //            var bed = result.First(r => r.AID == 0).Abed = Befor.Sum(b => b.bed);
+            //            var bes = result.First(r => r.AID == 0).Abes = Befor.Sum(b => b.bes);
+            //            result.First(r => r.AID == 0).Abed_bes = (bed - bes > 0) ? "بد" : (bed - bes == 0) ? "--" : "بس";
+
+            //        }
+            //    }
+            //    return result;
+
+            //}
         }
 
         //public static List<SZAservice> GetDataForReport(string FromDate, string ToDate, List<int> listZirsarfaslID,
