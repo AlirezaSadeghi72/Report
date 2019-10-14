@@ -110,7 +110,7 @@ namespace ReportSarfasl.dataLayer
             //        ALi=read.zirsarfasls.sarfasls.rdf,
             //    }).ToList();
             int Row = 2;
-            return result.ToList().Select(a => new SZAservice()
+            return result.ToList().OrderBy(r => r.date).Select(a => new SZAservice()
             {
                 Arow = Row++,
                 AID = a.rdf,
@@ -124,7 +124,7 @@ namespace ReportSarfasl.dataLayer
                 AkindName = KindName.FirstOrDefault(k => k.Key == a.kind).Value,
                 Asanadno = a.sanadno,
                 Auser = a.user
-            }).OrderBy(r => r.Adate).ToList();
+            }).ToList();
 
         }
 
@@ -154,127 +154,127 @@ namespace ReportSarfasl.dataLayer
             }
         }
 
-        public static List<SZAservice> GetActZirSarfasls(Expression<Func<act_zirsarfasls, bool>> where = null)
-        {
-            using (var context = new DbAtiran2Entities())
-            {
-                return _getActZirSarfasls(context, where);
-            }
-        }
+        //public static List<SZAservice> GetActZirSarfasls(Expression<Func<act_zirsarfasls, bool>> where = null)
+        //{
+        //    using (var context = new DbAtiran2Entities())
+        //    {
+        //        return _getActZirSarfasls(context, where);
+        //    }
+        //}
 
-        public static List<SZAservice> GetSarfaslseServis(List<int> listSarfaslID, List<int> listZirsarfaslID, string FromDate, string ToDate)
-        {//return new List<SarfaslService>();
-            using (var context = new DbAtiran2Entities())
-            {
-                string listS = "";
-                foreach (int s in listSarfaslID)
-                {
-                    listS += s + ",";
-                }
-                string listZ = "";
-                foreach (int z in listZirsarfaslID)
-                {
-                    listZ += z + ",";
-                }
-                //return new List<SarfaslService>();
-                var result = context.USP_GetSarfaslseServis(listS, listZ, FromDate, ToDate);
-                int Row = 1;
-                return result.Select(r => new SZAservice()
-                {
-                    Srow = Row++,
-                    SID = r.rdf,
-                    SName = r.name,
-                    SGroupSarfaslID = r.GroupSarfaslID,
-                    Sbed = r.Bed ?? 0,
-                    Sbes = r.Bes ?? 0,
-                    SMan = r.Man ?? 0,
-                    Sbed_bes = (r.Man > 0) ? "بد" : (r.Man == 0) ? "--" : "بس",
-                    SMan_Befor = (r.Man_All ?? 0),
-                    Sbed_bes_Befor = ((r.Man_All ?? 0)  > 0) ? "بد" : ((r.Man_All ?? 0) == 0) ? "--" : "بس",
-                    Swho_def = r.who_def,
-                    Shas_dar = (r.has_dar.ToLower() == "m") ? "ماليات" : (r.has_dar.ToLower() == "h") ? "هزينه" : (r.has_dar.ToLower() == "d") ? "دارايي" : (r.has_dar.ToLower() == "b") ? "بدون ماليات" : ""
-                }).ToList();
+        //public static List<SZAservice> GetSarfaslseServis(List<int> listSarfaslID, List<int> listZirsarfaslID, string FromDate, string ToDate)
+        //{//return new List<SarfaslService>();
+        //    using (var context = new DbAtiran2Entities())
+        //    {
+        //        string listS = "";
+        //        foreach (int s in listSarfaslID)
+        //        {
+        //            listS += s + ",";
+        //        }
+        //        string listZ = "";
+        //        foreach (int z in listZirsarfaslID)
+        //        {
+        //            listZ += z + ",";
+        //        }
+        //        //return new List<SarfaslService>();
+        //        var result = context.USP_GetSarfaslseServis(listS, listZ, FromDate, ToDate);
+        //        int Row = 1;
+        //        return result.Select(r => new SZAservice()
+        //        {
+        //            Srow = Row++,
+        //            SID = r.rdf,
+        //            SName = r.name,
+        //            SGroupSarfaslID = r.GroupSarfaslID,
+        //            Sbed = r.Bed ?? 0,
+        //            Sbes = r.Bes ?? 0,
+        //            SMan = r.Man ?? 0,
+        //            Sbed_bes = (r.Man > 0) ? "بد" : (r.Man == 0) ? "--" : "بس",
+        //            SMan_Befor = (r.Man_All ?? 0),
+        //            Sbed_bes_Befor = ((r.Man_All ?? 0)  > 0) ? "بد" : ((r.Man_All ?? 0) == 0) ? "--" : "بس",
+        //            Swho_def = r.who_def,
+        //            Shas_dar = (r.has_dar.ToLower() == "m") ? "ماليات" : (r.has_dar.ToLower() == "h") ? "هزينه" : (r.has_dar.ToLower() == "d") ? "دارايي" : (r.has_dar.ToLower() == "b") ? "بدون ماليات" : ""
+        //        }).ToList();
 
-                #region MyRegion
-
-
-                //////////////////////////////////////////////////////////////////////////////////////////////
-                //var result = context.act_zirsarfasls.AsNoTracking().Join(context.zirsarfasls.AsNoTracking(),
-                //    a => a.rdf_zirsarfasls,
-                //    z => z.rdf,
-                //    (a, z) => new { a, z }).Join(context.sarfasls.AsNoTracking(), az => az.z.rdf_sarfasl, s => s.rdf,
-                //    (az, s) => new { az, s });
-
-                //if (listZirsarfaslID.Any())
-                //{
-                //    result = result.Where(r => listZirsarfaslID.Contains(r.az.z.rdf));
-                //}
-
-                //if (listSarfaslID.Any())
-                //{
-                //    result = result.Where(r => listSarfaslID.Contains(r.s.rdf));
-                //}
-                //else if (listZirsarfaslID.Any())
-                //{
-                //    listSarfaslID = context.zirsarfasls.Where(z => listZirsarfaslID.Contains(z.rdf))
-                //        .GroupBy(z => z.rdf_sarfasl).Select(z => z.Key).ToList();
-                //}
-                //else
-                //{
-                //    listSarfaslID = context.sarfasls.Select(s => s.rdf).ToList();
-                //}
-
-                //result = result.Where(r => r.az.a.date.CompareTo(FromDate) >= 0 && r.az.a.date.CompareTo(ToDate) <= 0);
-
-                ////var ali = result.GroupBy(r2 => r2.s.rdf).Select(
-                ////    g => new
-                ////{
-                ////    sarfasl = g.Select(r=>r.s),
-                ////    man = g.Sum(r1 => r1.az.a.bed - r1.az.a.bes)
-                ////    }).ToList();
-                //int Row = 1;
-                //var result1 = result.GroupBy(r2 => new { r2.s }).ToList().Select(
-                //    g => new SarfaslService()
-                //    {
-                //        row = Row++,
-                //        ID = g.Key.s.rdf,
-                //        Name = g.Key.s.name,
-                //        GroupSarfaslID = g.Key.s.GroupSarfaslID,
-                //        Man = g.Sum(r1 => r1.az.a.bed - r1.az.a.bes)
-                //    }).ToList();
-
-                //if (listSarfaslID.Count > result1.Count)
-                //{
-                //    var Sarfasls = context.sarfasls.AsNoTracking().ToList();
-
-                //    foreach (int id in listSarfaslID)
-                //    {
-                //        if (!result1.Any(r => r.ID == id))
-                //        {
-                //            var Safasl = Sarfasls.First(s => s.rdf == id);
-                //            result1.Add(new SarfaslService()
-                //            {
-                //                row = result1.Count + 1,
-                //                ID = Safasl.rdf,
-                //                Name = Safasl.name,
-                //                GroupSarfaslID = Safasl.GroupSarfaslID,
-                //                Man = 0
-                //            });
-                //        }
-                //    }
-                //}
-
-                //return result1;
+        //        #region MyRegion
 
 
-                #endregion
-            }
+        //        //////////////////////////////////////////////////////////////////////////////////////////////
+        //        //var result = context.act_zirsarfasls.AsNoTracking().Join(context.zirsarfasls.AsNoTracking(),
+        //        //    a => a.rdf_zirsarfasls,
+        //        //    z => z.rdf,
+        //        //    (a, z) => new { a, z }).Join(context.sarfasls.AsNoTracking(), az => az.z.rdf_sarfasl, s => s.rdf,
+        //        //    (az, s) => new { az, s });
 
-            //return (from read in result select new SarfaslService
-            //{
-            //    GroupSarfaslID = read.GroupSarfaslID
-            //}).ToList();
-        }
+        //        //if (listZirsarfaslID.Any())
+        //        //{
+        //        //    result = result.Where(r => listZirsarfaslID.Contains(r.az.z.rdf));
+        //        //}
+
+        //        //if (listSarfaslID.Any())
+        //        //{
+        //        //    result = result.Where(r => listSarfaslID.Contains(r.s.rdf));
+        //        //}
+        //        //else if (listZirsarfaslID.Any())
+        //        //{
+        //        //    listSarfaslID = context.zirsarfasls.Where(z => listZirsarfaslID.Contains(z.rdf))
+        //        //        .GroupBy(z => z.rdf_sarfasl).Select(z => z.Key).ToList();
+        //        //}
+        //        //else
+        //        //{
+        //        //    listSarfaslID = context.sarfasls.Select(s => s.rdf).ToList();
+        //        //}
+
+        //        //result = result.Where(r => r.az.a.date.CompareTo(FromDate) >= 0 && r.az.a.date.CompareTo(ToDate) <= 0);
+
+        //        ////var ali = result.GroupBy(r2 => r2.s.rdf).Select(
+        //        ////    g => new
+        //        ////{
+        //        ////    sarfasl = g.Select(r=>r.s),
+        //        ////    man = g.Sum(r1 => r1.az.a.bed - r1.az.a.bes)
+        //        ////    }).ToList();
+        //        //int Row = 1;
+        //        //var result1 = result.GroupBy(r2 => new { r2.s }).ToList().Select(
+        //        //    g => new SarfaslService()
+        //        //    {
+        //        //        row = Row++,
+        //        //        ID = g.Key.s.rdf,
+        //        //        Name = g.Key.s.name,
+        //        //        GroupSarfaslID = g.Key.s.GroupSarfaslID,
+        //        //        Man = g.Sum(r1 => r1.az.a.bed - r1.az.a.bes)
+        //        //    }).ToList();
+
+        //        //if (listSarfaslID.Count > result1.Count)
+        //        //{
+        //        //    var Sarfasls = context.sarfasls.AsNoTracking().ToList();
+
+        //        //    foreach (int id in listSarfaslID)
+        //        //    {
+        //        //        if (!result1.Any(r => r.ID == id))
+        //        //        {
+        //        //            var Safasl = Sarfasls.First(s => s.rdf == id);
+        //        //            result1.Add(new SarfaslService()
+        //        //            {
+        //        //                row = result1.Count + 1,
+        //        //                ID = Safasl.rdf,
+        //        //                Name = Safasl.name,
+        //        //                GroupSarfaslID = Safasl.GroupSarfaslID,
+        //        //                Man = 0
+        //        //            });
+        //        //        }
+        //        //    }
+        //        //}
+
+        //        //return result1;
+
+
+        //        #endregion
+        //    }
+
+        //    //return (from read in result select new SarfaslService
+        //    //{
+        //    //    GroupSarfaslID = read.GroupSarfaslID
+        //    //}).ToList();
+        //}
 
         public static List<SZAservice> GetSZAServices( string FromDate, string ToDate, List<int> listZirsarfaslID, List<int> ListSarfaslID,  List<int> ListGroupSarfaslID)
         {
@@ -331,110 +331,110 @@ namespace ReportSarfasl.dataLayer
                 }).ToList();
             }
         }
-        public static List<SZAservice> GetZirSarfaslServices(List<int> listZirsarfaslID, int sarfaslID, string FromDate, string ToDate)
-        {
-            using (var context = new DbAtiran2Entities())
-            {
-                string listZ = "";
-                ObjectResult<USP_GetZirSarfaslServices_Result> result;
-                foreach (int z in listZirsarfaslID)
-                {
-                    listZ += z + ",";
-                }
+        //public static List<SZAservice> GetZirSarfaslServices(List<int> listZirsarfaslID, int sarfaslID, string FromDate, string ToDate)
+        //{
+        //    using (var context = new DbAtiran2Entities())
+        //    {
+        //        string listZ = "";
+        //        ObjectResult<USP_GetZirSarfaslServices_Result> result;
+        //        foreach (int z in listZirsarfaslID)
+        //        {
+        //            listZ += z + ",";
+        //        }
 
-                result = context.USP_GetZirSarfaslServices(listZ, sarfaslID, FromDate, ToDate);
+        //        result = context.USP_GetZirSarfaslServices(listZ, sarfaslID, FromDate, ToDate);
 
-                int Row = 1;
-                return result.Select(r => new SZAservice()
-                {
-                    Zrow = Row++,
-                    ZID = r.rdf,
-                    ZName = r.name,
-                    ZSarfaslID = r.rdf_sarfasl,
-                    Zbed = r.Bed ?? 0,
-                    Zbes = r.Bes ?? 0,
-                    ZMan = r.Man ?? 0,
-                    Zbed_bes = (r.Man > 0) ? "بد" : (r.Man == 0) ? "--" : "بس",
-                    ZMan_Befor = (r.Man_All ?? 0),
-                    Zbed_bes_Befor = ((r.Man_All ?? 0) > 0) ? "بد" : ((r.Man_All ?? 0) == 0) ? "--" : "بس",
-                    Zhas_dar = (r.has_dar.ToLower() == "m") ? "ماليات" : (r.has_dar.ToLower() == "h") ? "هزينه" : (r.has_dar.ToLower() == "d") ? "دارايي" : (r.has_dar.ToLower() == "b") ? "بدون ماليات" : "",
-                    ZActive = r.Active
-                }).ToList();
+        //        int Row = 1;
+        //        return result.Select(r => new SZAservice()
+        //        {
+        //            Zrow = Row++,
+        //            ZID = r.rdf,
+        //            ZName = r.name,
+        //            ZSarfaslID = r.rdf_sarfasl,
+        //            Zbed = r.Bed ?? 0,
+        //            Zbes = r.Bes ?? 0,
+        //            ZMan = r.Man ?? 0,
+        //            Zbed_bes = (r.Man > 0) ? "بد" : (r.Man == 0) ? "--" : "بس",
+        //            ZMan_Befor = (r.Man_All ?? 0),
+        //            Zbed_bes_Befor = ((r.Man_All ?? 0) > 0) ? "بد" : ((r.Man_All ?? 0) == 0) ? "--" : "بس",
+        //            Zhas_dar = (r.has_dar.ToLower() == "m") ? "ماليات" : (r.has_dar.ToLower() == "h") ? "هزينه" : (r.has_dar.ToLower() == "d") ? "دارايي" : (r.has_dar.ToLower() == "b") ? "بدون ماليات" : "",
+        //            ZActive = r.Active
+        //        }).ToList();
 
-                #region MyRegion
-
-
-                //return new List<ZirSarfaslService>();
-                //var result = context.act_zirsarfasls.AsNoTracking().Join(context.zirsarfasls.AsNoTracking(),
-                //    a => a.rdf_zirsarfasls,
-                //    z => z.rdf,
-                //    (a, z) => new { a, z }).Where(az => az.z.rdf_sarfasl == sarfaslID).Where(az => az.z.rdf_sarfasl == sarfaslID);
-
-                //var ZirsarfaslID = context.zirsarfasls.AsNoTracking().Where(z => z.rdf_sarfasl == sarfaslID).Select(z => z.rdf).ToList();
-
-                //if (listZirsarfaslID.Any())
-                //{
-                //    listZirsarfaslID = listZirsarfaslID.Where(z => ZirsarfaslID.Contains(z)).ToList();
-                //    if (listZirsarfaslID.Any())
-                //    {
-                //        result = result.Where(az => listZirsarfaslID.Contains(az.z.rdf));
-                //    }
-                //    else
-                //    {
-                //        result = result.Where(az => az.z.rdf == null);
-                //        listZirsarfaslID = ZirsarfaslID;
-                //    }
-                //}
-                //else
-                //{
-                //    listZirsarfaslID = ZirsarfaslID;
-                //}
-
-                //result = result.Where(r => r.a.date.CompareTo(FromDate) >= 0 && r.a.date.CompareTo(ToDate) <= 0);
-
-                ////var ali = result.GroupBy(r2 => new { r2.z }).ToList();
-                //int Row = 1;
-                //var result1 = result.GroupBy(r2 => new { r2.z }).ToList().Select(
-                //    g => new ZirSarfaslService()
-                //    {
-                //        row = Row++,
-                //        ID = g.Key.z.rdf,
-                //        Name = g.Key.z.name,
-                //        SarfaslID = g.Key.z.rdf_sarfasl,
-                //        Active = g.Key.z.Active,
-                //        has_dar = g.Key.z.has_dar,
-                //        Man = g.Sum(r1 => r1.a.bed - r1.a.bes)
-                //    }).ToList();
-
-                //if (listZirsarfaslID.Count > result1.Count)
-                //{
-                //    var ZirSarfasls = context.zirsarfasls.AsNoTracking().ToList();
-
-                //    foreach (int id in listZirsarfaslID)
-                //    {
-                //        if (!result1.Any(r => r.ID == id))
-                //        {
-                //            var ZirSafasl = ZirSarfasls.First(z => z.rdf == id);
-                //            result1.Add(new ZirSarfaslService()
-                //            {
-                //                row = result1.Count + 1,
-                //                ID = ZirSafasl.rdf,
-                //                Name = ZirSafasl.name,
-                //                SarfaslID = ZirSafasl.rdf_sarfasl,
-                //                Active = ZirSafasl.Active,
-                //                has_dar = ZirSafasl.has_dar,
-                //                Man = 0
-                //            });
-                //        }
-                //    }
-                //}
-
-                //return result1;
+        //        #region MyRegion
 
 
-                #endregion
-            }
-        }
+        //        //return new List<ZirSarfaslService>();
+        //        //var result = context.act_zirsarfasls.AsNoTracking().Join(context.zirsarfasls.AsNoTracking(),
+        //        //    a => a.rdf_zirsarfasls,
+        //        //    z => z.rdf,
+        //        //    (a, z) => new { a, z }).Where(az => az.z.rdf_sarfasl == sarfaslID).Where(az => az.z.rdf_sarfasl == sarfaslID);
+
+        //        //var ZirsarfaslID = context.zirsarfasls.AsNoTracking().Where(z => z.rdf_sarfasl == sarfaslID).Select(z => z.rdf).ToList();
+
+        //        //if (listZirsarfaslID.Any())
+        //        //{
+        //        //    listZirsarfaslID = listZirsarfaslID.Where(z => ZirsarfaslID.Contains(z)).ToList();
+        //        //    if (listZirsarfaslID.Any())
+        //        //    {
+        //        //        result = result.Where(az => listZirsarfaslID.Contains(az.z.rdf));
+        //        //    }
+        //        //    else
+        //        //    {
+        //        //        result = result.Where(az => az.z.rdf == null);
+        //        //        listZirsarfaslID = ZirsarfaslID;
+        //        //    }
+        //        //}
+        //        //else
+        //        //{
+        //        //    listZirsarfaslID = ZirsarfaslID;
+        //        //}
+
+        //        //result = result.Where(r => r.a.date.CompareTo(FromDate) >= 0 && r.a.date.CompareTo(ToDate) <= 0);
+
+        //        ////var ali = result.GroupBy(r2 => new { r2.z }).ToList();
+        //        //int Row = 1;
+        //        //var result1 = result.GroupBy(r2 => new { r2.z }).ToList().Select(
+        //        //    g => new ZirSarfaslService()
+        //        //    {
+        //        //        row = Row++,
+        //        //        ID = g.Key.z.rdf,
+        //        //        Name = g.Key.z.name,
+        //        //        SarfaslID = g.Key.z.rdf_sarfasl,
+        //        //        Active = g.Key.z.Active,
+        //        //        has_dar = g.Key.z.has_dar,
+        //        //        Man = g.Sum(r1 => r1.a.bed - r1.a.bes)
+        //        //    }).ToList();
+
+        //        //if (listZirsarfaslID.Count > result1.Count)
+        //        //{
+        //        //    var ZirSarfasls = context.zirsarfasls.AsNoTracking().ToList();
+
+        //        //    foreach (int id in listZirsarfaslID)
+        //        //    {
+        //        //        if (!result1.Any(r => r.ID == id))
+        //        //        {
+        //        //            var ZirSafasl = ZirSarfasls.First(z => z.rdf == id);
+        //        //            result1.Add(new ZirSarfaslService()
+        //        //            {
+        //        //                row = result1.Count + 1,
+        //        //                ID = ZirSafasl.rdf,
+        //        //                Name = ZirSafasl.name,
+        //        //                SarfaslID = ZirSafasl.rdf_sarfasl,
+        //        //                Active = ZirSafasl.Active,
+        //        //                has_dar = ZirSafasl.has_dar,
+        //        //                Man = 0
+        //        //            });
+        //        //        }
+        //        //    }
+        //        //}
+
+        //        //return result1;
+
+
+        //        #endregion
+        //    }
+        //}
         public static List<SZAservice> GetActZirSarfaslServices(string FromDate, string ToDate, int zirSarfaslID = -1, int sarfaslID = -1, List<int> listZirsarfasl = null)
         {
             List<SZAservice> result = new List<SZAservice>()
@@ -443,7 +443,7 @@ namespace ReportSarfasl.dataLayer
                 {
                     Arow = 1,
                     AID = 0,
-                    Adescription = "حساب قبلي"
+                    Adescription = "مانده از قبل"
                 }
             };
             using (var context = new DbAtiran2Entities())
@@ -495,16 +495,16 @@ namespace ReportSarfasl.dataLayer
             }
         }
 
-        public static List<SZAservice> GetDataForReport(string FromDate, string ToDate, List<int> listZirsarfaslID,
-            List<int> listZirsarfasl)
-        {
-            using (var context = new DbAtiran2Entities())
-            {
-                //var resurl = context.SZ_ReportView.Where(v=>)
-            }
+        //public static List<SZAservice> GetDataForReport(string FromDate, string ToDate, List<int> listZirsarfaslID,
+        //    List<int> listZirsarfasl)
+        //{
+        //    using (var context = new DbAtiran2Entities())
+        //    {
+        //        //var resurl = context.SZ_ReportView.Where(v=>)
+        //    }
 
-            return new List<SZAservice>();
-        }
+        //    return new List<SZAservice>();
+        //}
 
         //public static decimal manSarfasls(int sarfaslID)
         //{

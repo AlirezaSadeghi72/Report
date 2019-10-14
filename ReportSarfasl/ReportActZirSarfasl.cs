@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using ReportSarfasl.Forms;
 using ReportSarfasl.Services;
 using Stimulsoft.Report;
+using Stimulsoft.Report.Dictionary;
 
 namespace ReportSarfasl
 {
@@ -81,11 +82,12 @@ namespace ReportSarfasl
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.gbHeader = new System.Windows.Forms.GroupBox();
+            this.lblLoding = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.chbActKind = new System.Windows.Forms.CheckBox();
             this.textDate1 = new ReportSarfasl.TextDate();
@@ -113,7 +115,6 @@ namespace ReportSarfasl
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
             this.lblDisAct = new System.Windows.Forms.Label();
-            this.lblLoding = new System.Windows.Forms.Label();
             this.pnlHeader.SuspendLayout();
             this.gbHeader.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -147,6 +148,18 @@ namespace ReportSarfasl
             this.gbHeader.TabStop = false;
             this.gbHeader.Text = "جزييات زيرسرفصل";
             // 
+            // lblLoding
+            // 
+            this.lblLoding.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblLoding.AutoSize = true;
+            this.lblLoding.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.lblLoding.Location = new System.Drawing.Point(489, 24);
+            this.lblLoding.Name = "lblLoding";
+            this.lblLoding.Size = new System.Drawing.Size(89, 20);
+            this.lblLoding.TabIndex = 18;
+            this.lblLoding.Text = "درحال پردازش ...";
+            this.lblLoding.Visible = false;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -160,7 +173,7 @@ namespace ReportSarfasl
             // chbActKind
             // 
             this.chbActKind.AutoSize = true;
-            this.chbActKind.Location = new System.Drawing.Point(249, 50);
+            this.chbActKind.Location = new System.Drawing.Point(249, 52);
             this.chbActKind.Name = "chbActKind";
             this.chbActKind.Size = new System.Drawing.Size(79, 24);
             this.chbActKind.TabIndex = 15;
@@ -173,12 +186,12 @@ namespace ReportSarfasl
             // 
             this.textDate1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textDate1.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.textDate1.FromDate = "1398/07/21";
+            this.textDate1.FromDate = "1398/07/22";
             this.textDate1.Location = new System.Drawing.Point(499, 23);
             this.textDate1.Name = "textDate1";
             this.textDate1.Size = new System.Drawing.Size(390, 24);
             this.textDate1.TabIndex = 0;
-            this.textDate1.ToDate = "1398/07/21";
+            this.textDate1.ToDate = "1398/07/22";
             this.textDate1.KeyEnterTextBoxToYear += new System.EventHandler(this.textDate1_KeyEnterTextBoxToYear);
             // 
             // chbAll
@@ -192,6 +205,7 @@ namespace ReportSarfasl
             this.chbAll.Text = "انتخاب همه";
             this.chbAll.UseVisualStyleBackColor = true;
             this.chbAll.CheckedChanged += new System.EventHandler(this.chbAll_CheckedChanged);
+            this.chbAll.KeyDown += new System.Windows.Forms.KeyEventHandler(this.chbAll_KeyDown);
             // 
             // pnlMain
             // 
@@ -220,25 +234,25 @@ namespace ReportSarfasl
             this.dgvActZirSarfasl.AllowUserToDeleteRows = false;
             this.dgvActZirSarfasl.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.dgvActZirSarfasl.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("IRANSans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.HotTrack;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvActZirSarfasl.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("IRANSans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.HotTrack;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvActZirSarfasl.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvActZirSarfasl.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvActZirSarfasl.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.select});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("IRANSans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.DodgerBlue;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvActZirSarfasl.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("IRANSans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.DodgerBlue;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvActZirSarfasl.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvActZirSarfasl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvActZirSarfasl.EnableHeadersVisualStyles = false;
             this.dgvActZirSarfasl.Location = new System.Drawing.Point(3, 52);
@@ -246,10 +260,10 @@ namespace ReportSarfasl
             this.dgvActZirSarfasl.Name = "dgvActZirSarfasl";
             this.dgvActZirSarfasl.ReadOnly = true;
             this.dgvActZirSarfasl.RowHeadersVisible = false;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
-            this.dgvActZirSarfasl.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
+            this.dgvActZirSarfasl.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvActZirSarfasl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvActZirSarfasl.Size = new System.Drawing.Size(899, 325);
             this.dgvActZirSarfasl.TabIndex = 6;
@@ -479,18 +493,6 @@ namespace ReportSarfasl
             this.lblDisAct.Size = new System.Drawing.Size(905, 20);
             this.lblDisAct.TabIndex = 14;
             // 
-            // lblLoding
-            // 
-            this.lblLoding.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblLoding.AutoSize = true;
-            this.lblLoding.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.lblLoding.Location = new System.Drawing.Point(489, 24);
-            this.lblLoding.Name = "lblLoding";
-            this.lblLoding.Size = new System.Drawing.Size(89, 20);
-            this.lblLoding.TabIndex = 18;
-            this.lblLoding.Text = "درحال پردازش ...";
-            this.lblLoding.Visible = false;
-            // 
             // ReportActZirSarfasl
             // 
             this.Controls.Add(this.pnlMain);
@@ -524,7 +526,7 @@ namespace ReportSarfasl
         private void textDate1_KeyEnterTextBoxToYear(object sender, EventArgs e)
         {
             GetData();
-            txtFilter.Focus();
+            chbActKind.Focus();
         }
 
         private void chbActKind_CheckedChanged(object sender, EventArgs e)
@@ -547,8 +549,10 @@ namespace ReportSarfasl
         }
         private void chbActKind_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyData == Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
+            {
                 txtFilter.Focus();
+            }
         }
 
         private void chbAll_CheckedChanged(object sender, EventArgs e)
@@ -575,6 +579,13 @@ namespace ReportSarfasl
 
             lblFooterNumber.Text = $"تعداد: {dgvActZirSarfasl.RowCount}\nتعداد انتخابي: {ListSelected.Count}";
 
+        }
+        private void chbAll_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtFilter.Focus();
+            }
         }
 
         private void txtFilter_TextChanged(object sender, EventArgs e)
@@ -612,13 +623,12 @@ namespace ReportSarfasl
             {
                 int countRowGrid = dgvActZirSarfasl.Rows.Count;
                 int rowIndexSelected = dgvActZirSarfasl.SelectedRows[0].Index;
-                //if (e.KeyCode == Keys.Enter)
-                //{
-                //    ShowReportSanadAct();
-                //    //OpenActZirSarfasl(dgvActZirSarfasl.SelectedRows[0].Cells["ZName"].Value.ToString());
-                //}
-                //else 
-                if (e.KeyCode == Keys.Up)
+                if (e.KeyCode == Keys.Enter)
+                {
+                    ShowReportSanadAct();
+                    //OpenActZirSarfasl(dgvActZirSarfasl.SelectedRows[0].Cells["ZName"].Value.ToString());
+                }
+                else if (e.KeyCode == Keys.Up)
                 {
                     _isSearch = true;
                     txtFilter.Text = "";
@@ -662,39 +672,35 @@ namespace ReportSarfasl
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
+            #region Cod Me
+
             List<SZAservice> dt1 = dt;
 
             if (ListSelected.Count > 0)
             {
                 dt1 = dt1.Where(d => ListSelected.Contains(d.AID)).ToList();
             }
-            //else
-            //{
-            //    if (MessageBox.Show("در صورت انتخاب نكردن موردي همه موارد در گزارش ذكر ميشود.\nآيا مايل به ادامه هستيد؟",
-            //            "سوال", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-            //    {
-            //        goto END1;
-            //    }
-            //}
 
             var DateNow = DateTime.Now;
             string today = pc.GetYear(DateNow).ToString("0000") + "/" + pc.GetMonth(DateNow).ToString("00") + "/" + pc.GetDayOfMonth(DateNow).ToString("00");
             StiReport report = new StiReport();
-            report.Load(@"C:\Users\North-PC\Desktop\Report Sarfasl (Stimulsoft)\ReportActZirSarfasl1.mrt");
-            report.Compile();
-            report["User"] = "alirezasadegghi";
-            report["today"] = today;
-            report["FromDate"] = textDate1.FromDate;
-            report["ToDate"] = textDate1.ToDate;
-            report["NameReport"] = ((_isActForSarfasl) ? "سرفصل : " : "زير سرفصل : ") + _nameSarfaslOrZirSarfasl;
+            report.Load(@"C:\Users\North-PC\Desktop\Report Sarfasl (Stimulsoft)\Atiran\ReportActZirSarfasl1.mrt");
+            //report.Compile();
+            //report.Dictionary.Databases.Add(new StiSqlDatabase("Connection", "Integrated Security=True;Data Source=.;Initial Catalog=ZAnsari;Password=;User ID="));//Connections.ConnectionInfo.BuildStimulConnectionString()));
+            report.Dictionary.Variables["User"].Value = "alirezasadegghi";
+            report.Dictionary.Variables["today"].Value = today;
+            report.Dictionary.Variables["FromDate"].Value = textDate1.FromDate;
+            report.Dictionary.Variables["ToDate"].Value = textDate1.ToDate;
+            report.Dictionary.Variables["NameReport"].Value = ((_isActForSarfasl) ? "سرفصل : " : "زير سرفصل : ") + _nameSarfaslOrZirSarfasl;
             var befor = dt1.FirstOrDefault(d => d.AID == 0) ?? new SZAservice();
-            report["SumBedDate"] = dt1.Sum(d => d.Abed) - befor.Abed;
-            report["SumBesDate"] = dt1.Sum(d => d.Abes) - befor.Abes;
+            report.Dictionary.Variables["SumBedDate"].Value = (dt1.Sum(d => d.Abed) - befor.Abed).ToString();
+            report.Dictionary.Variables["SumBesDate"].Value = (dt1.Sum(d => d.Abes) - befor.Abes).ToString();
             report.RegBusinessObject("SZA", dt1);
-
+            report.Render();
             report.Show();
 
-            //END1:;
+            #endregion
+
             //چاپ
         }
 
@@ -717,10 +723,17 @@ namespace ReportSarfasl
         }
         private void dgvActZirSarfasl_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Space)
+            if (dgvActZirSarfasl.SelectedRows.Count > 0)
             {
-                _isKeySpase = true;
-                SetCheckBoxColumn();
+                if (e.KeyCode == Keys.Space)
+                {
+                    _isKeySpase = true;
+                    SetCheckBoxColumn();
+                }
+                else if (e.KeyCode == Keys.Enter)
+                {
+                    ShowReportSanadAct();
+                }
             }
         }
         private void dgvActZirSarfasl_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -775,11 +788,7 @@ namespace ReportSarfasl
                 ((Form)this.TopLevelControl).Close();
                 return false;
             }
-            else if (keyData == Keys.Enter  && dgvActZirSarfasl.SelectedRows.Count > 0 && !textDate1.focuseDate)
-            {
-                ShowReportSanadAct();
-                return true;
-            }
+
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
@@ -932,48 +941,77 @@ namespace ReportSarfasl
         {
             if (dgvActZirSarfasl.SelectedRows.Count > 0)
             {
+
+
+                #region Cod Me
+
+                //SZAservice result = ((List<SZAservice>)dgvActZirSarfasl.DataSource).First(x =>
+                //   x.AID == (int)dgvActZirSarfasl.SelectedRows[0].Cells["AID"].Value);
+                //string firstText = "";
+                //string secenText = "";
+                //string TreeText = "";
+                //var str1 = result.Adescription.Replace(" به ", ";");
+                //str1 = str1.Replace("از ", "");
+                //var str = str1.Split(';');
+
+                //try
+                //{
+                //    firstText = str[0];
+
+                //    str[1] = str[1].Replace(" بابت ", ";");
+                //    str = str[1].Split(';');
+
+                //    secenText = str[0];
+                //    TreeText = str[1];
+                //}
+                //catch (Exception)
+                //{
+                //}
+
+                //decimal Man = result.Abed - result.Abes;
+
+                //var DateNow = DateTime.Now;
+                //string today = pc.GetYear(DateNow).ToString("0000") + "/" + pc.GetMonth(DateNow).ToString("00") + "/" + pc.GetDayOfMonth(DateNow).ToString("00");
+                //StiReport report = new StiReport();
+                //report.Load(@"C:\Users\North-PC\Desktop\Report Sarfasl (Stimulsoft)\ReportSanadActZirSarfasl1.mrt");
+                //report.Compile();
+                //report["User"] = "alirezasadegghi";
+                //report["today"] = today;
+                //report["DateAct"] = result.Adate;
+                //report["ASanad"] = result.Asanadno.ToString().Trim();
+                //report["AUser"] = result.Auser;
+                //report["Abes"] = Man >= 0 ? firstText.Trim() : secenText.Trim();
+                //report["Abed"] = Man < 0 ? firstText.Trim() : secenText.Trim();
+                //report["AMan"] = Math.Abs(Man);
+                //report["AManPersian"] = ((int)Math.Abs(Man)).num2str().Trim() + " ريال";
+                //report["ADis"] = TreeText.Trim();
+
+                //report.Show();
+
+
+                #endregion
                 SZAservice result = ((List<SZAservice>)dgvActZirSarfasl.DataSource).First(x =>
-                   x.AID == (int)dgvActZirSarfasl.SelectedRows[0].Cells["AID"].Value);
-                string firstText = "";
-                string secenText = "";
-                string TreeText = "";
-                var str1 = result.Adescription.Replace(" به ", ";");
-                str1 = str1.Replace("از ", "");
-                var str = str1.Split(';');
-
-                try
-                {
-                    firstText = str[0];
-
-                    str[1] = str[1].Replace(" بابت ", ";");
-                    str = str[1].Split(';');
-
-                    secenText = str[0];
-                    TreeText = str[1];
-                }
-                catch (Exception)
-                {
-                }
-
-                decimal Man = result.Abed - result.Abes;
-
+                    x.AID == (int)dgvActZirSarfasl.SelectedRows[0].Cells["AID"].Value);
                 var DateNow = DateTime.Now;
                 string today = pc.GetYear(DateNow).ToString("0000") + "/" + pc.GetMonth(DateNow).ToString("00") + "/" + pc.GetDayOfMonth(DateNow).ToString("00");
-                StiReport report = new StiReport();
-                report.Load(@"C:\Users\North-PC\Desktop\Report Sarfasl (Stimulsoft)\ReportSanadActZirSarfasl1.mrt");
-                report.Compile();
-                report["User"] = "alirezasadegghi";
-                report["today"] = today;
-                report["DateAct"] = result.Adate;
-                report["ASanad"] = result.Asanadno.ToString().Trim();
-                report["AUser"] = result.Auser;
-                report["Abes"] = Man >= 0 ? firstText.Trim() : secenText.Trim();
-                report["Abed"] = Man < 0 ? firstText.Trim() : secenText.Trim();
-                report["AMan"] = Math.Abs(Man);
-                report["AManPersian"] = ((int)Math.Abs(Man)).num2str().Trim() + " ريال";
-                report["ADis"] = TreeText.Trim();
 
+                #region Cod Ateran
+
+                StiReport report = new StiReport();
+
+                report.Load(@"C:\Users\North-PC\Desktop\Report Sarfasl (Stimulsoft)\Atiran\ReportSabtDarSarFasl.mrt");
+                report.Dictionary.Databases.Add(new StiSqlDatabase("Connection", "Integrated Security=True;Data Source=.;Initial Catalog=ZAnsari;Password=;User ID="));//Connections.ConnectionInfo.BuildStimulConnectionString()));
+                report.Dictionary.Variables["user"].Value = "Alireza Sadeghi";//Connections.GetCurrentSysUser.Instance.user_name.ToString();
+                report.Dictionary.Variables["today"].Value = today;//Atiran.Connections.DataService.DateTodayFullChar();
+                report.Dictionary.Variables["Date"].Value = result.Adate;//SanadDocument.date;
+                report.Dictionary.Variables["Ghno"].Value = result.Asanadno.ToString(); //SanadDocument.SanadNumber.ToString("#,0");
+                report.Dictionary.Variables["sysid"].Value = 1.ToString();//Atiran.Reporting.BLL.ReturnMasirForosh.ReturnMasirName(Connections.ConnectionInfo.SysID);
+                report.Dictionary.Variables["Mablagh"].Value = result.AMan.ToString("#,0");//(ActZirSarFaslHere.bed + ActZirSarFaslHere.bes).ToString("#,0");
+                report.Dictionary.Variables["Babat"].Value = result.Adescription;//ActZirSarFaslHere.dis;
+                report.Render();
                 report.Show();
+
+                #endregion
             }
         }
 

@@ -170,6 +170,7 @@ namespace ReportSarfasl
             this.chbAll.Text = "انتخاب همه";
             this.chbAll.UseVisualStyleBackColor = true;
             this.chbAll.CheckedChanged += new System.EventHandler(this.chbAll_CheckedChanged);
+            this.chbAll.KeyDown += new System.Windows.Forms.KeyEventHandler(this.chbAll_KeyDown);
             // 
             // lblLoding
             // 
@@ -187,12 +188,12 @@ namespace ReportSarfasl
             // 
             this.textDate1.Dock = System.Windows.Forms.DockStyle.Top;
             this.textDate1.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.textDate1.FromDate = "1398/07/21";
+            this.textDate1.FromDate = "1398/07/22";
             this.textDate1.Location = new System.Drawing.Point(3, 24);
             this.textDate1.Name = "textDate1";
             this.textDate1.Size = new System.Drawing.Size(794, 24);
             this.textDate1.TabIndex = 2;
-            this.textDate1.ToDate = "1398/07/21";
+            this.textDate1.ToDate = "1398/07/22";
             this.textDate1.KeyEnterTextBoxToYear += new System.EventHandler(this.textDate1_KeyEnterTextBoxToYear);
             // 
             // pnlFooter
@@ -391,6 +392,13 @@ namespace ReportSarfasl
             lblFooterNumber.Text = $"تعداد: {dgvZirSarfal.RowCount}\nتعداد انتخابي: {ListSelected.Count}";
 
         }
+        private void chbAll_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtFilter.Focus();
+            }
+        }
 
         private void txtFilter_TextChanged(object sender, EventArgs e)
         {
@@ -548,15 +556,16 @@ namespace ReportSarfasl
             var DateNow = DateTime.Now;
             string today = pc.GetYear(DateNow).ToString("0000") + "/" + pc.GetMonth(DateNow).ToString("00") + "/" + pc.GetDayOfMonth(DateNow).ToString("00");
             StiReport report = new StiReport();
-            report.Load(@"C:\Users\North-PC\Desktop\Report Sarfasl (Stimulsoft)\ReportZirSarfasl1.mrt");
-            report.Compile();
-            report["User"] = "alirezasadegghi";
-            report["today"] = today;
-            report["NameSarfasl"] = _nameSarfasl;
-            report["FromDate"] = textDate1.FromDate;
-            report["ToDate"] = textDate1.ToDate;
+            report.Load(@"C:\Users\North-PC\Desktop\Report Sarfasl (Stimulsoft)\Atiran\ReportZirSarfasl1.mrt");
+            //report.Dictionary.Databases.Add(new StiSqlDatabase("Connection", "Integrated Security=True;Data Source=.;Initial Catalog=ZAnsari;Password=;User ID="));//Connections.ConnectionInfo.BuildStimulConnectionString()));
+            //report.Compile();
+            report.Dictionary.Variables["User"].Value = "alirezasadegghi";
+            report.Dictionary.Variables["today"].Value = today;
+            report.Dictionary.Variables["NameSarfasl"].Value = _nameSarfasl;
+            report.Dictionary.Variables["FromDate"].Value = textDate1.FromDate;
+            report.Dictionary.Variables["ToDate"].Value = textDate1.ToDate;
             report.RegBusinessObject("SZA", dt1);
-
+            report.Render();
             report.Show();
             //END1:;
         }
@@ -577,12 +586,6 @@ namespace ReportSarfasl
                 ((Form)this.TopLevelControl).Close();
                 return true;
             }
-            else if (keyData == Keys.Enter && dgvZirSarfal.SelectedRows.Count > 0 && !textDate1.focuseDate)
-            {
-                OpenActZirSarfasl(dgvZirSarfal.SelectedRows[0].Cells["ZName"].Value.ToString());
-                return true;
-            }
-
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
