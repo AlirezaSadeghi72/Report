@@ -334,6 +334,7 @@
           <Property Type="Decimal" Name="Sbes" Nullable="true" Precision="18" Scale="0" />
         </ComplexType>
         <ComplexType Name="USP_GetDataStimulSoft_Sarfasl_ZirSarfasl_Result">
+          <Property Type="Int32" Name="rdf" Nullable="false" />
           <Property Type="String" Name="date" Nullable="false" MaxLength="10" />
           <Property Type="Int32" Name="rdfsarfasl" Nullable="false" />
           <Property Type="Int32" Name="rdfzirsarfasl" Nullable="false" />
@@ -341,9 +342,8 @@
           <Property Type="Decimal" Name="bed" Nullable="false" Precision="19" />
           <Property Type="Decimal" Name="bes" Nullable="false" Precision="19" />
           <Property Type="String" Name="bed_bes" Nullable="false" MaxLength="2" />
-          <Property Type="Decimal" Name="ManAfter" Nullable="true" Precision="19" />
-          <Property Type="String" Name="NameSarfasl" Nullable="true" MaxLength="1000" />
-          <Property Type="String" Name="NameZirsarfasl" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="NameSarfasl" Nullable="false" />
+          <Property Type="String" Name="NameZirsarfasl" Nullable="false" />
           <Property Type="String" Name="user" Nullable="false" MaxLength="30" />
           <Property Type="Decimal" Name="bed_gh" Nullable="false" Precision="19" />
           <Property Type="Decimal" Name="bes_gh" Nullable="false" Precision="19" />
@@ -470,6 +470,7 @@
           <FunctionImportMapping FunctionImportName="USP_GetDataStimulSoft_Sarfasl_ZirSarfasl" FunctionName="Atiran2Model.Store.USP_GetDataStimulSoft_Sarfasl_ZirSarfasl">
             <ResultMapping>
               <ComplexTypeMapping TypeName="Atiran2Model.USP_GetDataStimulSoft_Sarfasl_ZirSarfasl_Result">
+                <ScalarProperty Name="rdf" ColumnName="rdf" />
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="rdfsarfasl" ColumnName="rdfsarfasl" />
                 <ScalarProperty Name="rdfzirsarfasl" ColumnName="rdfzirsarfasl" />
@@ -477,7 +478,6 @@
                 <ScalarProperty Name="bed" ColumnName="bed" />
                 <ScalarProperty Name="bes" ColumnName="bes" />
                 <ScalarProperty Name="bed_bes" ColumnName="bed_bes" />
-                <ScalarProperty Name="ManAfter" ColumnName="ManAfter" />
                 <ScalarProperty Name="NameSarfasl" ColumnName="NameSarfasl" />
                 <ScalarProperty Name="NameZirsarfasl" ColumnName="NameZirsarfasl" />
                 <ScalarProperty Name="user" ColumnName="user" />

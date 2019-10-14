@@ -13,6 +13,7 @@ namespace ReportSarfasl.dataLayer
     
     public partial class USP_GetDataStimulSoft_Sarfasl_ZirSarfasl_Result
     {
+        public int rdf { get; set; }
         public string date { get; set; }
         public int rdfsarfasl { get; set; }
         public int rdfzirsarfasl { get; set; }
@@ -20,7 +21,6 @@ namespace ReportSarfasl.dataLayer
         public decimal bed { get; set; }
         public decimal bes { get; set; }
         public string bed_bes { get; set; }
-        public Nullable<decimal> ManAfter { get; set; }
         public string NameSarfasl { get; set; }
         public string NameZirsarfasl { get; set; }
         public string user { get; set; }
