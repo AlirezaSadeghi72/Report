@@ -10,6 +10,7 @@ namespace ReportSarfasl
     {
         public int Srow { get; set; }
         public int SID { get; set; }
+        public string SGroupSarfaslName { get; set; }
         public int SGroupSarfaslID { get; set; }
         public string Shas_dar { get; set; }
         public string Swho_def { get; set; }

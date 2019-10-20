@@ -21,7 +21,7 @@ namespace ReportSarfasl
         private bool _isSearch, _isKeySpase;
         private PersianCalendar pc = new PersianCalendar();
         private int _sarfaslID, _zirSarfaslIdSelected;
-        private List<SZAservice> dt;
+        private List<SZAservice> dt , dt0;
         private string _nameSarfasl;
         private Panel pnlMain;
         private Button btnCancel;
@@ -30,11 +30,25 @@ namespace ReportSarfasl
         private TextBox txtFilter;
         private DataGridView dgvZirSarfal;
         private TextDate textDate1;
-        private Label lblFooter;
         private Label lblFooterNumber;
         private Label lblLoding;
         private CheckBox chbAll;
         private DataGridViewCheckBoxColumn select;
+        private Panel panel1;
+        private Label lblMan;
+        private Label lblManSelect;
+        private Label lblManDate;
+        private Label lblBesSelect;
+        private Label lblBesDate;
+        private Label lblBedSelect;
+        private Label lblBedDate;
+        private Label label11;
+        private Label label8;
+        private Label label9;
+        private Label label7;
+        private Label label5;
+        private Label label4;
+        private Label label3;
         private Panel pnlFooter;
 
         public ReportZirSarfasl(List<int> ListZirSar, int sarfaslID, string NameSarfasl, string FromDate, string ToDate)
@@ -60,14 +74,29 @@ namespace ReportSarfasl
             this.lblLoding = new System.Windows.Forms.Label();
             this.textDate1 = new ReportSarfasl.TextDate();
             this.pnlFooter = new System.Windows.Forms.Panel();
-            this.lblFooter = new System.Windows.Forms.Label();
+            this.lblMan = new System.Windows.Forms.Label();
+            this.lblManSelect = new System.Windows.Forms.Label();
+            this.lblManDate = new System.Windows.Forms.Label();
+            this.lblBesSelect = new System.Windows.Forms.Label();
+            this.lblBesDate = new System.Windows.Forms.Label();
+            this.lblBedSelect = new System.Windows.Forms.Label();
+            this.lblBedDate = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.lblFooterNumber = new System.Windows.Forms.Label();
-            this.btnCancel = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.btnPrint = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.pnlMain.SuspendLayout();
             this.gbHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvZirSarfal)).BeginInit();
             this.pnlFooter.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlMain
@@ -76,7 +105,7 @@ namespace ReportSarfasl
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMain.Location = new System.Drawing.Point(0, 0);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(800, 442);
+            this.pnlMain.Size = new System.Drawing.Size(1169, 440);
             this.pnlMain.TabIndex = 1;
             // 
             // gbHeader
@@ -89,7 +118,7 @@ namespace ReportSarfasl
             this.gbHeader.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbHeader.Location = new System.Drawing.Point(0, 0);
             this.gbHeader.Name = "gbHeader";
-            this.gbHeader.Size = new System.Drawing.Size(800, 442);
+            this.gbHeader.Size = new System.Drawing.Size(1169, 440);
             this.gbHeader.TabIndex = 0;
             this.gbHeader.TabStop = false;
             this.gbHeader.Text = "ليست زيرسرفصل هاي      سرفصل :   ";
@@ -131,7 +160,7 @@ namespace ReportSarfasl
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
             this.dgvZirSarfal.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvZirSarfal.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvZirSarfal.Size = new System.Drawing.Size(794, 339);
+            this.dgvZirSarfal.Size = new System.Drawing.Size(1163, 337);
             this.dgvZirSarfal.TabIndex = 2;
             this.dgvZirSarfal.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvZirSarfal_CellClick);
             this.dgvZirSarfal.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvZirSarfal_CellDoubleClick);
@@ -152,7 +181,7 @@ namespace ReportSarfasl
             this.txtFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.txtFilter.Location = new System.Drawing.Point(3, 72);
             this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(794, 28);
+            this.txtFilter.Size = new System.Drawing.Size(1163, 28);
             this.txtFilter.TabIndex = 0;
             this.txtFilter.TextChanged += new System.EventHandler(this.txtFilter_TextChanged);
             this.txtFilter.Enter += new System.EventHandler(this.txtFilter_Enter);
@@ -165,7 +194,7 @@ namespace ReportSarfasl
             this.chbAll.Dock = System.Windows.Forms.DockStyle.Top;
             this.chbAll.Location = new System.Drawing.Point(3, 48);
             this.chbAll.Name = "chbAll";
-            this.chbAll.Size = new System.Drawing.Size(794, 24);
+            this.chbAll.Size = new System.Drawing.Size(1163, 24);
             this.chbAll.TabIndex = 15;
             this.chbAll.Text = "انتخاب همه";
             this.chbAll.UseVisualStyleBackColor = true;
@@ -177,7 +206,7 @@ namespace ReportSarfasl
             this.lblLoding.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblLoding.AutoSize = true;
             this.lblLoding.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.lblLoding.Location = new System.Drawing.Point(390, 25);
+            this.lblLoding.Location = new System.Drawing.Point(759, 25);
             this.lblLoding.Name = "lblLoding";
             this.lblLoding.Size = new System.Drawing.Size(89, 20);
             this.lblLoding.TabIndex = 3;
@@ -188,67 +217,227 @@ namespace ReportSarfasl
             // 
             this.textDate1.Dock = System.Windows.Forms.DockStyle.Top;
             this.textDate1.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.textDate1.FromDate = "1398/07/22";
+            this.textDate1.FromDate = "1398/07/28";
             this.textDate1.Location = new System.Drawing.Point(3, 24);
             this.textDate1.Name = "textDate1";
-            this.textDate1.Size = new System.Drawing.Size(794, 24);
+            this.textDate1.Size = new System.Drawing.Size(1163, 24);
             this.textDate1.TabIndex = 2;
-            this.textDate1.ToDate = "1398/07/22";
+            this.textDate1.ToDate = "1398/07/28";
             this.textDate1.KeyEnterTextBoxToYear += new System.EventHandler(this.textDate1_KeyEnterTextBoxToYear);
             // 
             // pnlFooter
             // 
-            this.pnlFooter.Controls.Add(this.lblFooter);
+            this.pnlFooter.Controls.Add(this.lblMan);
+            this.pnlFooter.Controls.Add(this.lblManSelect);
+            this.pnlFooter.Controls.Add(this.lblManDate);
+            this.pnlFooter.Controls.Add(this.lblBesSelect);
+            this.pnlFooter.Controls.Add(this.lblBesDate);
+            this.pnlFooter.Controls.Add(this.lblBedSelect);
+            this.pnlFooter.Controls.Add(this.lblBedDate);
+            this.pnlFooter.Controls.Add(this.label11);
+            this.pnlFooter.Controls.Add(this.label8);
+            this.pnlFooter.Controls.Add(this.label9);
+            this.pnlFooter.Controls.Add(this.label7);
+            this.pnlFooter.Controls.Add(this.label5);
+            this.pnlFooter.Controls.Add(this.label4);
+            this.pnlFooter.Controls.Add(this.label3);
             this.pnlFooter.Controls.Add(this.lblFooterNumber);
-            this.pnlFooter.Controls.Add(this.btnCancel);
-            this.pnlFooter.Controls.Add(this.btnPrint);
+            this.pnlFooter.Controls.Add(this.panel1);
             this.pnlFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlFooter.Location = new System.Drawing.Point(0, 442);
+            this.pnlFooter.Location = new System.Drawing.Point(0, 440);
             this.pnlFooter.Name = "pnlFooter";
-            this.pnlFooter.Size = new System.Drawing.Size(800, 58);
+            this.pnlFooter.Size = new System.Drawing.Size(1169, 60);
             this.pnlFooter.TabIndex = 2;
             // 
-            // lblFooter
+            // lblMan
             // 
-            this.lblFooter.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblFooter.Location = new System.Drawing.Point(180, 0);
-            this.lblFooter.Name = "lblFooter";
-            this.lblFooter.Size = new System.Drawing.Size(515, 58);
-            this.lblFooter.TabIndex = 12;
-            this.lblFooter.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblMan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblMan.Location = new System.Drawing.Point(275, 29);
+            this.lblMan.Name = "lblMan";
+            this.lblMan.Size = new System.Drawing.Size(114, 20);
+            this.lblMan.TabIndex = 32;
+            this.lblMan.Text = "0";
+            this.lblMan.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblManSelect
+            // 
+            this.lblManSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblManSelect.Location = new System.Drawing.Point(475, 6);
+            this.lblManSelect.Name = "lblManSelect";
+            this.lblManSelect.Size = new System.Drawing.Size(114, 20);
+            this.lblManSelect.TabIndex = 31;
+            this.lblManSelect.Text = "0";
+            this.lblManSelect.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblManDate
+            // 
+            this.lblManDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblManDate.Location = new System.Drawing.Point(475, 29);
+            this.lblManDate.Name = "lblManDate";
+            this.lblManDate.Size = new System.Drawing.Size(114, 20);
+            this.lblManDate.TabIndex = 30;
+            this.lblManDate.Text = "0";
+            this.lblManDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblBesSelect
+            // 
+            this.lblBesSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblBesSelect.Location = new System.Drawing.Point(638, 6);
+            this.lblBesSelect.Name = "lblBesSelect";
+            this.lblBesSelect.Size = new System.Drawing.Size(114, 20);
+            this.lblBesSelect.TabIndex = 29;
+            this.lblBesSelect.Text = "0";
+            this.lblBesSelect.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblBesDate
+            // 
+            this.lblBesDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblBesDate.Location = new System.Drawing.Point(638, 29);
+            this.lblBesDate.Name = "lblBesDate";
+            this.lblBesDate.Size = new System.Drawing.Size(114, 20);
+            this.lblBesDate.TabIndex = 28;
+            this.lblBesDate.Text = "0";
+            this.lblBesDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblBedSelect
+            // 
+            this.lblBedSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblBedSelect.Location = new System.Drawing.Point(825, 6);
+            this.lblBedSelect.Name = "lblBedSelect";
+            this.lblBedSelect.Size = new System.Drawing.Size(114, 20);
+            this.lblBedSelect.TabIndex = 26;
+            this.lblBedSelect.Text = "0";
+            this.lblBedSelect.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblBedDate
+            // 
+            this.lblBedDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblBedDate.Location = new System.Drawing.Point(825, 29);
+            this.lblBedDate.Name = "lblBedDate";
+            this.lblBedDate.Size = new System.Drawing.Size(114, 20);
+            this.lblBedDate.TabIndex = 25;
+            this.lblBedDate.Text = "0";
+            this.lblBedDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label11
+            // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(395, 29);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(53, 20);
+            this.label11.TabIndex = 22;
+            this.label11.Text = "مانده كل:";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(595, 6);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(37, 20);
+            this.label8.TabIndex = 21;
+            this.label8.Text = "مانده:";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(595, 29);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(37, 20);
+            this.label9.TabIndex = 20;
+            this.label9.Text = "مانده:";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(758, 6);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(61, 20);
+            this.label7.TabIndex = 19;
+            this.label7.Text = "بستانكاري:";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(758, 29);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(61, 20);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "بستانكاري:";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(945, 6);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(118, 20);
+            this.label4.TabIndex = 33;
+            this.label4.Text = "انتخابي:        بدهكاري:";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(945, 29);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(119, 20);
+            this.label3.TabIndex = 34;
+            this.label3.Text = "دربازه:            بدهكاري:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblFooterNumber
             // 
             this.lblFooterNumber.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblFooterNumber.Location = new System.Drawing.Point(695, 0);
+            this.lblFooterNumber.Location = new System.Drawing.Point(1064, 0);
             this.lblFooterNumber.Name = "lblFooterNumber";
-            this.lblFooterNumber.Size = new System.Drawing.Size(105, 58);
+            this.lblFooterNumber.Size = new System.Drawing.Size(105, 60);
             this.lblFooterNumber.TabIndex = 13;
             this.lblFooterNumber.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnCancel
+            // panel1
             // 
-            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnCancel.Location = new System.Drawing.Point(24, 6);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 30);
-            this.btnCancel.TabIndex = 11;
-            this.btnCancel.Text = "انصراف";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.panel1.Controls.Add(this.btnPrint);
+            this.panel1.Controls.Add(this.btnCancel);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(200, 60);
+            this.panel1.TabIndex = 16;
             // 
             // btnPrint
             // 
             this.btnPrint.BackColor = System.Drawing.Color.Indigo;
             this.btnPrint.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnPrint.ForeColor = System.Drawing.Color.White;
-            this.btnPrint.Location = new System.Drawing.Point(99, 6);
+            this.btnPrint.Location = new System.Drawing.Point(95, 16);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(75, 30);
             this.btnPrint.TabIndex = 10;
             this.btnPrint.Text = "چاپ";
             this.btnPrint.UseVisualStyleBackColor = true;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnCancel.Location = new System.Drawing.Point(20, 16);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 30);
+            this.btnCancel.TabIndex = 11;
+            this.btnCancel.Text = "انصراف";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // ReportZirSarfasl
             // 
@@ -257,13 +446,15 @@ namespace ReportSarfasl
             this.Font = new System.Drawing.Font("IRANSans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.Name = "ReportZirSarfasl";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.Size = new System.Drawing.Size(800, 500);
+            this.Size = new System.Drawing.Size(1169, 500);
             this.Load += new System.EventHandler(this.ReportZirSarfasl_Load);
             this.pnlMain.ResumeLayout(false);
             this.gbHeader.ResumeLayout(false);
             this.gbHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvZirSarfal)).EndInit();
             this.pnlFooter.ResumeLayout(false);
+            this.pnlFooter.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -388,8 +579,8 @@ namespace ReportSarfasl
                     row.DefaultCellStyle.BackColor = Color.White;
                 }
             }
-
-            lblFooterNumber.Text = $"تعداد: {dgvZirSarfal.RowCount}\nتعداد انتخابي: {ListSelected.Count}";
+            SetTextLabelFooter();
+            //lblFooterNumber.Text = $"تعداد: {dgvZirSarfal.RowCount}\nتعداد انتخابي: {ListSelected.Count}";
 
         }
         private void chbAll_KeyDown(object sender, KeyEventArgs e)
@@ -609,7 +800,7 @@ namespace ReportSarfasl
             tGetdata.Join();
             //dt = conection.GetZirSarfaslServices1(listsarfasl, _listZirSar, textDate1.FromDate, textDate1.ToDate);
             int row = 1;
-            dgvZirSarfal.DataSource = dt.GroupBy(g => new
+            dgvZirSarfal.DataSource =dt0 =  dt.GroupBy(g => new
             {
                 g.ZID,
                 g.ZSarfaslID,
@@ -643,7 +834,7 @@ namespace ReportSarfasl
             }).ToList();
 
             chbAll.Checked = false;
-            SetTextLabelFooter(dt.Count, dt.Sum(d => d.ZMan), dt.Sum(d => d.ZMan_All));
+            SetTextLabelFooter(dt.Count, dt.Sum(d=>d.Zbed),dt.Sum(d=>d.Zbes),dt.Sum(d => d.ZMan), dt.Sum(d => d.ZMan_All));
             SetGrid();
             txtFilter.Focus();
 
@@ -721,40 +912,9 @@ namespace ReportSarfasl
                 var filter = txtFilter.Text.Trim();
                 int row = 1;
 
-                var dt1 = dt.Where(c => c.ZName.Contains(filter)).ToList();
-                dgvZirSarfal.DataSource = dt1.GroupBy(g => new
-                {
-                    g.ZID,
-                    g.ZSarfaslID,
-                    g.ZName,
-                    g.Zbed,
-                    g.Zbes,
-                    g.ZMan,
-                    g.Zbed_bes,
-                    g.ZMan_Befor,
-                    g.Zbed_bes_Befor,
-                    g.ZMan_All,
-                    g.Zbed_bes_All,
-                    g.Zhas_dar,
-                    g.ZActive
-                }).Select(g => new SZAservice()
-                {
-                    Zrow = row++,
-                    ZID = g.Key.ZID,
-                    ZSarfaslID = g.Key.ZSarfaslID,
-                    ZName = g.Key.ZName,
-                    Zbed = g.Key.Zbed,
-                    Zbes = g.Key.Zbes,
-                    ZMan = g.Key.ZMan,
-                    Zbed_bes = g.Key.Zbed_bes,
-                    ZMan_Befor = g.Key.ZMan_Befor,
-                    Zbed_bes_Befor = g.Key.Zbed_bes_Befor,
-                    ZMan_All = g.Key.ZMan_All,
-                    Zbed_bes_All = g.Key.Zbed_bes_All,
-                    Zhas_dar = g.Key.Zhas_dar,
-                    ZActive = g.Key.ZActive
-                }).ToList();
-                SetTextLabelFooter(dt1.Count, dt1.Sum(d => d.ZMan), dt1.Sum(d => d.ZMan_All));
+                var dt1 = dt0.Where(c => c.ZName.Contains(filter)).ToList();
+                dgvZirSarfal.DataSource = dt1.ToList();
+                SetTextLabelFooter(dt1.Count, dt1.Sum(d => d.Zbed), dt1.Sum(d => d.Zbes), dt1.Sum(d => d.ZMan), dt1.Sum(d => d.ZMan_All));
             }
         }
 
@@ -786,7 +946,8 @@ namespace ReportSarfasl
             {
                 ListSelected.Add((int)dgvZirSarfal.Rows[rowData].Cells["ZID"].Value);
             }
-            lblFooterNumber.Text = $"تعداد: {dgvZirSarfal.RowCount}\nتعداد انتخابي: {ListSelected.Count}";
+            SetTextLabelFooter();
+            //lblFooterNumber.Text = $"تعداد: {dgvZirSarfal.RowCount}\nتعداد انتخابي: {ListSelected.Count}";
 
         }
 
@@ -801,13 +962,39 @@ namespace ReportSarfasl
             }
         }
 
-        private void SetTextLabelFooter(int number, decimal sum, decimal sumAll)
+        private void SetTextLabelFooter(int number, decimal bed, decimal bes, decimal sum, decimal sumAll)
         {
+           
+            decimal bedSelect = dt.Where(d => ListSelected.Contains(d.ZID)).Sum(d => d.Zbed);
+            decimal besSelect = dt.Where(d => ListSelected.Contains(d.ZID)).Sum(d => d.Zbes);
+            decimal sumSelect = bedSelect - besSelect;
+            string status0 = sumSelect > 0 ? "بد" : sumSelect == 0 ? "--" : "بس";
             string status1 = sum > 0 ? "بد" : sum == 0 ? "--" : "بس";
             string status2 = sumAll > 0 ? "بد" : sumAll == 0 ? "--" : "بس";
 
+
             lblFooterNumber.Text = $"تعداد: {number}\nتعداد انتخابي: {ListSelected.Count}";
-            lblFooter.Text = $"   مانده در بازه: {Math.Abs(sum).ToMan()} ({status1})\n   مانده كل : {Math.Abs(sumAll).ToMan()} ({status2})";
+            lblBedSelect.Text = (bedSelect).ToMan();
+            lblBesSelect.Text = (besSelect).ToMan();
+            lblManSelect.Text = $"{Math.Abs(sumSelect).ToMan()} ({status0})";
+            lblBedDate.Text = (bed ).ToMan();
+            lblBesDate.Text = (bes).ToMan();
+            lblManDate.Text = $"{Math.Abs(sum).ToMan()} ({status1})";
+
+            lblMan.Text = $"{ Math.Abs(sumAll).ToMan()} ({status2})";
+        }
+
+        private void SetTextLabelFooter()
+        {
+            decimal bedSelect = dt.Where(d => ListSelected.Contains(d.AID)).Sum(d => d.Zbed);
+            decimal besSelect = dt.Where(d => ListSelected.Contains(d.AID)).Sum(d => d.Zbes);
+            decimal sumSelect = bedSelect - besSelect;
+            string status0 = sumSelect > 0 ? "بد" : sumSelect == 0 ? "--" : "بس";
+
+            lblFooterNumber.Text = $"تعداد: {dgvZirSarfal.RowCount}\nتعداد انتخابي: {ListSelected.Count}";
+            lblBedSelect.Text = (bedSelect).ToMan();
+            lblBesSelect.Text = (besSelect).ToMan();
+            lblManSelect.Text = $"{Math.Abs(sumSelect).ToMan()} ({status0})";
         }
 
         #endregion

@@ -296,7 +296,7 @@ namespace ReportSarfasl.dataLayer
                 {
                     listZ += z + ",";
                 }
-
+                List<GroupSarfaslServes> Group = GetGroupSarfaslses();
                 var result = context.USP_GetDataForSarfasl(FromDate, ToDate,listG, listS, listZ);
                 int rowZ = 1;
                 return result.Select(r => new SZAservice()
@@ -316,6 +316,7 @@ namespace ReportSarfasl.dataLayer
                     Zhas_dar = (r.Zhas_dar.ToLower() == "m") ? "ماليات" : (r.Zhas_dar.ToLower() == "h") ? "هزينه" : (r.Zhas_dar.ToLower() == "d") ? "دارايي" : (r.Zhas_dar.ToLower() == "b") ? "بدون ماليات" : "",
                     ZActive = r.ZActive,
                     SID = r.SID,
+                    SGroupSarfaslName = Group.First(s=>s.ID == r.SGroupSarfaslID).Name,
                     SGroupSarfaslID = r.SGroupSarfaslID,
                     SName = r.SName,
                     Sbed = r.Sbed ?? 0,
