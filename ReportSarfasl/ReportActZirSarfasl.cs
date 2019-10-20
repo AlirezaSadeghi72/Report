@@ -841,7 +841,7 @@ namespace ReportSarfasl
 
             dgvActZirSarfasl.Columns["Adate"].Visible = true;
             dgvActZirSarfasl.Columns["Adate"].HeaderText = "تاريخ";
-            dgvActZirSarfasl.Columns["Adate"].Width = 70;
+            dgvActZirSarfasl.Columns["Adate"].Width = 80;
 
             dgvActZirSarfasl.Columns["Auser"].Visible = true;
             dgvActZirSarfasl.Columns["Auser"].HeaderText = "كاربر";
@@ -853,7 +853,7 @@ namespace ReportSarfasl
 
             dgvActZirSarfasl.Columns["Adescription"].Visible = true;
             dgvActZirSarfasl.Columns["Adescription"].HeaderText = "شــــرح";
-            dgvActZirSarfasl.Columns["Adescription"].Width = 503;
+            dgvActZirSarfasl.Columns["Adescription"].Width = 493;
 
 
             dgvActZirSarfasl.Columns["Abed"].Visible = true;

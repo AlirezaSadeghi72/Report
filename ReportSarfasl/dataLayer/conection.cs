@@ -444,7 +444,7 @@ namespace ReportSarfasl.dataLayer
             }
             using (var context = new DbAtiran2Entities())
             {
-                var result = context.USP_GetDataStimulSoft_Sarfasl_ZirSarfasl(FromDate, ToDate, sarfaslID, listZ).OrderBy(r=>r.rdfzirsarfasl).ToList();
+                var result = context.USP_GetDataStimulSoft_Sarfasl_ZirSarfasl(FromDate, ToDate, sarfaslID, listZ).OrderBy(r => r.date).OrderBy(r=>r.rdfzirsarfasl).ToList();
                 int Row = 0;
                 int backZirsarfaslID = 0;
                 int aid = 0;
