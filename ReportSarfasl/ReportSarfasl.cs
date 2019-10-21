@@ -1218,11 +1218,10 @@ namespace ReportSarfasl
 
             lblMan.Text = $"{ Math.Abs(sumAll).ToMan()} ({status2})";
         }
-
         private void SetTextLabelFooter()
         {
-            decimal bedSelect = dt0.Where(d => ListSelected.Contains(d.AID)).Sum(d => d.Sbed);
-            decimal besSelect = dt0.Where(d => ListSelected.Contains(d.AID)).Sum(d => d.Sbes);
+            decimal bedSelect = dt0.Where(d => ListSelected.Contains(d.SID)).Sum(d => d.Sbed);
+            decimal besSelect = dt0.Where(d => ListSelected.Contains(d.SID)).Sum(d => d.Sbes);
             decimal sumSelect = bedSelect - besSelect;
             string status0 = sumSelect > 0 ? "بد" : sumSelect == 0 ? "--" : "بس";
 
