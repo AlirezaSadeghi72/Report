@@ -24,6 +24,7 @@ namespace ReportSarfasl
         private Panel pnlHeader;
         private Panel pnlMain;
         private DataGridViewCheckBoxColumn Select1;
+        private DataGridViewCheckBoxColumn Select;
         private TextBox txtFilter;
 
         public ListSafaslaOrZirSarfasls(int choise, List<int> listSelected, string text,
@@ -45,7 +46,7 @@ namespace ReportSarfasl
             this.txtFilter = new System.Windows.Forms.TextBox();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.dgvList = new System.Windows.Forms.DataGridView();
-            this.Select1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.pnlFooter = new System.Windows.Forms.Panel();
             this.pnlHeader.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -102,7 +103,7 @@ namespace ReportSarfasl
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMain.Location = new System.Drawing.Point(0, 82);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(900, 518);
+            this.pnlMain.Size = new System.Drawing.Size(900, 508);
             this.pnlMain.TabIndex = 0;
             // 
             // dgvList
@@ -111,14 +112,14 @@ namespace ReportSarfasl
             this.dgvList.AllowUserToDeleteRows = false;
             this.dgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Select1});
+            this.Select});
             this.dgvList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvList.Location = new System.Drawing.Point(0, 0);
             this.dgvList.MultiSelect = false;
             this.dgvList.Name = "dgvList";
             this.dgvList.ReadOnly = true;
             this.dgvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvList.Size = new System.Drawing.Size(900, 518);
+            this.dgvList.Size = new System.Drawing.Size(900, 508);
             this.dgvList.TabIndex = 0;
             this.dgvList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvList_CellClick);
             this.dgvList.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvList_DataBindingComplete);
@@ -126,10 +127,10 @@ namespace ReportSarfasl
             // 
             // Select
             // 
-            this.Select1.HeaderText = "انتخاب";
-            this.Select1.Name = "Select";
-            this.Select1.ReadOnly = true;
-            this.Select1.Visible = false;
+            this.Select.HeaderText = "انتخاب";
+            this.Select.Name = "Select";
+            this.Select.ReadOnly = true;
+            this.Select.Visible = false;
             // 
             // pnlFooter
             // 
@@ -141,9 +142,9 @@ namespace ReportSarfasl
             // 
             // ListSafaslaOrZirSarfasls
             // 
-            this.Controls.Add(this.pnlFooter);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.pnlHeader);
+            this.Controls.Add(this.pnlFooter);
             this.Font = new System.Drawing.Font("IRANSans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.Name = "ListSafaslaOrZirSarfasls";
             this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;

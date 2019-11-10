@@ -82,7 +82,7 @@ namespace ReportSarfasl
                 throw new NullReferenceException();
             }
 
-            gbHeader.Text = "ريز عملكردهاي" + (_isActForSarfasl ? "سرفصل : " : "زيرسرفصل : ") + NameGrupBoxHeader;
+            gbHeader.Text = "ريز عملكردهاي " + (_isActForSarfasl ? "سرفصل : " : "زيرسرفصل : ") + NameGrupBoxHeader;
             _nameSarfaslOrZirSarfasl = NameGrupBoxHeader;
 
         }
@@ -107,27 +107,27 @@ namespace ReportSarfasl
             this.pnlFooter = new System.Windows.Forms.Panel();
             this.lblBes = new System.Windows.Forms.Label();
             this.lblMan = new System.Windows.Forms.Label();
+            this.lblManSelect = new System.Windows.Forms.Label();
             this.lblManDate = new System.Windows.Forms.Label();
+            this.lblBesSelect = new System.Windows.Forms.Label();
             this.lblBesDate = new System.Windows.Forms.Label();
             this.lblBed = new System.Windows.Forms.Label();
+            this.lblBedSelect = new System.Windows.Forms.Label();
             this.lblBedDate = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lblFooterNumber = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
             this.lblDisAct = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.lblBedSelect = new System.Windows.Forms.Label();
-            this.lblBesSelect = new System.Windows.Forms.Label();
-            this.lblManSelect = new System.Windows.Forms.Label();
             this.pnlHeader.SuspendLayout();
             this.gbHeader.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -181,7 +181,7 @@ namespace ReportSarfasl
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(212, 20);
             this.label2.TabIndex = 17;
-            this.label2.Text = "چاپ قيض سند سرفصل براي عملكرد: Enter";
+            this.label2.Text = "چاپ قبض سند سرفصل براي عملكرد: Enter";
             // 
             // chbActKind
             // 
@@ -199,12 +199,12 @@ namespace ReportSarfasl
             // 
             this.textDate1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textDate1.Font = new System.Drawing.Font("IRANSans(FaNum)", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.textDate1.FromDate = "1398/07/28";
+            this.textDate1.FromDate = "1398/07/29";
             this.textDate1.Location = new System.Drawing.Point(499, 23);
             this.textDate1.Name = "textDate1";
             this.textDate1.Size = new System.Drawing.Size(390, 24);
             this.textDate1.TabIndex = 0;
-            this.textDate1.ToDate = "1398/07/28";
+            this.textDate1.ToDate = "1398/07/29";
             this.textDate1.KeyEnterTextBoxToYear += new System.EventHandler(this.textDate1_KeyEnterTextBoxToYear);
             // 
             // chbAll
@@ -355,6 +355,16 @@ namespace ReportSarfasl
             this.lblMan.Text = "0";
             this.lblMan.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lblManSelect
+            // 
+            this.lblManSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblManSelect.Location = new System.Drawing.Point(206, 6);
+            this.lblManSelect.Name = "lblManSelect";
+            this.lblManSelect.Size = new System.Drawing.Size(114, 20);
+            this.lblManSelect.TabIndex = 12;
+            this.lblManSelect.Text = "0";
+            this.lblManSelect.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // lblManDate
             // 
             this.lblManDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -364,6 +374,16 @@ namespace ReportSarfasl
             this.lblManDate.TabIndex = 12;
             this.lblManDate.Text = "0";
             this.lblManDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblBesSelect
+            // 
+            this.lblBesSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblBesSelect.Location = new System.Drawing.Point(369, 6);
+            this.lblBesSelect.Name = "lblBesSelect";
+            this.lblBesSelect.Size = new System.Drawing.Size(114, 20);
+            this.lblBesSelect.TabIndex = 12;
+            this.lblBesSelect.Text = "0";
+            this.lblBesSelect.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblBesDate
             // 
@@ -384,6 +404,16 @@ namespace ReportSarfasl
             this.lblBed.TabIndex = 12;
             this.lblBed.Text = "0";
             this.lblBed.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblBedSelect
+            // 
+            this.lblBedSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblBedSelect.Location = new System.Drawing.Point(556, 6);
+            this.lblBedSelect.Name = "lblBedSelect";
+            this.lblBedSelect.Size = new System.Drawing.Size(114, 20);
+            this.lblBedSelect.TabIndex = 12;
+            this.lblBedSelect.Text = "0";
+            this.lblBedSelect.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblBedDate
             // 
@@ -428,6 +458,17 @@ namespace ReportSarfasl
             this.label11.Text = "مانده:";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(326, 6);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(37, 20);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "مانده:";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // label9
             // 
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -439,6 +480,17 @@ namespace ReportSarfasl
             this.label9.Text = "مانده:";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(489, 6);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(61, 20);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "بستانكاري:";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // label5
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -449,6 +501,17 @@ namespace ReportSarfasl
             this.label5.TabIndex = 12;
             this.label5.Text = "بستانكاري:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(676, 6);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(118, 20);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "انتخابي:        بدهكاري:";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label3
             // 
@@ -511,69 +574,6 @@ namespace ReportSarfasl
             this.lblDisAct.Name = "lblDisAct";
             this.lblDisAct.Size = new System.Drawing.Size(905, 20);
             this.lblDisAct.TabIndex = 14;
-            // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(676, 6);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(118, 20);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "انتخابي:        بدهكاري:";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label7
-            // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(489, 6);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(61, 20);
-            this.label7.TabIndex = 12;
-            this.label7.Text = "بستانكاري:";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label8
-            // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(326, 6);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(37, 20);
-            this.label8.TabIndex = 12;
-            this.label8.Text = "مانده:";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblBedSelect
-            // 
-            this.lblBedSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblBedSelect.Location = new System.Drawing.Point(556, 6);
-            this.lblBedSelect.Name = "lblBedSelect";
-            this.lblBedSelect.Size = new System.Drawing.Size(114, 20);
-            this.lblBedSelect.TabIndex = 12;
-            this.lblBedSelect.Text = "0";
-            this.lblBedSelect.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblBesSelect
-            // 
-            this.lblBesSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblBesSelect.Location = new System.Drawing.Point(369, 6);
-            this.lblBesSelect.Name = "lblBesSelect";
-            this.lblBesSelect.Size = new System.Drawing.Size(114, 20);
-            this.lblBesSelect.TabIndex = 12;
-            this.lblBesSelect.Text = "0";
-            this.lblBesSelect.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblManSelect
-            // 
-            this.lblManSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblManSelect.Location = new System.Drawing.Point(206, 6);
-            this.lblManSelect.Name = "lblManSelect";
-            this.lblManSelect.Size = new System.Drawing.Size(114, 20);
-            this.lblManSelect.TabIndex = 12;
-            this.lblManSelect.Text = "0";
-            this.lblManSelect.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ReportActZirSarfasl
             // 

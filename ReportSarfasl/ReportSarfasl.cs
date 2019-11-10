@@ -946,11 +946,11 @@ namespace ReportSarfasl
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            List<SZAservice> dt1 = dt0;
+            List<SZAservice> dt1 = chbChoiceModPrint.Checked? dt:dt0;
 
             if (ListSelected.Count > 0)
             {
-                dt1 = dt0.Where(d => ListSelected.Contains(d.SID)).ToList();
+                dt1 = (chbChoiceModPrint.Checked ? dt : dt0).Where(d => ListSelected.Contains(d.SID)).ToList();
             }
             //else
             //{
